@@ -22,6 +22,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     body{
+        font-family: "Roboto" sans-serif;
         background-color: var(--grey-10);
     }
 `

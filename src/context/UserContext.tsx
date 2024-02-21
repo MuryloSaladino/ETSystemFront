@@ -6,7 +6,7 @@ interface IUserProviderProps {
     children: ReactNode;
 }
 
-export function UserProvider ({children}:IUserProviderProps) {
+export function UserProvider({children}:IUserProviderProps) {
 
     return (
         <UserContext.Provider value={{}}>

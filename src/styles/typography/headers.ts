@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FontType } from "./FontType";
+import { FontType, getFont } from "./FontType";
 
 
 interface ITypographyProps{
@@ -8,13 +8,33 @@ interface ITypographyProps{
     font: FontType;
 }
 
-
 export const Title1 = styled.h1<ITypographyProps>`
     font-size: 4rem;
     font-weight: 700;
-    color: ${({color}) => color ? color : "var(--color-black)"};
+    font-family: ${({font}) => getFont(font)} sans-serif;
+    color: ${({color}) => color || "var(--color-black)"};
 
     @media(max-width: 580px) {
         font-size: 2.75rem;
+    }
+`
+export const Title2 = styled.h2<ITypographyProps>`
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: ${({font}) => getFont(font)} sans-serif;
+    color: ${({color}) => color || "var(--color-black)"};
+
+    @media(max-width: 580px) {
+        font-size: 1.875rem;
+    }
+`
+export const Title3 = styled.h3<ITypographyProps>`
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-family: ${({font}) => getFont(font)} sans-serif;
+    color: ${({color}) => color || "var(--color-black)"};
+
+    @media(max-width: 580px) {
+        font-size: 1rem;
     }
 `

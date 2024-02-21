@@ -14,6 +14,11 @@ export const GlobalStyles = createGlobalStyle`
         --grey-8: #DEE2E6;
         --grey-9: #E9ECEF;
         --grey-10: #F8F9FA;
+
+        --notification: #118ab2;
+        --success: #06d6a0;
+        --alert: #ffd166;
+        --warning: #ef476f;
     }
 
     body{

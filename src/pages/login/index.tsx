@@ -1,8 +1,12 @@
+import { LoginContainer } from "./styled"
+
 export const Login = () => {
 
     return (
         <>
-            login
+            <LoginContainer>
+                
+            </LoginContainer>
         </>
     )
 }

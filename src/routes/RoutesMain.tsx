@@ -3,6 +3,7 @@ import { ProtectedRoute } from "./ProtectedRoute";
 import { Homepage } from "../pages/home";
 import { Login } from "../pages/login";
 import { Register } from "../pages/register";
+import { DashboardPage } from "../pages/dashboard";
 
 export const RoutesMain = () => {
     return (
@@ -13,7 +14,7 @@ export const RoutesMain = () => {
             <Route path="/register" element={<Register/>}/>
 
             <Route path="/dashboard" element={<ProtectedRoute/>}>
-                <Route element={<></>}>
+                <Route index element={<DashboardPage/>}>
 
                 </Route>
             </Route>

@@ -10,7 +10,32 @@ export const LoginMain = styled.main`
 `
 
 export const LoginContainer = styled.div`
-    width: 900px;
+    width: 500px;
     max-width: 95%;
     margin: auto;
+
+    padding: 30px 10px;
+    border: solid 1px var(--grey-8);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+
+    form{
+        width: 70%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+`
+
+export const ButtonContainer = styled.div`
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `

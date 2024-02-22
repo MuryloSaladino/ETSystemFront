@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 export function ProtectedRoute() {
-    const {  } = useContext(UserContext);
+    const { user }:any = useContext(UserContext);
     
-    return false ? <Outlet/> : <Navigate to="/login"/>
+    return user ? <Outlet/> : <Navigate to="/login"/>
 }

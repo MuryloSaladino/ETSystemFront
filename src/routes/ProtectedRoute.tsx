@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 export function ProtectedRoute() {
     const { user }:any = useContext(UserContext);
     
-    // return user ? <Outlet/> : <Navigate to="/login"/>
+    return user ? <Outlet/> : <Navigate to="/login"/>
 
     //debug return
     return <Outlet/>

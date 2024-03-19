@@ -3,22 +3,45 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
 
     :root{
-        --grey-0: #0b090a;
-        --grey-1: #161a1d;
-        --grey-2: #212529;
-        --grey-3: #343A40;
-        --grey-4: #495057;
-        --grey-5: #6C757D;
-        --grey-6: #ADB5BD;
-        --grey-7: #CED4DA;
-        --grey-8: #DEE2E6;
-        --grey-9: #E9ECEF;
-        --grey-10: #F8F9FA;
+        --grey-: #ffffff;
+        --grey-: #eff1f2;
+        --grey-: #e0e2e5;
+        --grey-: #c1c7cc;
+        --grey-: #a4abb3;
+        --grey-: #8a9097;
+        --grey-: #71767c;
+        --grey-: #595e62;
+        --grey-: #4e5256;
+        --grey-: #2e3033;
+        --grey-: #000000;
 
-        --notification: #118ab2;
-        --success: #06d6a0;
-        --alert: #ffd166;
-        --warning: #ef476f;
+        --brand-blue-0: #007bc0;
+        --brand-blue-10: #00629a;
+        --brand-blue-20: #004975;
+
+        --brand-purple-: #9e2896;
+        --brand-purple-: #791d73;
+        --brand-purple-: #551151;
+
+        --brand-turquoise-: #18837e;
+        --brand-turquoise-: #116864;
+        --brand-turquoise-: #0a4f4b;
+
+        --brand-green-: #00884a;
+        --brand-green-: #006c3a;
+        --brand-green-: #00512a;
+
+        --success-: #00884a;
+        --success-: #006c3a;
+        --success-: #00512a;
+
+        --alert-: #ffcf00;
+        --alert-: #deb300;
+        --alert-: #bd9900;
+
+        --warning-: #ed0007;
+        --warning-: #be0004;
+        --warning-: #920002;
     }
 
     body{

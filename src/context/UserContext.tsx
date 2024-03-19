@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 
-import { IUser } from "../interfaces/userInterfaces";
+import { IUser } from "../interfaces";
 
 
 export const UserContext = createContext({});

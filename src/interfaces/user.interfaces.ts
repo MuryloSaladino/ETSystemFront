@@ -1,3 +1,17 @@
+export interface IInstitution {
+    name: string;
+    isBosch: boolean;
+}
+
 export interface IUser {
-    name: string
+    idUser: string,
+    username: string;
+    name: string | null,
+    email: string | null,
+    contact: string | null,
+    dateOfBirth: string | null,
+    idInstructor: string | null,
+    idStudent: string | null,
+    idAdmin: string | null,
+    institution: IInstitution
 }

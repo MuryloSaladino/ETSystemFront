@@ -23,6 +23,7 @@ export const SecondaryButton = styled(Button)`
 
     color: var();
 
+    
     &:hover{
         background-color: var();
 

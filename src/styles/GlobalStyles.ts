@@ -45,7 +45,7 @@ export const GlobalStyles = createGlobalStyle`
 
         // toastify-color-variables
         --toastify-color-light: #fff;
-        --toastify-color-dark: #000000;
+        --toastify-color-dark: #2e3033;
         --toastify-color-info: #007bc0;
         --toastify-color-success: #00884a;
         --toastify-color-warning: #ffcf00;

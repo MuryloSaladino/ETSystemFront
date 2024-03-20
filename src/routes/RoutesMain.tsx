@@ -16,9 +16,9 @@ const RoutesMain = () => {
 
             <Route path="/dashboard" element={<ProtectedRoute/>}>
                 <Route index element={<DashboardPage/>}/>
-                <Route path="/admin" element={<RoutesAdmin/>}/>
-                <Route path="/instructor" element={<RoutesInstructor/>}/>
-                <Route path="/student" element={<RoutesStudent/>}/>
+                <Route path="/dashboard/admin" element={<RoutesAdmin/>}/>
+                <Route path="/dashboard/instructor" element={<RoutesInstructor/>}/>
+                <Route path="/dashboard/student" element={<RoutesStudent/>}/>
             </Route>
         </Routes>
     );

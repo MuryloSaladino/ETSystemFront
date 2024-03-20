@@ -1,17 +1,16 @@
-import { ButtonContainer, LoginContainer, LoginMain } from "./styled"
+import { LoginContainer, LoginMain } from "./styled"
 
-
-import { Link } from "react-router-dom"
-
-export const Login = () => {
+const Login = () => {
 
     return (
         <>
             <LoginMain>
                 <LoginContainer>
-
+                    login
                 </LoginContainer>
             </LoginMain>
         </>
     )
 }
+
+export default Login

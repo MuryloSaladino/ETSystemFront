@@ -1,10 +1,10 @@
-import { Outlet } from "react-router-dom"
-
-export const DashboardPage = () => {
+const DashboardPage = () => {
     
     return(
         <>
-            <Outlet/>
+            dashboard
         </>
     )
 }
+
+export default DashboardPage

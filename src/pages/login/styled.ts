@@ -31,11 +31,3 @@ export const LoginContainer = styled.div`
         gap: 25px;
     }
 `
-
-export const ButtonContainer = styled.div`
-    width: 100%;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`

@@ -50,3 +50,11 @@ export const IntegratedButton = styled(Button)`
         color: var();
     }
 `
+
+export const ButtonContainer = styled.div`
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`

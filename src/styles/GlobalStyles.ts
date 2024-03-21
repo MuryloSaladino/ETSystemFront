@@ -3,45 +3,45 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyles = createGlobalStyle`
 
     :root{
-        --grey-: #ffffff;
-        --grey-: #eff1f2;
-        --grey-: #e0e2e5;
-        --grey-: #c1c7cc;
-        --grey-: #a4abb3;
-        --grey-: #8a9097;
-        --grey-: #71767c;
-        --grey-: #595e62;
-        --grey-: #4e5256;
-        --grey-: #2e3033;
-        --grey-: #000000;
+        --grey-0: #ffffff;
+        --grey-1: #eff1f2;
+        --grey-2: #e0e2e5;
+        --grey-3: #c1c7cc;
+        --grey-4: #a4abb3;
+        --grey-5: #8a9097;
+        --grey-6: #71767c;
+        --grey-7: #595e62;
+        --grey-8: #4e5256;
+        --grey-9: #2e3033;
+        --grey-10: #000000;
 
         --brand-blue-0: #007bc0;
         --brand-blue-10: #00629a;
         --brand-blue-20: #004975;
 
-        --brand-purple-: #9e2896;
-        --brand-purple-: #791d73;
-        --brand-purple-: #551151;
+        --brand-purple-0: #9e2896;
+        --brand-purple-10: #791d73;
+        --brand-purple-20: #551151;
 
-        --brand-turquoise-: #18837e;
-        --brand-turquoise-: #116864;
-        --brand-turquoise-: #0a4f4b;
+        --brand-turquoise-0: #18837e;
+        --brand-turquoise-10: #116864;
+        --brand-turquoise-20: #0a4f4b;
 
-        --brand-green-: #00884a;
-        --brand-green-: #006c3a;
-        --brand-green-: #00512a;
+        --brand-green-0: #00884a;
+        --brand-green-10: #006c3a;
+        --brand-green-20: #00512a;
 
-        --success-: #00884a;
-        --success-: #006c3a;
-        --success-: #00512a;
+        --success-0: #00884a;
+        --success-10: #006c3a;
+        --success-20: #00512a;
 
-        --alert-: #ffcf00;
-        --alert-: #deb300;
-        --alert-: #bd9900;
+        --alert-1: #ffcf00;
+        --alert-10: #deb300;
+        --alert-20: #bd9900;
 
-        --warning-: #ed0007;
-        --warning-: #be0004;
-        --warning-: #920002;
+        --warning-0: #ed0007;
+        --warning-10: #be0004;
+        --warning-20: #920002;
 
         // toastify-color-variables
         --toastify-color-light: #fff;
@@ -106,8 +106,8 @@ export const GlobalStyles = createGlobalStyle`
         --toastify-color-progress-bgo: .2;
     }
 
-    body{
+    body{   
         font-family: "Roboto" sans-serif;
-        background-color: var(--grey-10);
+        background-color: var(--grey-1  );
     }
 `

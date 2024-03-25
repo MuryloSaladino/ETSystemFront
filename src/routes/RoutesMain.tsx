@@ -11,6 +11,7 @@ const RoutesMain = () => {
     return (
         <Routes>
             <Route path="*" element={<Homepage/>}/>
+            <Route path="/" element={<Homepage/>}/>
 
             <Route path="/login" element={<Login/>}/>
 

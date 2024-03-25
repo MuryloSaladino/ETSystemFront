@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { IAccess, IUser, studentAccess } from "../interfaces";
-
+import { adminAccess, IAccess, instructorAccess, IUser, studentAccess } from "../interfaces";
+import { useNavigate } from "react-router-dom";
+import api from "../service";
 
 
 export const UserContext = createContext({});
@@ -15,24 +16,37 @@ export function UserProvider({children}:IUserProviderProps) {
     const [access, setAccess] = useState<IAccess[]>([])
 
     useEffect(() => {
-        const instanceAccess = () => {
+        const buildUser = async () => {
+            const token:string|null = localStorage.getItem("@TOKEN")
+            const userId:string|null = localStorage.getItem("@USERID")
+
+            if(!token || !userId) {
+                const navigate = useNavigate()
+                navigate("/login")
+            }
+
+            const getUser = await api.get("/user/"+userId)
+            setUser(getUser.data)
+        }
+        const buildAccess = () => {
             setAccess([])
 
             if(user?.idStudent) {
                 setAccess((prev) => [...prev, studentAccess])
             }
             if(user?.idInstructor) {
-                setAccess((prev) => [...prev, studentAccess])
+                setAccess((prev) => [...prev, instructorAccess])
             }
-            if(user?.idStudent) {
-                setAccess((prev) => [...prev, studentAccess])
+            if(user?.idAdmin) {
+                setAccess((prev) => [...prev, adminAccess])
             }
         }
-        instanceAccess()
+        buildUser()
+        buildAccess()
     }, [user])
 
     return (
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, access }}>
             {children}
         </UserContext.Provider>
     )

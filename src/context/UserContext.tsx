@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { IAccess, IUser } from "../interfaces";
+import { IAccess, IUser, studentAccess } from "../interfaces";
 
 
 

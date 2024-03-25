@@ -4,6 +4,9 @@ import { IAccess, adminAccess, instructorAccess, studentAccess } from "./access.
 export type {
     IUser,
     IAccess, 
+}
+
+export {
     adminAccess, 
     instructorAccess, 
     studentAccess

@@ -10,8 +10,8 @@ export interface IUser {
     email: string | null,
     contact: string | null,
     dateOfBirth: string | null,
-    idInstructor: string | null,
-    idStudent: string | null,
-    idAdmin: string | null,
+    idInstructor: boolean,
+    idStudent: boolean,
+    idAdmin: boolean,
     institution: IInstitution
 }

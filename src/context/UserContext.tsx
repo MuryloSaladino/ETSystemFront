@@ -1,8 +1,5 @@
-import { ReactNode, createContext, useState } from "react";
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-
-import { IUser } from "../interfaces";
-
+import { ReactNode, createContext, useEffect, useState } from "react";
+import { IAccess, IUser } from "../interfaces";
 
 export const UserContext = createContext({});
 
@@ -13,12 +10,18 @@ interface IUserProviderProps {
 export function UserProvider({children}:IUserProviderProps) {
 
     const [user, setUser] = useState<IUser|null>(null)
+    const [access, setAccess] = useState<IAccess[]>([])
 
-    const test = {
-        name: "admin",
-        icon: <AdminPanelSettingsIcon/>,
-        path: ""
-    }
+    useEffect(() => {
+        const instanceAccess = () => {
+            setAccess([])
+
+            if(user?.idStudent) {
+                // setAccess((prev) => [...prev, { name:"student" }])
+            }
+        }
+        instanceAccess()
+    }, [user])
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

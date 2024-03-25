@@ -1,11 +1,21 @@
 import { styled } from "@mui/material";
 
-export const StyledBoschColors = styled("img")`
-    width: 100%;
-    height: 6px;
-    
-    position: absolute;
-    top: 0;
+export const StyledBody = styled("div")`
+    padding-top: 6px;
+    position: relative;
 
-    object-fit: cover;
+    ::after{
+        content: "";
+        background-image: url("../../public/bosch_colors.svg");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: 50% center;
+
+        width: 100vw;
+        height: 6px;
+        
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 `

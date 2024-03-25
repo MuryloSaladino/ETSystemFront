@@ -2,8 +2,7 @@ import './styles/Reset.css'
 
 import RoutesMain from "./routes/RoutesMain";
 
-import { StyledBoschColors } from "./styles/GlobalStyled";
-import BoschColors from "../public/bosch_colors.svg"
+import { StyledBody } from "./styles/GlobalStyled";
 
 import { CssBaseline, Theme, ThemeProvider, createTheme } from '@mui/material';
 import { useState } from 'react';
@@ -19,8 +18,9 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline/>
-        <StyledBoschColors src={BoschColors}/>
-        <RoutesMain/>
+        <StyledBody>
+          <RoutesMain/>
+        </StyledBody>
       </ThemeProvider>
     </>
   ) 

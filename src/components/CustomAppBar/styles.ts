@@ -15,5 +15,5 @@ export const StyledToolbar = styled(Toolbar)`
 
 export const StyledDrawerBox = styled(Box)`
     position: relative;
-    padding: 30px 20px;
+    padding: 50px 20px;
 `

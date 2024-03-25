@@ -1,6 +1,7 @@
 import { Theme, ThemeProvider, createTheme } from "@mui/material";
 import { ReactNode, createContext, useState } from "react";
 import { darkPalette, lightPalette } from "../styles/themes";
+import { CssBaseline } from '@mui/material';
 
 interface IColorsContext {
     toggleTheme: () => void;
@@ -26,6 +27,7 @@ export const ColorsProvider = ({children}:IColorsProviderProps) => {
 
     return(
         <ColorsContext.Provider value={{ toggleTheme }}>
+            <CssBaseline/>
             <ThemeProvider theme={theme}>
                 {children}
             </ThemeProvider>

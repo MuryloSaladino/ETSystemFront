@@ -13,15 +13,12 @@ interface IUserProvider {
     user: IUser | null;
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     access: IAccess[];
-    darkMode: boolean;
-    toggleTheme: () => void;
 }
 
 export const UserProvider = ({children}:IUserProviderProps) => {
 
     const [user, setUser] = useState<IUser|null>(null)
     const [access, setAccess] = useState<IAccess[]>([])
-    const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem("@THEME") === "DARK")
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -53,15 +50,9 @@ export const UserProvider = ({children}:IUserProviderProps) => {
         buildAccess()
     }, [user])
 
-    const toggleTheme = () => {
-        setDarkMode((prev) => {
-            localStorage.setItem("@THEME", prev ? "LIGHT" : "DARK")
-            return !prev
-        })
-    }
 
     return (
-        <UserContext.Provider value={{ user, setUser, access, darkMode, toggleTheme }}>
+        <UserContext.Provider value={{ user, setUser, access }}>
             {children}
         </UserContext.Provider>
     )

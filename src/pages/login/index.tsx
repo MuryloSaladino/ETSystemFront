@@ -3,53 +3,45 @@ import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Bosch } from '../../components'
-import { useState, ChangeEvent } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { loginContainerStyles, stackStyles } from './styles'
+import { Container } from '@mui/material'
 
-
-interface IInputs {
-    username: string;
-    password: string;
-}
 
 const Login = () => {
 
-    const [inputs, setInputs] = useState<IInputs>({
-        username: '',
-        password: ''
-    });
+    const { register, handleSubmit } = useForm()
+    const [error, setError] = useState<boolean>(false)
 
-    const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
-        setInputs((prevState) => ({
-            ...prevState,
-            [e.target.name] : e.target.value 
-        }))
+    const login = (data:FieldValues) => {
+        console.log(data)
+
     }
-
 
     return (
         <>
-            <Stack height="100vh" width="100vw" direction="column" alignItems="center" justifyContent="center">
-                <Stack width="500px" maxWidth="90%" minHeight="40vh" direction="column" alignItems="center" gap="30px">
+            <Stack sx={stackStyles}>
+                <Container sx={loginContainerStyles} maxWidth="sm">
                     <Bosch/>
                     <Typography variant="h3">Fazer login</Typography>
                     <Stack width="100%">
-                        <form style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
+                        <form onSubmit={handleSubmit((data) => login(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
                             <TextField
-                                name="username"
                                 label="Username"
                                 variant="outlined"
-                                required
-                                onChange={handleChange}/>
+                                {...register("username")}
+                                error={error}/>
                             <TextField
-                                name="password"
                                 label="Password"
                                 variant="outlined"
-                                type="password" required
-                                onChange={handleChange}/>
-                            <Button size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
+                                type="password"
+                                {...register("password")}
+                                error={error}/>
+                            <Button type="submit" size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
                         </form>
                     </Stack>
-                </Stack>
+                </Container>
             </Stack>
         </>
     )

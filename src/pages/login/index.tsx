@@ -18,30 +18,28 @@ const Login = () => {
     }
 
     return (
-        <>
-            <StyledStack>
-                <StyledLoginContainer maxWidth="sm">
-                    <Bosch/>
-                    <Typography variant="h4" alignSelf="start">Fazer login</Typography>
-                    <Stack width="100%">
-                        <form onSubmit={handleSubmit((data) => login(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
-                            <TextField
-                                label="Username"
-                                variant="outlined"
-                                {...register("username")}
-                                error={error}/>
-                            <TextField
-                                label="Password"
-                                variant="outlined"
-                                type="password"
-                                {...register("password")}
-                                error={error}/>
-                            <Button type="submit" size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
-                        </form>
-                    </Stack>
-                </StyledLoginContainer>
-            </StyledStack>
-        </>
+        <StyledStack>
+            <StyledLoginContainer maxWidth="sm">
+                <Bosch/>
+                <Typography variant="h4" alignSelf="start">Fazer login</Typography>
+                <Stack width="100%">
+                    <form onSubmit={handleSubmit((data) => login(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
+                        <TextField
+                            label="Username"
+                            variant="outlined"
+                            {...register("username")}
+                            error={error}/>
+                        <TextField
+                            label="Password"
+                            variant="outlined"
+                            type="password"
+                            {...register("password")}
+                            error={error}/>
+                        <Button type="submit" size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
+                    </form>
+                </Stack>
+            </StyledLoginContainer>
+        </StyledStack>
     )
 }
 

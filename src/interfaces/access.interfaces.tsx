@@ -9,7 +9,6 @@ export interface IAccess {
     path: string;
 }
 
-
 export const studentAccess:IAccess = {
     name: "Student",
     icon: <BackpackIcon/>,

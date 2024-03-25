@@ -1,7 +1,10 @@
 import { IUser } from "./user.interfaces";
-import { IAccess } from "./access.interfaces";
+import { IAccess, adminAccess, instructorAccess, studentAccess } from "./access.interfaces";
 
 export type {
     IUser,
-    IAccess
+    IAccess, 
+    adminAccess, 
+    instructorAccess, 
+    studentAccess
 }

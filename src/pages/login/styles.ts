@@ -1,12 +1,20 @@
-export const stackStyles = {
-    height: "80vh", 
-    width: "100vw"
-}
+import { Container, Stack, styled } from "@mui/material"
 
-export const loginContainerStyles = { 
-    margin: "auto",  
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "20px"
-}
+export const StyledStack = styled(Stack)`
+    width: 100vw;
+    height: 80vh;
+`
+
+export const StyledLoginContainer = styled(Container)`
+    max-width: 99%;
+    margin: auto;
+
+    padding: 40px 15px;
+    border: 1px solid var(--bs-gray-400);
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+`

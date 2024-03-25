@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography'
 import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { loginContainerStyles, stackStyles } from './styles'
-import { Container } from '@mui/material'
+import { StyledLoginContainer, StyledStack } from './styles'
 
 
 const Login = () => {
@@ -16,15 +15,14 @@ const Login = () => {
 
     const login = (data:FieldValues) => {
         console.log(data)
-
     }
 
     return (
         <>
-            <Stack sx={stackStyles}>
-                <Container sx={loginContainerStyles} maxWidth="sm">
+            <StyledStack>
+                <StyledLoginContainer maxWidth="sm">
                     <Bosch/>
-                    <Typography variant="h3">Fazer login</Typography>
+                    <Typography variant="h4" alignSelf="start">Fazer login</Typography>
                     <Stack width="100%">
                         <form onSubmit={handleSubmit((data) => login(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
                             <TextField
@@ -41,8 +39,8 @@ const Login = () => {
                             <Button type="submit" size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
                         </form>
                     </Stack>
-                </Container>
-            </Stack>
+                </StyledLoginContainer>
+            </StyledStack>
         </>
     )
 }

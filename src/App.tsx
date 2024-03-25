@@ -5,13 +5,14 @@ import RoutesMain from "./routes/RoutesMain";
 import { StyledBody } from "./styles/GlobalStyled";
 
 import { CssBaseline, Theme, ThemeProvider, createTheme } from '@mui/material';
-import { useState } from 'react';
+import { useContext } from 'react';
 import { darkPalette, lightPalette } from './styles/themes';
+import { UserContext } from './context/UserContext';
 
 
 function App() {
 
-  const [ darkMode, setDarkMode ] = useState<boolean>(false)
+  const { darkMode } = useContext(UserContext)
   const theme:Theme = createTheme(darkMode ? darkPalette : lightPalette);
 
   return(

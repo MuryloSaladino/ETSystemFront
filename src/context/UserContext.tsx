@@ -1,6 +1,8 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { IAccess, IUser } from "../interfaces";
 
+
+
 export const UserContext = createContext({});
 
 interface IUserProviderProps {
@@ -17,7 +19,13 @@ export function UserProvider({children}:IUserProviderProps) {
             setAccess([])
 
             if(user?.idStudent) {
-                // setAccess((prev) => [...prev, { name:"student" }])
+                setAccess((prev) => [...prev, studentAccess])
+            }
+            if(user?.idInstructor) {
+                setAccess((prev) => [...prev, studentAccess])
+            }
+            if(user?.idStudent) {
+                setAccess((prev) => [...prev, studentAccess])
             }
         }
         instanceAccess()

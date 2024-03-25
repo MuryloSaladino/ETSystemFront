@@ -4,14 +4,16 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyledLoginContainer, StyledStack } from './styles'
+import { UserContext } from '../../context/UserContext'
 
 
 const Login = () => {
 
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState<boolean>(false)
+    const { setUser } = useContext(UserContext)
 
     const login = (data:FieldValues) => {
         console.log(data)

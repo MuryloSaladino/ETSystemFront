@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
-import { Divider, Drawer, IconButton, List, ListItemButton, Typography } from "@mui/material";
+import { Divider, Drawer, List, Typography } from "@mui/material";
 import { StyledCloseButton, StyledDrawerBox, StyledListItemButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 

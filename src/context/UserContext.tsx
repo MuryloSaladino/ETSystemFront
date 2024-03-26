@@ -1,8 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { adminAccess, IAccess, instructorAccess, IUser, studentAccess } from "../interfaces";
 import { useNavigate } from "react-router-dom";
-import api from "../service/api";
-import { getUser } from "../service/user.services";
+import { getUser } from "../service/user";
 
 
 export const UserContext = createContext({} as IUserProvider);
@@ -15,7 +14,6 @@ interface IUserProvider {
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     access: IAccess[];
     logout: () => void;
-    login: (username:string, password:string) => Promise<{token: string}>
 }
 
 export const UserProvider = ({children}:IUserProviderProps) => {
@@ -31,8 +29,9 @@ export const UserProvider = ({children}:IUserProviderProps) => {
 
             if(token && idUser) {
                 try {
-                    setUser(getUser(idUser, token))
+                    setUser(await getUser(idUser, token))
                 } catch (error) {
+                    localStorage.clear()
                     console.error(error)
                     navigate("/login")
                 }
@@ -49,32 +48,19 @@ export const UserProvider = ({children}:IUserProviderProps) => {
             if(user?.idAdmin) {
                 setAccess((prev) => [...prev, adminAccess])
             }
-            // setAccess((prev) => [...prev, studentAccess])
-            // setAccess((prev) => [...prev, instructorAccess])
-            // setAccess((prev) => [...prev, adminAccess])
         }
         buildUser()
         buildAccess()
     }, [user])
 
-    const login = async (username:string, password:string) => {
-        try {
-            return await api.post("/login", {
-                username: username,
-                password: password
-            })
-        } catch (error) {
-            
-        }
-    }
-
     const logout = ():void => {
+        localStorage.clear()
         setUser(null)
         navigate("/login")
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, access, logout, login }}>
+        <UserContext.Provider value={{ user, setUser, access, logout }}>
             {children}
         </UserContext.Provider>
     )

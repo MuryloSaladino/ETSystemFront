@@ -13,6 +13,7 @@ interface IUserProvider {
     user: IUser | null;
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     access: IAccess[];
+    logout: () => void;
 }
 
 export const UserProvider = ({children}:IUserProviderProps) => {
@@ -37,27 +38,30 @@ export const UserProvider = ({children}:IUserProviderProps) => {
         const buildAccess = () => {
             setAccess([])
 
-            if(user?.idStudent) {
-                setAccess((prev) => [...prev, studentAccess])
-            }
-            if(user?.idInstructor) {
-                setAccess((prev) => [...prev, instructorAccess])
-            }
-            if(user?.idAdmin) {
-                setAccess((prev) => [...prev, adminAccess])
-            }
+            // if(user?.idStudent) {
+            //     setAccess((prev) => [...prev, studentAccess])
+            // }
+            // if(user?.idInstructor) {
+            //     setAccess((prev) => [...prev, instructorAccess])
+            // }
+            // if(user?.idAdmin) {
+            //     setAccess((prev) => [...prev, adminAccess])
+            // }
             setAccess((prev) => [...prev, studentAccess])
             setAccess((prev) => [...prev, instructorAccess])
             setAccess((prev) => [...prev, adminAccess])
-
         }
         buildUser()
         buildAccess()
     }, [user])
 
+    const logout = ():void => {
+        setUser(null)
+        navigate("/login")
+    }
 
     return (
-        <UserContext.Provider value={{ user, setUser, access }}>
+        <UserContext.Provider value={{ user, setUser, access, logout }}>
             {children}
         </UserContext.Provider>
     )

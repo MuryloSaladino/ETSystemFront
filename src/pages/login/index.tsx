@@ -17,11 +17,12 @@ const Login = () => {
     const navigate = useNavigate()
 
     const submit = async (data:FieldValues) => {
-        console.log(data)
+        setError(false)
         try {
             await login(data.username, data.password)
-            setTimeout(() => navigate("/dashboard"), 5000)
+            navigate("/dashboard")
         } catch (error) {
+            setError(true)
         }
     }
 

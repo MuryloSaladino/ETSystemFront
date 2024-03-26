@@ -12,6 +12,6 @@ export interface IUser {
     dateOfBirth: string | null,
     idInstructor: boolean,
     idStudent: boolean,
-    idAdmin: boolean,
+    idAdministrator: boolean,
     institution: IInstitution
 }

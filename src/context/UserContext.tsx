@@ -22,6 +22,9 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     const [access, setAccess] = useState<IAccess[]>([])
     const navigate = useNavigate()
 
+    console.log(user)
+    console.log(access)
+
     useEffect(() => {
         const buildUser = async () => {
             const token:string|null = localStorage.getItem("@TOKEN")
@@ -37,6 +40,9 @@ export const UserProvider = ({children}:IUserProviderProps) => {
                 }
             }
         }
+        buildUser()
+    }, [])
+    useEffect(() => {
         const buildAccess = () => {
             setAccess([])
             if(user?.idStudent) {
@@ -45,11 +51,10 @@ export const UserProvider = ({children}:IUserProviderProps) => {
             if(user?.idInstructor) {
                 setAccess((prev) => [...prev, instructorAccess])
             }
-            if(user?.idAdmin) {
+            if(user?.idAdministrator) {
                 setAccess((prev) => [...prev, adminAccess])
             }
         }
-        buildUser()
         buildAccess()
     }, [user])
 

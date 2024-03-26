@@ -8,9 +8,6 @@ const ProtectedRoute = () => {
     const token = localStorage.getItem("@TOKEN")
     
     return user || (idUser && token) ? <Outlet/> : <Navigate to="/login"/>
-
-    //debug return
-    // return <Outlet/>
 }
 
 export default ProtectedRoute

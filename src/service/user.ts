@@ -1,7 +1,6 @@
 import api from './api.ts'
 
 export const getUser = async (idUser:string, token:string) => {
-
     try {
         const response = await api.get(`/user/${idUser}`, {
             headers: {
@@ -10,6 +9,6 @@ export const getUser = async (idUser:string, token:string) => {
         })
         return response.data
     } catch (error) {
-        console.error(error)
+        throw new Error("User not found")
     }
 }

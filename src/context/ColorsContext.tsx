@@ -4,7 +4,8 @@ import { darkPalette, lightPalette } from "../styles/themes";
 
 interface IColorsContext {
     toggleTheme: () => void;
-    theme: Theme
+    theme: Theme;
+    darkMode: boolean;
 }
 interface IColorsProviderProps {
     children: ReactNode
@@ -25,7 +26,7 @@ export const ColorsProvider = ({children}:IColorsProviderProps) => {
     }
 
     return(
-        <ColorsContext.Provider value={{ toggleTheme, theme }}>
+        <ColorsContext.Provider value={{ toggleTheme, theme, darkMode }}>
             {children}
         </ColorsContext.Provider>
     )

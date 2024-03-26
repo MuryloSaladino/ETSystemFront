@@ -27,7 +27,7 @@ export const UserProvider = ({children}:IUserProviderProps) => {
             const userId:string|null = localStorage.getItem("@USERID")
 
             if(!token || !userId) {
-                navigate("/login")
+                // navigate("/login")
                 return
             }
 

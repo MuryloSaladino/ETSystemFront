@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 
 export const StyledBody = styled("div")`
-    padding-top: 6px;
+    padding-top: 100px;
     position: relative;
 
     ::after{

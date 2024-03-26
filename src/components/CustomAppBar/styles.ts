@@ -18,8 +18,3 @@ export const StyledHeaderBox = styled(Box)`
     align-items: center;
     gap: 1.125rem;
 `
-
-export const StyledDrawerBox = styled(Box)`
-    position: relative;
-    padding: 50px 20px;
-`

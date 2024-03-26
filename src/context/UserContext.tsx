@@ -46,6 +46,10 @@ export const UserProvider = ({children}:IUserProviderProps) => {
             if(user?.idAdmin) {
                 setAccess((prev) => [...prev, adminAccess])
             }
+            setAccess((prev) => [...prev, studentAccess])
+            setAccess((prev) => [...prev, instructorAccess])
+            setAccess((prev) => [...prev, adminAccess])
+
         }
         buildUser()
         buildAccess()

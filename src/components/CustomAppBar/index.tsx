@@ -1,32 +1,27 @@
-import { Drawer, IconButton, Typography } from "@mui/material"
+import { IconButton } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { StyledAppBar, StyledDrawerBox, StyledHeaderBox, StyledToolbar } from "./styles";
+import { StyledAppBar, StyledHeaderBox, StyledToolbar } from "./styles";
 
 import { Bosch } from "..";
 import { useContext, useState } from "react";
 import { ColorsContext } from "../../context/ColorsContext";
+import { UserContext } from "../../context/UserContext";
+import ActionsDrawer from "../ActionsDrawer";
 
 const CustomAppBar = () => {
 
     const [ open, setOpen ] = useState<boolean>(false)
     const toggleOpen = () => setOpen((prevState) => !prevState)
     const { darkMode, toggleTheme } = useContext(ColorsContext)
+    const {  } = useContext(UserContext)
     
 
     return(
         <>
-            <Drawer open={open} onClose={toggleOpen}>
-                <StyledDrawerBox>
-                    <IconButton onClick={toggleOpen} sx={{ position:"absolute", top:"10px", right: "10px" }}>
-                        <CloseIcon/>
-                    </IconButton>
-                    <Typography variant="h5">This is a drawer</Typography>
-                </StyledDrawerBox>
-            </Drawer>
+            <ActionsDrawer open={open} toggleOpen={toggleOpen}/>
 
             <StyledAppBar>
                 <StyledToolbar>

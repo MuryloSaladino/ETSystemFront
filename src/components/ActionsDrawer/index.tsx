@@ -27,7 +27,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                 <List>
                     {
                         access.map((acc) => 
-                            <StyledListItemButton onClick={() => navigate(acc.path)}>
+                            <StyledListItemButton onClick={() => navigate(acc.path)} key={acc.name}>
                                 {acc.icon}
                                 <Typography variant="h5">{acc.name}</Typography>
                             </StyledListItemButton>

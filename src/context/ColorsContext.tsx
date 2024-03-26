@@ -1,11 +1,10 @@
-import { Theme, ThemeProvider, createTheme } from "@mui/material";
+import { Theme, createTheme } from "@mui/material";
 import { ReactNode, createContext, useState } from "react";
 import { darkPalette, lightPalette } from "../styles/themes";
-import { CssBaseline } from '@mui/material';
 
 interface IColorsContext {
     toggleTheme: () => void;
-
+    theme: Theme
 }
 interface IColorsProviderProps {
     children: ReactNode
@@ -16,7 +15,7 @@ export const ColorsContext = createContext({} as IColorsContext)
 export const ColorsProvider = ({children}:IColorsProviderProps) => {
 
     const [darkMode, setDarkMode] = useState<boolean>(localStorage.getItem("@THEME") === "DARK")
-    const theme:Theme = createTheme(darkMode ? darkPalette : lightPalette);
+    const theme:Theme = createTheme(darkMode ? darkPalette : lightPalette)
 
     const toggleTheme = () => {
         setDarkMode((prev) => {
@@ -26,11 +25,8 @@ export const ColorsProvider = ({children}:IColorsProviderProps) => {
     }
 
     return(
-        <ColorsContext.Provider value={{ toggleTheme }}>
-            <CssBaseline/>
-            <ThemeProvider theme={theme}>
-                {children}
-            </ThemeProvider>
+        <ColorsContext.Provider value={{ toggleTheme, theme }}>
+            {children}
         </ColorsContext.Provider>
     )
 }

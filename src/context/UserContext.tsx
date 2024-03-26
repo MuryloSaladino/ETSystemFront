@@ -28,6 +28,7 @@ export const UserProvider = ({children}:IUserProviderProps) => {
 
             if(!token || !userId) {
                 navigate("/login")
+                return
             }
 
             const getUser = await api.get("/user/"+userId)

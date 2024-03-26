@@ -1,22 +1,22 @@
 import './styles/Reset.css'
 import RoutesMain from "./routes/RoutesMain";
 import { StyledBody } from "./styles/GlobalStyled";
-import { ColorsProvider } from './context/ColorsContext';
-import { UserProvider } from './context/UserContext';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { useContext } from 'react';
+import { ColorsContext } from './context/ColorsContext';
 
 
 function App() {
 
-
+  const { theme } = useContext(ColorsContext)
 
   return(
-    <ColorsProvider>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
       <StyledBody>
-        <UserProvider>
-          <RoutesMain/>
-        </UserProvider>
+        <RoutesMain/>
       </StyledBody>
-    </ColorsProvider>
+    </ThemeProvider>
   ) 
 }
 

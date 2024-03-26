@@ -24,9 +24,9 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                 <List>
                     {
                         access.map((acc) => 
-                            <ListItemButton onClick={() => navigate(acc.path)}>
+                            <ListItemButton onClick={() => navigate(acc.path)} sx={{display:"flex",gap:2}}>
                                 {acc.icon}
-                                <Typography variant="h4">
+                                <Typography variant="h5">
                                     {acc.name}
                                 </Typography>
                             </ListItemButton>

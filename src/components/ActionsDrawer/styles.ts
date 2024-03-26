@@ -13,7 +13,7 @@ export const StyledListItemButton = styled(ListItemButton)`
 `
 
 export const StyledCloseButton = styled(IconButton)`
-    position:"absolute";
-    top:"10px";
-    right: "10px";
+    position: absolute;
+    top: 10px;
+    right: 10px;
 `

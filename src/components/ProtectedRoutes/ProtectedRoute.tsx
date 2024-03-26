@@ -5,10 +5,10 @@ import { UserContext } from "../../context/UserContext";
 const ProtectedRoute = () => {
     const { user } = useContext(UserContext);
     
-    // return user ? <Outlet/> : <Navigate to="/login"/>
+    return user ? <Outlet/> : <Navigate to="/login"/>
 
     //debug return
-    return <Outlet/>
+    // return <Outlet/>
 }
 
 export default ProtectedRoute

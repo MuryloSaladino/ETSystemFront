@@ -1,7 +1,8 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { adminAccess, IAccess, instructorAccess, IUser, studentAccess } from "../interfaces";
 import { useNavigate } from "react-router-dom";
-import api from "../service";
+import api from "../service/api";
+import { getUser } from "../service/user.services";
 
 
 export const UserContext = createContext({} as IUserProvider);
@@ -26,45 +27,45 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     useEffect(() => {
         const buildUser = async () => {
             const token:string|null = localStorage.getItem("@TOKEN")
-            const userId:string|null = localStorage.getItem("@USERID")
+            const idUser:string|null = localStorage.getItem("@IDUSER")
 
-            if(!token || !userId) {
-                // navigate("/login")
-                return
-            }
-
-            const getUser = await api.get("/user/"+userId, {
-                headers: {
-                    "Authorization": `Bearer ${token}`
+            if(token && idUser) {
+                try {
+                    setUser(getUser(idUser, token))
+                } catch (error) {
+                    console.error(error)
+                    navigate("/login")
                 }
-            })
-            setUser(getUser.data)
+            }
         }
         const buildAccess = () => {
             setAccess([])
-
-            // if(user?.idStudent) {
-            //     setAccess((prev) => [...prev, studentAccess])
-            // }
-            // if(user?.idInstructor) {
-            //     setAccess((prev) => [...prev, instructorAccess])
-            // }
-            // if(user?.idAdmin) {
-            //     setAccess((prev) => [...prev, adminAccess])
-            // }
-            setAccess((prev) => [...prev, studentAccess])
-            setAccess((prev) => [...prev, instructorAccess])
-            setAccess((prev) => [...prev, adminAccess])
+            if(user?.idStudent) {
+                setAccess((prev) => [...prev, studentAccess])
+            }
+            if(user?.idInstructor) {
+                setAccess((prev) => [...prev, instructorAccess])
+            }
+            if(user?.idAdmin) {
+                setAccess((prev) => [...prev, adminAccess])
+            }
+            // setAccess((prev) => [...prev, studentAccess])
+            // setAccess((prev) => [...prev, instructorAccess])
+            // setAccess((prev) => [...prev, adminAccess])
         }
         buildUser()
         buildAccess()
     }, [user])
 
-    const login = async (username:string, password:string):Promise<{token:string}> => {
-        return await api.post("/login", {
-            username: username,
-            password: password
-        })
+    const login = async (username:string, password:string) => {
+        try {
+            return await api.post("/login", {
+                username: username,
+                password: password
+            })
+        } catch (error) {
+            
+        }
     }
 
     const logout = ():void => {

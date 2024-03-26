@@ -14,6 +14,7 @@ interface IUserProvider {
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     access: IAccess[];
     logout: () => void;
+    login: (username:string, password:string) => Promise<{token: string}>
 }
 
 export const UserProvider = ({children}:IUserProviderProps) => {
@@ -32,7 +33,11 @@ export const UserProvider = ({children}:IUserProviderProps) => {
                 return
             }
 
-            const getUser = await api.get("/user/"+userId)
+            const getUser = await api.get("/user/"+userId, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            })
             setUser(getUser.data)
         }
         const buildAccess = () => {
@@ -55,13 +60,20 @@ export const UserProvider = ({children}:IUserProviderProps) => {
         buildAccess()
     }, [user])
 
+    const login = async (username:string, password:string):Promise<{token:string}> => {
+        return await api.post("/login", {
+            username: username,
+            password: password
+        })
+    }
+
     const logout = ():void => {
         setUser(null)
         navigate("/login")
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, access, logout }}>
+        <UserContext.Provider value={{ user, setUser, access, logout, login }}>
             {children}
         </UserContext.Provider>
     )

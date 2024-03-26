@@ -1,9 +1,11 @@
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
-import { Drawer, IconButton, List, ListItemButton, Typography } from "@mui/material";
+import { Divider, Drawer, IconButton, List, ListItemButton, Typography } from "@mui/material";
 import { StyledDrawerBox } from "./styles";
+import { useNavigate } from "react-router-dom";
+
 import CloseIcon from '@mui/icons-material/Close';
-import { Link, useNavigate } from "react-router-dom";
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface IActionsDrawerProps {
     open: boolean;
@@ -32,6 +34,8 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                             </ListItemButton>
                         )
                     }
+                    <Divider/>
+                    
                 </List>
             </StyledDrawerBox>
         </Drawer>

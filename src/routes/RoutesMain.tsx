@@ -6,6 +6,7 @@ import DashboardPage from "../pages/dashboard";
 import RoutesAdmin from "./RoutesAdmin";
 import RoutesInstructor from "./RoutesInstructor";
 import RoutesStudent from "./RoutesStudent";
+import SettingsPage from "../pages/settings";
 
 const RoutesMain = () => {
     return (
@@ -20,6 +21,10 @@ const RoutesMain = () => {
                 <Route path="/dashboard/admin" element={<RoutesAdmin/>}/>
                 <Route path="/dashboard/instructor" element={<RoutesInstructor/>}/>
                 <Route path="/dashboard/student" element={<RoutesStudent/>}/>
+            </Route>
+
+            <Route path="/settings" element={<ProtectedRoute/>}>
+                <Route index element={<SettingsPage/>}/>
             </Route>
         </Routes>
     );

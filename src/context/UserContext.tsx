@@ -22,9 +22,6 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     const [access, setAccess] = useState<IAccess[]>([])
     const navigate = useNavigate()
 
-    console.log(user)
-    console.log(access)
-
     useEffect(() => {
         const buildUser = async () => {
             const token:string|null = localStorage.getItem("@TOKEN")
@@ -35,7 +32,6 @@ export const UserProvider = ({children}:IUserProviderProps) => {
                     setUser(await getUser(idUser, token))
                 } catch (error) {
                     localStorage.clear()
-                    console.error(error)
                     navigate("/login")
                 }
             }

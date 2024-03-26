@@ -4,19 +4,25 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { StyledLoginContainer, StyledStack } from './styles'
-import { UserContext } from '../../context/UserContext'
+import { login } from '../../service/login'
+import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
 
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState<boolean>(false)
-    const { setUser } = useContext(UserContext)
+    const navigate = useNavigate()
 
-    const login = (data:FieldValues) => {
+    const submit = async (data:FieldValues) => {
         console.log(data)
+        try {
+            await login(data.username, data.password)
+            setTimeout(() => navigate("/dashboard"), 5000)
+        } catch (error) {
+        }
     }
 
     return (
@@ -25,18 +31,20 @@ const Login = () => {
                 <Bosch/>
                 <Typography variant="h4" alignSelf="start">Fazer login</Typography>
                 <Stack width="100%">
-                    <form onSubmit={handleSubmit((data) => login(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
+                    <form onSubmit={handleSubmit((data) => submit(data))} style={{ width:"100%", display:"flex", flexDirection:"column", gap:"20px" }}>
                         <TextField
                             label="Username"
                             variant="outlined"
                             {...register("username")}
-                            error={error}/>
+                            error={error}
+                            required/>
                         <TextField
                             label="Password"
                             variant="outlined"
                             type="password"
                             {...register("password")}
-                            error={error}/>
+                            error={error}
+                            required/>
                         <Button type="submit" size='large' variant="contained" sx={{alignSelf:"end"}}>Login</Button>
                     </form>
                 </Stack>

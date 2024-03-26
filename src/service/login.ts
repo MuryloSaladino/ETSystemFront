@@ -11,6 +11,6 @@ export const login = async (username:string, password:string) => {
         localStorage.setItem("@IDUSER", idUser)
         localStorage.setItem("@TOKEN", token)
     } catch (error) {
-        console.error(error)
+        throw new Error("Invalid credentials")
     }
 }

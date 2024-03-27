@@ -5,8 +5,6 @@ import { getUser } from "../service/user";
 import { dashboardAccess } from "../interfaces/access.interfaces";
 
 
-export const UserContext = createContext({} as IUserProvider);
-
 interface IUserProviderProps {
     children: ReactNode;
 }
@@ -17,6 +15,8 @@ interface IUserProvider {
     logout: () => void;
     buildUser: () => Promise<void>
 }
+
+export const UserContext = createContext({} as IUserProvider);
 
 export const UserProvider = ({children}:IUserProviderProps) => {
 

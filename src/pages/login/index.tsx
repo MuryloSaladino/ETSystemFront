@@ -9,23 +9,27 @@ import { StyledLoginContainer, StyledStack } from './styles'
 import { login } from '../../service/login'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
+import { MessageContext } from '../../context/MessageContext'
 
 
 const Login = () => {
 
-    const { register, handleSubmit } = useForm()
     const [error, setError] = useState<boolean>(false)
-    const navigate = useNavigate()
     const { buildUser } = useContext(UserContext)
+    const { popNotification } = useContext(MessageContext)
+    const { register, handleSubmit } = useForm()
+    const navigate = useNavigate()
 
     const submit = async (data:FieldValues) => {
         setError(false)
         try {
             await login(data.username, data.password)
+            popNotification("Logged in", "success")
             navigate("/dashboard")
             await buildUser()
         } catch (error) {
             setError(true)
+            popNotification("Invalid Credentials", "error")
         }
     }
 

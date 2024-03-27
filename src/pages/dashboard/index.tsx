@@ -5,10 +5,12 @@ import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
+import { useNavigate } from "react-router-dom"
 
 const DashboardPage = () => {
     
     const { user, access } = useContext(UserContext)
+    const navigate = useNavigate()
 
     const date = new Date()
     const dateParsed = [date.getDate().toString().padStart(2, "0"), date.getMonth().toString().padStart(2, "0"), date.getFullYear()].join("/")
@@ -34,7 +36,7 @@ const DashboardPage = () => {
                         access.map((acc) =>
                             <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
                                 <Card key={acc.name} variant="outlined">
-                                    <CardActionArea sx={{display:"flex", alignItems:"center"}}>
+                                    <CardActionArea onClick={() => navigate(acc.path)} sx={{display:"flex"}}>
                                         <CardHeader title={acc.name}/>
                                         {acc.icon("large")}
                                     </CardActionArea>

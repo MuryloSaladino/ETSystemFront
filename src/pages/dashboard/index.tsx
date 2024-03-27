@@ -3,6 +3,8 @@ import { CustomAppBar } from "../../components"
 import { StyledHeaderBox, StyledHeaderContainer } from "./styles"
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PersonIcon from '@mui/icons-material/Person';
 
 const DashboardPage = () => {
     
@@ -17,24 +19,27 @@ const DashboardPage = () => {
 
             <StyledHeaderBox>
                 <StyledHeaderContainer maxWidth="md">
-                    <Typography variant="h5">{user?.name || user?.username}</Typography>
-                    <Typography variant="h5">{user?.institution.name} - {dateParsed}</Typography>
+                    <Typography variant="h5"><PersonIcon/> {user?.name || user?.username}</Typography>
+                    <Typography variant="h5"><LocationOnIcon/> {user?.institution.name} - {dateParsed}</Typography>
                 </StyledHeaderContainer>
             </StyledHeaderBox>
 
             <Container maxWidth="md">
+                <Typography variant="h5">Acessos:</Typography>
+            </Container>
+
+            <Container maxWidth="md">
                 <Grid container spacing={2}>
                     {
-                        access.map(
-                            (acc) =>
-                                <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
-                                    <Card key={acc.name} variant="outlined">
-                                        <CardActionArea>
-                                            <CardHeader title={acc.name}/>
-                                            {/* {acc.icon("large")} */}
-                                        </CardActionArea>
-                                    </Card> 
-                                </Grid>
+                        access.map((acc) =>
+                            <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
+                                <Card key={acc.name} variant="outlined">
+                                    <CardActionArea sx={{display:"flex", alignItems:"center"}}>
+                                        <CardHeader title={acc.name}/>
+                                        {acc.icon("large")}
+                                    </CardActionArea>
+                                </Card> 
+                            </Grid>
                         )
                     }
                 </Grid>

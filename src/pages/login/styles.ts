@@ -10,8 +10,6 @@ export const StyledLoginContainer = styled(Container)`
     margin: 0 auto;
 
     padding: 40px 15px;
-    border: 1px solid var(--bs-gray-400);
-    border-radius: 20px;
 
     display: flex;
     flex-direction: column;

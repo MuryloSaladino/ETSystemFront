@@ -1,8 +1,12 @@
+import { CustomAppBar } from "../../components"
+
 const SettingsPage = () => {
 
 
     return(
-        <div>Settings</div>
+        <>
+            <CustomAppBar/>
+        </>
     )
 }
 

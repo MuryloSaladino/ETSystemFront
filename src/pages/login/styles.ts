@@ -7,7 +7,7 @@ export const StyledStack = styled(Stack)`
 
 export const StyledLoginContainer = styled(Container)`
     max-width: 99%;
-    margin: auto;
+    margin: 0 auto;
 
     padding: 40px 15px;
     border: 1px solid var(--bs-gray-400);

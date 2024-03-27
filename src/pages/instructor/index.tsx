@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom"
 import { CustomAppBar } from "../../components"
 
 const InstructorPage = () => {
@@ -7,7 +8,7 @@ const InstructorPage = () => {
         <>
             <CustomAppBar/>
 
-            
+            <Outlet/>
         </>
     )
 }

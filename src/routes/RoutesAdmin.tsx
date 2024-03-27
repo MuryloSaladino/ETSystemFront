@@ -1,11 +1,14 @@
 import { Route, Routes } from "react-router-dom"
+import AdminPage from "../pages/admin"
 
 const RoutesAdmin = () => {
 
 
     return(
         <Routes>
-            <Route/>
+            <Route path="/" element={<AdminPage/>}>
+                <Route index/>
+            </Route>
         </Routes>
     )
 }

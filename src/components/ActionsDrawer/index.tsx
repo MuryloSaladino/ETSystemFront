@@ -27,7 +27,8 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                 <List>
                     {
                         access.map((acc) => 
-                            <StyledListItemButton onClick={() => navigate(acc.path)} key={acc.name}>
+                            <StyledListItemButton 
+                                onClick={() => { navigate(acc.path); toggleOpen(); }} key={acc.name}>
                                 {acc.icon()}
                                 <Typography variant="h5">{acc.name}</Typography>
                             </StyledListItemButton>
@@ -35,7 +36,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                     }
                     <Divider/>
 
-                    <StyledListItemButton onClick={() => navigate("/settings")}>
+                    <StyledListItemButton onClick={() => { navigate("/settings"); toggleOpen(); }}>
                         <SettingsIcon/>
                         <Typography variant="h5">Settings</Typography>
                     </StyledListItemButton>

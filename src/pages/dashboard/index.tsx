@@ -1,12 +1,12 @@
-import { Typography } from "@mui/material"
+import { Card, CardActionArea, CardHeader, Container, Grid, Typography } from "@mui/material"
 import { CustomAppBar } from "../../components"
-import { StyledHeaderBox } from "./styles"
+import { StyledHeaderBox, StyledHeaderContainer } from "./styles"
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 
 const DashboardPage = () => {
     
-    const { user } = useContext(UserContext)
+    const { user, access } = useContext(UserContext)
 
     const date = new Date()
     const dateParsed = [date.getDate().toString().padStart(2, "0"), date.getMonth().toString().padStart(2, "0"), date.getFullYear()].join("/")
@@ -16,9 +16,29 @@ const DashboardPage = () => {
             <CustomAppBar/>
 
             <StyledHeaderBox>
-                <Typography variant="h5">{user?.name || user?.username}</Typography>
-                <Typography variant="h5">{user?.institution.name} - {dateParsed}</Typography>
+                <StyledHeaderContainer maxWidth="md">
+                    <Typography variant="h5">{user?.name || user?.username}</Typography>
+                    <Typography variant="h5">{user?.institution.name} - {dateParsed}</Typography>
+                </StyledHeaderContainer>
             </StyledHeaderBox>
+
+            <Container maxWidth="md">
+                <Grid container spacing={2}>
+                    {
+                        access.map(
+                            (acc) =>
+                                <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
+                                    <Card key={acc.name} variant="outlined">
+                                        <CardActionArea>
+                                            <CardHeader title={acc.name}/>
+                                            {/* {acc.icon("large")} */}
+                                        </CardActionArea>
+                                    </Card> 
+                                </Grid>
+                        )
+                    }
+                </Grid>
+            </Container>
         </>
     )
 }

@@ -4,6 +4,10 @@ export const StyledBody = styled("div")`
     padding-top: 130px;
     position: relative;
 
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 50px;
+
     ::after{
         content: "";
         background-image: url("../../public/bosch_colors.svg");

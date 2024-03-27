@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { MessageContext } from "../../context/MessageContext";
 
 interface IActionsDrawerProps {
     open: boolean;
@@ -16,6 +17,7 @@ interface IActionsDrawerProps {
 const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
 
     const { access, logout } = useContext(UserContext)
+    const { popNotification } = useContext(MessageContext)
     const navigate = useNavigate()
 
     return(
@@ -41,7 +43,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                         <Typography variant="h5">Settings</Typography>
                     </StyledListItemButton>
 
-                    <StyledListItemButton onClick={() => logout()}>
+                    <StyledListItemButton onClick={() => { logout(); popNotification("Logged out") }}>
                         <LogoutIcon/>
                         <Typography variant="h5">Logout</Typography>
                     </StyledListItemButton>

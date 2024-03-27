@@ -4,10 +4,11 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { StyledLoginContainer, StyledStack } from './styles'
 import { login } from '../../service/login'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
 
 
 const Login = () => {
@@ -15,12 +16,14 @@ const Login = () => {
     const { register, handleSubmit } = useForm()
     const [error, setError] = useState<boolean>(false)
     const navigate = useNavigate()
+    const { buildUser } = useContext(UserContext)
 
     const submit = async (data:FieldValues) => {
         setError(false)
         try {
             await login(data.username, data.password)
             navigate("/dashboard")
+            await buildUser()
         } catch (error) {
             setError(true)
         }

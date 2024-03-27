@@ -15,7 +15,7 @@ interface IActionsDrawerProps {
 
 const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
 
-    const { access } = useContext(UserContext)
+    const { access, logout } = useContext(UserContext)
     const navigate = useNavigate()
 
     return(
@@ -40,7 +40,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                         <Typography variant="h5">Settings</Typography>
                     </StyledListItemButton>
 
-                    <StyledListItemButton onClick={() => navigate("/login")}>
+                    <StyledListItemButton onClick={() => logout()}>
                         <LogoutIcon/>
                         <Typography variant="h5">Logout</Typography>
                     </StyledListItemButton>

@@ -14,6 +14,7 @@ interface IUserProvider {
     setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
     access: IAccess[];
     logout: () => void;
+    buildUser: () => Promise<void>
 }
 
 export const UserProvider = ({children}:IUserProviderProps) => {
@@ -22,22 +23,24 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     const [access, setAccess] = useState<IAccess[]>([])
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const buildUser = async () => {
-            const token:string|null = localStorage.getItem("@TOKEN")
-            const idUser:string|null = localStorage.getItem("@IDUSER")
+    const buildUser = async () => {
+        const token:string|null = localStorage.getItem("@TOKEN")
+        const idUser:string|null = localStorage.getItem("@IDUSER")
 
-            if(token && idUser) {
-                try {
-                    setUser(await getUser(idUser, token))
-                } catch (error) {
-                    localStorage.clear()
-                    navigate("/login")
-                }
+        if(token && idUser) {
+            try {
+                const response = await getUser(idUser, token) 
+                setUser(response)
+            } catch (error) {
+                localStorage.removeItem("@TOKEN")
+                localStorage.removeItem("@IDUSER")
+                navigate("/login")
             }
         }
-        buildUser()
-    }, [])
+    }
+
+    useEffect(() => { buildUser() }, [])
+
     useEffect(() => {
         const buildAccess = () => {
             setAccess([])
@@ -55,13 +58,14 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     }, [user])
 
     const logout = ():void => {
-        localStorage.clear()
+        localStorage.removeItem("@TOKEN")
+        localStorage.removeItem("@IDUSER")
         setUser(null)
         navigate("/login")
     }
 
     return (
-        <UserContext.Provider value={{ user, setUser, access, logout }}>
+        <UserContext.Provider value={{ user, setUser, access, logout, buildUser }}>
             {children}
         </UserContext.Provider>
     )

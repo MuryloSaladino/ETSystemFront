@@ -9,5 +9,8 @@ export const StyledHeaderBox = styled(Box)(({theme}) => ({
 
 export const StyledHeaderContainer = styled(Container)`
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    gap: 15px;
 `

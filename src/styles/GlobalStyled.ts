@@ -6,7 +6,7 @@ export const StyledBody = styled("div")`
 
     display: flex;
     flex-flow: column nowrap;
-    gap: 50px;
+    gap: 30px;
 
     ::after{
         content: "";

@@ -34,7 +34,7 @@ const DashboardPage = () => {
                 <Grid container spacing={2}>
                     {
                         access.map((acc) =>
-                            <Grid xs={12} sm={6} md={4} lg={3} xl={2}>
+                            <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
                                 <Card key={acc.name} variant="outlined">
                                     <CardActionArea onClick={() => navigate(acc.path)} sx={{display:"flex"}}>
                                         <CardHeader title={acc.name}/>

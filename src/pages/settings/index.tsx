@@ -25,6 +25,12 @@ const SettingsPage = () => {
     
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
+        let k: keyof FieldValues
+        for(k in data) {
+            if(data[k].length === 0) {
+                data[k] = undefined
+            }
+        }
         try {
             await api.patch("/user/"+user?.idUser, data, {
                 headers: {

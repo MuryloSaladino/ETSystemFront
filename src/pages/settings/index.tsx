@@ -1,7 +1,7 @@
 import { Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar } from "../../components"
 import EditableInfo from "./EditableInfo";
-import { useContext, useRef } from "react"
+import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";

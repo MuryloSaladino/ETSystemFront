@@ -1,17 +1,27 @@
-import { Container, Divider, Typography } from "@mui/material"
+import { Box, Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar } from "../../components"
 import EditableInfo from "./EditableInfo";
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
 import api from "../../service/api";
+import { IUser } from "../../interfaces";
+
 
 const SettingsPage = () => {
 
     const { user, buildUser } = useContext(UserContext)
     const { popNotification } = useContext(MessageContext)
     const { handleSubmit, register, setValue } = useForm()
+    const [infoEditable, setInfoEditable] = useState<string[]>([])
+
+    useEffect(() => {
+        if(user) {
+            const arr = Object.keys(user)
+            setInfoEditable(arr.filter((key) => !key.includes("id") && key !== "institution"))
+        }
+    }, [user])
     
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
@@ -33,15 +43,22 @@ const SettingsPage = () => {
             <CustomAppBar/>
 
             <Container maxWidth="md">
-                <Typography variant="h4">{user?.username} - Informações Básicas</Typography>
+                <Typography variant="h4">Informações Básicas</Typography>
 
                 <form onSubmit={handleSubmit((data) => submit(data))}>
-                    <EditableInfo
-                        nameProp="name"
-                        valueProp={user?.name!}
-                        useFormRegister={register}
-                        useFormSetValue={setValue}/>
-                    <Divider/>
+                    {
+                        user &&
+                        infoEditable.map((info, index) =>
+                            <Box key={index}>
+                                <EditableInfo
+                                    nameProp={info}
+                                    valueProp={String(user[info as keyof IUser])}
+                                    useFormRegister={register}
+                                    useFormSetValue={setValue}/>
+                                {index === infoEditable.length - 1 ? <></> : <Divider/>}
+                            </Box>
+                        )
+                    }
                 </form>
             </Container>
         </>

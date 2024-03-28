@@ -1,4 +1,4 @@
-import { Box, Container, IconButton, TextField, Typography } from "@mui/material"
+import { Box, IconButton, TextField, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -16,15 +16,14 @@ interface EditableInfoProps {
 const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:EditableInfoProps) => {
 
     const [edit, setEdit] = useState<boolean>(false)
-
     const handleClick = () => setEdit((prev) => !prev)
     
     useEffect(() => {
-        useFormSetValue(nameProp, valueProp);
+        useFormSetValue(nameProp, valueProp === "null" ? "" : valueProp);
     }, [valueProp, edit])
 
     return(
-        <Container sx={{ margin:"30px 0 10px", display:"flex", justifyContent:"space-between" }}>
+        <Box sx={{ margin:"20px 0", display:"flex", justifyContent:"space-between" }}>
             <Typography variant="h6">{nameProp}</Typography>
             <Box sx={{ display:"flex", alignItems:"center", gap:2 }}>
                 {
@@ -34,7 +33,7 @@ const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:
                         {...useFormRegister(nameProp)}
                     /> :
                     <Typography variant="h6">
-                        {valueProp || "Não definido"}
+                        {valueProp === "null" ? "Não definido" : valueProp}
                     </Typography>
                 }
                 {
@@ -52,7 +51,7 @@ const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:
                     </IconButton>
                 }
             </Box>
-        </Container>
+        </Box>
     )
 }
 

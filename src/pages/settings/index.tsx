@@ -5,9 +5,9 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
-import api from "../../service/api";
 import { IUser } from "../../interfaces";
 import { updateUser } from "../../service/user";
+import { clearEmptyProperties } from "../../utils/object";
 
 
 const SettingsPage = () => {
@@ -26,14 +26,8 @@ const SettingsPage = () => {
     
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
-        let k: keyof FieldValues
-        for(k in data) {
-            if(data[k].length === 0) {
-                data[k] = undefined
-            }
-        }
         try {
-            await updateUser(user!.idUser, token!, data)
+            await updateUser(user!.idUser, token!, clearEmptyProperties(data))
             popNotification("Your data has been updated", "success")
             buildUser()
         } catch (error) {

@@ -1,35 +1,58 @@
-import { Container, IconButton, TextField, Typography } from "@mui/material"
-import { useState } from "react"
+import { Box, Container, IconButton, TextField, Typography } from "@mui/material"
+import { MutableRefObject, useEffect, useState } from "react"
 import EditIcon from '@mui/icons-material/Edit';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckIcon from '@mui/icons-material/Check';
+import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
 
 
 interface EditableInfoProps {
-    title: string;
-    propValue: string;
+    nameProp: string;
+    valueProp: string;
+    useFormRegister: UseFormRegister<FieldValues>;
+    useFormSetValue: UseFormSetValue<FieldValues>;
+    formRef: MutableRefObject<null>
 } 
 
-const EditableInfo = ({ title, propValue }:EditableInfoProps) => {
+const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue, formRef }:EditableInfoProps) => {
 
     const [edit, setEdit] = useState<boolean>(false)
-    const [inputValue, setInputValue] = useState<string>(propValue) 
+
+    const handleClick = () => setEdit((prev) => !prev)
+    
+    useEffect(() => {
+        useFormSetValue(nameProp, valueProp);
+    }, [valueProp, edit])
 
     return(
         <Container sx={{ margin:"30px 0 10px", display:"flex", justifyContent:"space-between" }}>
-            <Typography variant="h6">{title}</Typography>
-            {
-                edit ?
-                
-                <form>
-                    <TextField value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
-                </form> :
-
-                <Typography variant="h6">
-                    {propValue || "Não definido"}
-                </Typography>
-            }
-            <IconButton onClick={() => setEdit((prev) => !prev)}>
-                <EditIcon/>
-            </IconButton>
+            <Typography variant="h6">{nameProp}</Typography>
+            <Box sx={{ display:"flex", alignItems:"center", gap:2 }}>
+                {
+                    edit ?
+                    <TextField
+                        size="small"
+                        {...useFormRegister(nameProp)}
+                    /> :
+                    <Typography variant="h6">
+                        {valueProp || "Não definido"}
+                    </Typography>
+                }
+                {
+                    edit ?
+                    <Box>
+                        <IconButton type="submit">
+                            <CheckIcon/>
+                        </IconButton>
+                        <IconButton onClick={handleClick}>
+                            <CancelIcon/>
+                        </IconButton>
+                    </Box> :
+                    <IconButton onClick={handleClick}>
+                        <EditIcon/>
+                    </IconButton>
+                }
+            </Box>
         </Container>
     )
 }

@@ -7,6 +7,7 @@ import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
 import api from "../../service/api";
 import { IUser } from "../../interfaces";
+import { updateUser } from "../../service/user";
 
 
 const SettingsPage = () => {
@@ -18,8 +19,8 @@ const SettingsPage = () => {
 
     useEffect(() => {
         if(user) {
-            const arr = Object.keys(user)
-            setInfoEditable(arr.filter((key) => !key.includes("id") && key !== "institution"))
+            const arr = Object.keys(user).filter((key) => !key.includes("id") && key !== "institution")
+            setInfoEditable(arr)
         }
     }, [user])
     
@@ -32,11 +33,7 @@ const SettingsPage = () => {
             }
         }
         try {
-            await api.patch("/user/"+user?.idUser, data, {
-                headers: {
-                    "Authorization": "Bearer " + token
-                }
-            })
+            await updateUser(user!.idUser, token!, data)
             popNotification("Your data has been updated", "success")
             buildUser()
         } catch (error) {

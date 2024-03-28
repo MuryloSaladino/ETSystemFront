@@ -11,10 +11,9 @@ interface EditableInfoProps {
     valueProp: string;
     useFormRegister: UseFormRegister<FieldValues>;
     useFormSetValue: UseFormSetValue<FieldValues>;
-    formRef: MutableRefObject<null>
 } 
 
-const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue, formRef }:EditableInfoProps) => {
+const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:EditableInfoProps) => {
 
     const [edit, setEdit] = useState<boolean>(false)
 

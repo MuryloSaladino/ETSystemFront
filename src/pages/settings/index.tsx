@@ -12,7 +12,6 @@ const SettingsPage = () => {
     const { user, buildUser } = useContext(UserContext)
     const { popNotification } = useContext(MessageContext)
     const { handleSubmit, register, setValue } = useForm()
-    const formRef = useRef(null)
     
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
@@ -36,13 +35,12 @@ const SettingsPage = () => {
             <Container maxWidth="md">
                 <Typography variant="h4">{user?.username} - Informações Básicas</Typography>
 
-                <form onSubmit={handleSubmit((data) => submit(data))} ref={formRef}>
+                <form onSubmit={handleSubmit((data) => submit(data))}>
                     <EditableInfo
                         nameProp="name"
                         valueProp={user?.name!}
                         useFormRegister={register}
-                        useFormSetValue={setValue}
-                        formRef={formRef}/>
+                        useFormSetValue={setValue}/>
                     <Divider/>
                 </form>
             </Container>

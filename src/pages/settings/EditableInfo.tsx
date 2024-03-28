@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckIcon from '@mui/icons-material/Check';
 import { FieldValues, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { titleCase } from "../../utils/string";
 
 
 interface EditableInfoProps {
@@ -24,7 +25,7 @@ const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:
 
     return(
         <Box sx={{ margin:"20px 0", display:"flex", justifyContent:"space-between" }}>
-            <Typography variant="h6">{nameProp}</Typography>
+            <Typography variant="h6">{titleCase(nameProp)}</Typography>
             <Box sx={{ display:"flex", alignItems:"center", gap:2 }}>
                 {
                     edit ?

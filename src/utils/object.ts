@@ -5,4 +5,5 @@ export const clearEmptyProperties = (obj:{[x: string]: any}) => {
             obj[k] = undefined
         }
     }
+    return obj
 }

@@ -9,18 +9,19 @@ import { titleCase } from "../../utils/string";
 
 interface EditableInfoProps {
     nameProp: string;
-    valueProp: string;
+    valueProp: string | null;
     useFormRegister: UseFormRegister<FieldValues>;
     useFormSetValue: UseFormSetValue<FieldValues>;
+    pattern: RegExp
 } 
 
-const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:EditableInfoProps) => {
+const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue, pattern }:EditableInfoProps) => {
 
     const [edit, setEdit] = useState<boolean>(false)
     const handleClick = () => setEdit((prev) => !prev)
     
     useEffect(() => {
-        useFormSetValue(nameProp, valueProp === "null" ? "" : valueProp);
+        useFormSetValue(nameProp, valueProp || "");
     }, [valueProp, edit])
 
     return(
@@ -31,10 +32,10 @@ const EditableInfo = ({ nameProp, valueProp, useFormRegister, useFormSetValue }:
                     edit ?
                     <TextField
                         size="small"
-                        {...useFormRegister(nameProp)}
+                        {...useFormRegister(nameProp, { pattern: pattern })}
                     /> :
                     <Typography variant="h6">
-                        {valueProp === "null" ? "Não definido" : valueProp}
+                        {valueProp || "Não definido"}
                     </Typography>
                 }
                 {

@@ -3,9 +3,10 @@ import { CustomAppBar } from "../../../components"
 import { IPaginated, IUserGrouped } from "../../../interfaces"
 import { getUsers } from "../../../service/user"
 import { MessageContext } from "../../../context/MessageContext"
-import { Link, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { Container, Pagination, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material"
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import StyledLink from "../../../components/Link"
 
 
 const UsersPage = () => {
@@ -31,8 +32,6 @@ const UsersPage = () => {
         buildUsers()
     }, [searchParams])
 
-    console.log(users)
-
     return(
         <>
             <CustomAppBar/>
@@ -56,7 +55,7 @@ const UsersPage = () => {
                                         <TableRow key={user.idUser}>
                                             <TableCell>{user.username}</TableCell>
                                             <TableCell>{user.email || "Not defined"}</TableCell>
-                                            <TableCell align="right"><Link to={user.idUser}><ArrowForwardIcon/></Link></TableCell>
+                                            <TableCell align="right"><StyledLink to={user.idUser}><ArrowForwardIcon/></StyledLink></TableCell>
                                         </TableRow>    
                                     )
                                 }

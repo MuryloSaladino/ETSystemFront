@@ -37,7 +37,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                         access.map((acc) => 
                             <StyledListItemButton 
                                 onClick={() => { navigate(acc.path); toggleOpen(); }} key={acc.name}>
-                                {acc.icon()}
+                                {acc.icon}
                                 <Typography variant="h5">{acc.name}</Typography>
                             </StyledListItemButton>
                         )

@@ -1,29 +1,22 @@
-import { useNavigate } from "react-router-dom"
-import { CustomAppBar } from "../../components"
-import { Card, CardActionArea, CardHeader, Container, Grid } from "@mui/material"
+import { CustomAppBar, NavigationGrid } from "../../components"
 import GroupIcon from '@mui/icons-material/Group';
+import { IAccess } from "../../interfaces";
 
 const AdminPage = () => {
 
-    const navigate = useNavigate()
-
+    const navigationItems:IAccess[] = [
+        {
+            name: "users",
+            path: "/admin/users",
+            icon: <GroupIcon/>
+        }
+    ]
 
     return(
         <>
             <CustomAppBar/>
 
-            <Container maxWidth="md">
-                <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                        <Card variant="outlined">
-                            <CardActionArea onClick={() => navigate("/admin/users")} sx={{display:"flex"}}>
-                                <CardHeader title={"Users"}/>
-                                <GroupIcon/>
-                            </CardActionArea>
-                        </Card> 
-                    </Grid>
-                </Grid>
-            </Container>
+            <NavigationGrid navigationItems={navigationItems}/>
         </>
     )
 }

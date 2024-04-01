@@ -2,26 +2,24 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import BackpackIcon from '@mui/icons-material/Backpack';
 
-type TIconSize = "small"|"inherit"|"large"|"medium";
-
 export interface IAccess {
     name: string;
-    icon: (size?:TIconSize) => JSX.Element;
+    icon: JSX.Element;
     path: string;
 }
 
 export const studentAccess:IAccess = {
     name: "Student",
-    icon: (size:TIconSize = "small") => <BackpackIcon fontSize={size}/>,
+    icon: <BackpackIcon/>,
     path: "/dashboard/student"
 }
 export const adminAccess:IAccess = {
     name: "Administrator",
-    icon: (size:TIconSize = "small") => <AdminPanelSettingsIcon fontSize={size}/>,
+    icon: <AdminPanelSettingsIcon/>,
     path: "/dashboard/admin"
 } 
 export const instructorAccess:IAccess = {
     name: "Instructor",
-    icon: (size:TIconSize = "small") => <SchoolIcon fontSize={size}/>,
+    icon: <SchoolIcon/>,
     path: "/dashboard/instructor"
 }

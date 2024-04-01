@@ -19,7 +19,7 @@ const NavigationGrid = ({navigationItems}:INavigationGridProps) => {
                             <Card variant="outlined">
                                 <CardActionArea onClick={() => navigate(item.path)} sx={{display:"flex"}}>
                                     <CardHeader title={item.name}/>
-                                    {item.icon("small")}
+                                    {item.icon}
                                 </CardActionArea>
                             </Card> 
                         </Grid>

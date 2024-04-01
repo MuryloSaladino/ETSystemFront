@@ -1,7 +1,4 @@
-export interface IInstitution {
-    name: string;
-    isBosch: boolean;
-}
+import { IInstitution } from "./institution";
 
 export interface IUser {
     idUser: string;

@@ -9,7 +9,7 @@ const AdminPage = () => {
             name: "users",
             path: "/admin/users",
             icon: <GroupIcon/>
-        }
+        },
     ]
 
     return(

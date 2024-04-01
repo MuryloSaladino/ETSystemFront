@@ -10,16 +10,16 @@ export interface IAccess {
 
 export const studentAccess:IAccess = {
     name: "Student",
-    path: "/dashboard/student",
+    path: "/student",
     icon: <BackpackIcon/>
 }
 export const adminAccess:IAccess = {
     name: "Administrator",
-    path: "/dashboard/admin",
+    path: "/admin",
     icon: <AdminPanelSettingsIcon/>
 } 
 export const instructorAccess:IAccess = {
     name: "Instructor",
-    path: "/dashboard/instructor",
+    path: "/instructor",
     icon: <SchoolIcon/>
 }

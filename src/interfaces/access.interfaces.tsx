@@ -1,7 +1,6 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import BackpackIcon from '@mui/icons-material/Backpack';
-import HomeIcon from '@mui/icons-material/Home';
 
 type TIconSize = "small"|"inherit"|"large"|"medium";
 
@@ -25,9 +24,4 @@ export const instructorAccess:IAccess = {
     name: "Instructor",
     icon: (size:TIconSize = "small") => <SchoolIcon fontSize={size}/>,
     path: "/dashboard/instructor"
-}
-export const dashboardAccess:IAccess = {
-    name: "Dashboard",
-    icon: (size:TIconSize = "small") => <HomeIcon fontSize={size}/>,
-    path: "/dashboard"
 }

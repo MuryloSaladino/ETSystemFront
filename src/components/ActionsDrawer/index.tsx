@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import HomeIcon from '@mui/icons-material/Home';
 import { MessageContext } from "../../context/MessageContext";
 
 interface IActionsDrawerProps {
@@ -27,6 +28,11 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                     <CloseIcon/>
                 </StyledCloseButton>
                 <List>
+                    <StyledListItemButton 
+                        onClick={() => { navigate("/dashboard"); toggleOpen(); }}>
+                        {<HomeIcon/>}
+                        <Typography variant="h5">{"Dashboard"}</Typography>
+                    </StyledListItemButton>
                     {
                         access.map((acc) => 
                             <StyledListItemButton 

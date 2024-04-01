@@ -2,7 +2,6 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { adminAccess, IAccess, instructorAccess, IUser, studentAccess } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../service/user";
-import { dashboardAccess } from "../interfaces/access.interfaces";
 
 
 interface IUserProviderProps {
@@ -21,7 +20,7 @@ export const UserContext = createContext({} as IUserProvider);
 export const UserProvider = ({children}:IUserProviderProps) => {
 
     const [user, setUser] = useState<IUser|null>(null)
-    const [access, setAccess] = useState<IAccess[]>([dashboardAccess])
+    const [access, setAccess] = useState<IAccess[]>([])
     const navigate = useNavigate()
 
     const buildUser = async () => {
@@ -44,7 +43,7 @@ export const UserProvider = ({children}:IUserProviderProps) => {
 
     useEffect(() => {
         const buildAccess = () => {
-            setAccess([dashboardAccess])
+            setAccess([])
             if(user?.idStudent) {
                 setAccess((prev) => [...prev, studentAccess])
             }

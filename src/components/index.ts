@@ -1,4 +1,4 @@
-import ProtectedRoute from "./ProtectedRoutes/ProtectedRoute"
+import ProtectedRoute from "./ProtectedRoutes"
 import Bosch from "./Bosch"
 import CustomAppBar from "./CustomAppBar"
 import NavigationGrid from "./NavigationGrid"

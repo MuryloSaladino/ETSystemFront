@@ -2,7 +2,7 @@ const UsersPage = () => {
 
 
     return(
-        <div></div>
+        <div>users</div>
     )
 }
 

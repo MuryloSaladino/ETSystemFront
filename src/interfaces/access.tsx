@@ -4,22 +4,22 @@ import BackpackIcon from '@mui/icons-material/Backpack';
 
 export interface IAccess {
     name: string;
-    icon: JSX.Element;
     path: string;
+    icon: JSX.Element;
 }
 
 export const studentAccess:IAccess = {
     name: "Student",
-    icon: <BackpackIcon/>,
-    path: "/dashboard/student"
+    path: "/dashboard/student",
+    icon: <BackpackIcon/>
 }
 export const adminAccess:IAccess = {
     name: "Administrator",
-    icon: <AdminPanelSettingsIcon/>,
-    path: "/dashboard/admin"
+    path: "/dashboard/admin",
+    icon: <AdminPanelSettingsIcon/>
 } 
 export const instructorAccess:IAccess = {
     name: "Instructor",
-    icon: <SchoolIcon/>,
-    path: "/dashboard/instructor"
+    path: "/dashboard/instructor",
+    icon: <SchoolIcon/>
 }

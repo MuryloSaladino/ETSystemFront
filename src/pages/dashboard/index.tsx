@@ -5,13 +5,13 @@ import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
+import { getParsedDate } from "../../utils/date"
 
 
 const DashboardPage = () => {
     
     const { user, access } = useContext(UserContext)
-    const date = new Date()
-    const dateParsed = [date.getDate().toString().padStart(2, "0"), date.getMonth().toString().padStart(2, "0"), date.getFullYear()].join("/")
+    const dateParsed = getParsedDate()
     
     return(
         <>  

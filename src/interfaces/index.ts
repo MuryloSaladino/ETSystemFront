@@ -1,5 +1,5 @@
-import { IUser } from "./user.interfaces";
-import { IAccess, adminAccess, instructorAccess, studentAccess } from "./access.interfaces.tsx";
+import { IUser } from "./user.ts";
+import { IAccess, adminAccess, instructorAccess, studentAccess } from "./access.tsx";
 
 export type {
     IUser,

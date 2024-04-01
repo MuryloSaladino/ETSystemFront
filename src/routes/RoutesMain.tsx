@@ -13,6 +13,7 @@ import InstructorPage from "../pages/instructor";
 
 import StudentPage from "../pages/student";
 import UsersPage from "../pages/admin/users";
+import SingleUserView from "../pages/admin/users/SingleUserView";
 
 
 const RoutesMain = () => {
@@ -29,6 +30,7 @@ const RoutesMain = () => {
             <Route path="/admin" element={<ProtectedRoute/>}>
                 <Route index element={<AdminPage/>}/>
                 <Route path="users" element={<UsersPage/>}/>
+                <Route path="users/:idUser" element={<SingleUserView/>}/>
             </Route>
 
             <Route path="/instructor" element={<ProtectedRoute/>}>

@@ -9,6 +9,11 @@ import SettingsPage from "../pages/settings";
 
 import AdminPage from "../pages/admin";
 
+import InstructorPage from "../pages/instructor";
+
+import StudentPage from "../pages/student";
+
+
 const RoutesMain = () => {
     return (
         <Routes>
@@ -22,6 +27,14 @@ const RoutesMain = () => {
 
             <Route path="/admin" element={<ProtectedRoute/>}>
                 <Route index element={<AdminPage/>}/>
+            </Route>
+
+            <Route path="/instructor" element={<ProtectedRoute/>}>
+                <Route index element={<InstructorPage/>}/>
+            </Route>
+
+            <Route path="/student" element={<ProtectedRoute/>}>
+                <Route index element={<StudentPage/>}/>
             </Route>
 
             <Route path="/settings" element={<ProtectedRoute/>}>

@@ -12,3 +12,12 @@ export interface IUser {
     idAdministrator: boolean;
     institution: IInstitution;
 }
+
+export interface IUserGrouped {
+    idUser: string;
+    username: string;
+    name: string;
+    email: string;
+    dateOfBirth: string;
+    contact: string;
+}

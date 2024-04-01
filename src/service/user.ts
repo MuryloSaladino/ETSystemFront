@@ -1,10 +1,11 @@
-import { IUser } from '../interfaces/user.ts'
+import { IPaginated } from '../interfaces/paginated.ts'
+import { IUser, IUserGrouped } from '../interfaces/user.ts'
 import api from './api.ts'
 
 
-export const getUsers = async (token:string):Promise<IUser[]> => {
+export const getUsers = async (token:string, page:string):Promise<IPaginated<IUserGrouped>> => {
     try {
-        const response = await api.get(`/user`, {
+        const response = await api.get(`/user?page=${page}&limit=10`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }

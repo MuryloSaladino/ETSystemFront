@@ -10,7 +10,7 @@ export const StyledBody = styled("div")`
 
     ::after{
         content: "";
-        background-image: url("../../public/bosch_colors.svg");
+        background-image: url("../../bosch_colors.svg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% center;

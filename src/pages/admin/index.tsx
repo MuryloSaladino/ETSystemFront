@@ -7,7 +7,7 @@ const AdminPage = () => {
     const navigationItems:IAccess[] = [
         {
             name: "users",
-            path: "/dashboard/admin/users",
+            path: "/admin/users",
             icon: <GroupIcon/>
         },
     ]

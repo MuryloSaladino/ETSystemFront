@@ -12,6 +12,7 @@ import AdminPage from "../pages/admin";
 import InstructorPage from "../pages/instructor";
 
 import StudentPage from "../pages/student";
+import UsersPage from "../pages/admin/users";
 
 
 const RoutesMain = () => {
@@ -27,6 +28,7 @@ const RoutesMain = () => {
 
             <Route path="/admin" element={<ProtectedRoute/>}>
                 <Route index element={<AdminPage/>}/>
+                <Route path="users" element={<UsersPage/>}/>
             </Route>
 
             <Route path="/instructor" element={<ProtectedRoute/>}>

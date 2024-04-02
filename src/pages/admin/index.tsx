@@ -1,21 +1,19 @@
 import { CustomAppBar, NavigationGrid } from "../../components"
-import GroupIcon from '@mui/icons-material/Group';
+import { UserContext } from "../../context/UserContext";
 import { IAccess } from "../../interfaces";
+import { useContext, useEffect, useState } from "react";
 
 const AdminPage = () => {
 
-    const navigationItems:IAccess[] = [
-        {
-            name: "Users",
-            path: "/admin/users",
-            icon: <GroupIcon/>
-        },
-        {
-            name: "Instructors",
-            path: "/admin/instructors",
-            icon: <GroupIcon/>
+    const [navigationItems, setNavigationItems] = useState<IAccess[]>([])
+    const { user } = useContext(UserContext)
+
+    useEffect(() => {
+        const buildAccess = async () => {
+            
         }
-    ]
+        buildAccess()
+    }, [user])
 
     return(
         <>

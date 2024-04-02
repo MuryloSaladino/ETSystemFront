@@ -28,7 +28,13 @@ const DashboardPage = () => {
                 <Typography variant="h5">Acessos:</Typography>
             </Container>
 
-            <NavigationGrid navigationItems={access}/>
+            {
+                access.length > 0 ?
+                <NavigationGrid navigationItems={access}/> :
+                <Container maxWidth="md">
+                    <Typography variant="h6">Your user hasn't been given any access yet.</Typography>
+                </Container>
+            }
         </>
     )
 }

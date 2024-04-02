@@ -1,4 +1,4 @@
-import { Container, Divider, Typography } from "@mui/material"
+import { Button, Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar, SwitchInput } from "../../components"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
@@ -7,7 +7,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { updateUser } from "../../service/user";
 import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
-import { StyledStack } from "./styles";
+import { StyledForm, StyledStack } from "./styles";
 
 
 const SettingsPage = () => {
@@ -47,12 +47,12 @@ const SettingsPage = () => {
             <Container maxWidth="md">
                 <Typography variant="h4" sx={{ margin:"1rem 0" }}>Informações Básicas</Typography>
 
-                <form onSubmit={handleSubmit((data) => submit(data))}>
+                <StyledForm onSubmit={handleSubmit((data) => submit(data))}>
                     <StyledStack>
                         <Typography variant="h6">Username:</Typography>
                         <SwitchInput
                             {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
-                            helperText="Some important"/>
+                            helperText="Must start with a letter"/>
                     </StyledStack>
                     <Divider/>
                     <StyledStack>
@@ -78,7 +78,12 @@ const SettingsPage = () => {
                         <SwitchInput
                             {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}/>
                     </StyledStack>
-                </form>
+                    <Button
+                        variant="contained"
+                        type="submit">
+                        Save
+                    </Button>
+                </StyledForm>
             </Container>
         </>
     )

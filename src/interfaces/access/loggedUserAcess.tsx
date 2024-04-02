@@ -1,12 +1,8 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import BackpackIcon from '@mui/icons-material/Backpack';
+import IAccess from '.';
 
-export interface IAccess {
-    name: string;
-    path: string;
-    icon: JSX.Element;
-}
 
 export const studentAccess:IAccess = {
     name: "Student",

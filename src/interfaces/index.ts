@@ -1,7 +1,8 @@
 import { IUser, IUserGrouped } from "./user.ts";
 import { IInstitution } from "./institution.ts";
-import { IAccess, adminAccess, instructorAccess, studentAccess } from "./access.tsx";
+import IAccess from "./access"
 import { IPaginated } from "./paginated.ts";
+import { studentAccess, adminAccess, instructorAccess } from "./access/loggedUserAcess.tsx";
 
 
 export type {

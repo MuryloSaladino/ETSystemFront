@@ -8,11 +8,12 @@ const SwitchInput = forwardRef((props:any, ref) => {
 
     return(
         <TextField
+            size="small"
             inputRef={ref}
             {...props}            
+            onFocus={() => setEdit((prev) => !prev)}
+            onBlur={() => setEdit(false)}
             InputProps={{ readOnly: !edit }}
-            onDoubleClick={() => setEdit((prev) => !prev)}
-            size="small"
             helperText={edit ? props.helperText : undefined}/>
 )})
 

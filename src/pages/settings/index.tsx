@@ -1,4 +1,4 @@
-import { Container, Divider, Stack, Typography } from "@mui/material"
+import { Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar, SwitchInput } from "../../components"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
@@ -46,7 +46,7 @@ const SettingsPage = () => {
 
             <Container maxWidth="md">
                 <Typography variant="h4" sx={{ margin:"1rem 0" }}>Informações Básicas</Typography>
-        
+
                 <form onSubmit={handleSubmit((data) => submit(data))}>
                     <StyledStack>
                         <Typography variant="h6">Username:</Typography>

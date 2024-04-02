@@ -15,7 +15,7 @@ const NavigationGrid = ({navigationItems}:INavigationGridProps) => {
             <Grid container spacing={2}>
             {
                 navigationItems.map(item =>
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={item.name}>
                             <Card variant="outlined">
                                 <CardActionArea onClick={() => navigate(item.path)} sx={{display:"flex"}}>
                                     <CardHeader title={item.name}/>

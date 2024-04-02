@@ -6,10 +6,15 @@ const AdminPage = () => {
 
     const navigationItems:IAccess[] = [
         {
-            name: "users",
+            name: "Users",
             path: "/admin/users",
             icon: <GroupIcon/>
         },
+        {
+            name: "Instructors",
+            path: "/admin/instructors",
+            icon: <GroupIcon/>
+        }
     ]
 
     return(

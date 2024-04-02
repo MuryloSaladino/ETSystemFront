@@ -1,18 +1,30 @@
 import { Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar, SwitchInput } from "../../components"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
 import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
 import { updateUser } from "../../service/user";
 import { clearEmptyProperties } from "../../utils/object";
+import { IUser } from "../../interfaces";
 
 
 const SettingsPage = () => {
 
     const { user, buildUser } = useContext(UserContext)
     const { popNotification } = useContext(MessageContext)
-    const { handleSubmit, register, setValue } = useForm()
+    const { handleSubmit, register, setValue, getValues } = useForm()
+
+    useEffect(() => {
+        if(user) {
+            const values = Object.keys(getValues())
+            Object.keys(user).forEach((prop) => {
+                if(values.includes(prop)) {
+                    setValue(prop, user[(prop as keyof IUser)])
+                }
+            })
+        }
+    }, [user])
 
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")

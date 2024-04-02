@@ -1,7 +1,7 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import SchoolIcon from '@mui/icons-material/School';
 import BackpackIcon from '@mui/icons-material/Backpack';
-import IAccess from '.';
+import IAccess from './access';
 
 
 export const studentAccess:IAccess = {

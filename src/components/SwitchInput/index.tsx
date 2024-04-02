@@ -2,7 +2,7 @@ import { TextField } from "@mui/material"
 import { forwardRef, useState } from "react"
 
 
-const SwitchInput = forwardRef((props, ref) => {
+const SwitchInput = forwardRef((props:any, ref) => {
 
     const [edit, setEdit] = useState<boolean>(false)
 
@@ -12,7 +12,8 @@ const SwitchInput = forwardRef((props, ref) => {
             {...props}            
             InputProps={{ readOnly: !edit }}
             onDoubleClick={() => setEdit((prev) => !prev)}
-            size="small"/>
+            size="small"
+            helperText={edit ? props.helperText : undefined}/>
 )})
 
 export default SwitchInput

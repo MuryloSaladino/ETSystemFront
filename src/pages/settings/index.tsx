@@ -58,25 +58,29 @@ const SettingsPage = () => {
                     <StyledStack>
                         <Typography variant="h6">Name:</Typography>
                         <SwitchInput
-                            {...register("name", { pattern: /^[a-zA-Z ]+$/ })}/>
+                            {...register("name", { pattern: /^[a-zA-Z ]+$/ })}
+                            helperText="Only letters"/>
                     </StyledStack>
                     <Divider/>
                     <StyledStack>
                         <Typography variant="h6">Email:</Typography>
                         <SwitchInput
-                            {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}/>
+                            {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
+                            helperText="Must be in a valid email format"/>
                     </StyledStack>
                     <Divider/>
                     <StyledStack>
                         <Typography variant="h6">Contact:</Typography>
                         <SwitchInput
-                            {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}/>
+                            {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
+                            helperText="(XX)XXXXX-XXXX"/>
                     </StyledStack>
                     <Divider/>
                     <StyledStack>
                         <Typography variant="h6">Date Of Birth:</Typography>
                         <SwitchInput
-                            {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}/>
+                            {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}
+                            helperText="DD/MM/YYYY"/>
                     </StyledStack>
                     <Button
                         variant="contained"

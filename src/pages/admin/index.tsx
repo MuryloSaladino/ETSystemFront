@@ -13,7 +13,7 @@ const AdminPage = () => {
     useEffect(() => {
         const buildAccess = async () => {
             setNavigationItems([])
-            if(user && user.idAdministrator) {
+            if(user && user.administrator) {
                 setNavigationItems([
                     adminDisciplinesAccess,
                     adminInstitutionsAccess,

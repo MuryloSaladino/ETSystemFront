@@ -8,6 +8,7 @@ import { Button, Container, Divider, Typography } from "@mui/material"
 import { StyledForm, StyledStack } from "./styles"
 import { FieldValues, useForm } from "react-hook-form"
 import { clearEmptyProperties } from "../../../utils/object"
+import { datetimeToBrazilDate, brazilDateToDate } from "../../../utils/date"
 
 
 const SingleUserView = () => {
@@ -17,11 +18,14 @@ const SingleUserView = () => {
     const { popNotification } = useContext(MessageContext)
     const { idUser } = useParams()
 
-    
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {
             try {
+                if(data.dateOfBirth) {
+                    data.dateOfBirth = brazilDateToDate(data.dateOfBirth)
+                }
+                console.log(data)
                 setUser(await updateUser(user.idUser, token, clearEmptyProperties(data)))
                 popNotification("User data has been updated", "success")
             } catch (error) {
@@ -36,6 +40,9 @@ const SingleUserView = () => {
             Object.keys(user).forEach((prop) => {
                 if(values.includes(prop)) {
                     setValue(prop, user[(prop as keyof IUser)])
+                }
+                if(user.dateOfBirth) {
+                    setValue("dateOfBirth", datetimeToBrazilDate(user.dateOfBirth))
                 }
             })
         }

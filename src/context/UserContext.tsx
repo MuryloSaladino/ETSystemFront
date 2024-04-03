@@ -44,14 +44,16 @@ export const UserProvider = ({children}:IUserProviderProps) => {
     useEffect(() => {
         const buildAccess = () => {
             setAccess([])
-            if(user?.idStudent) {
-                setAccess((prev) => [...prev, studentAccess])
-            }
-            if(user?.idInstructor) {
-                setAccess((prev) => [...prev, instructorAccess])
-            }
-            if(user?.idAdministrator) {
-                setAccess((prev) => [...prev, adminAccess])
+            if(user) {
+                if(user.student) {
+                    setAccess((prev) => [...prev, studentAccess])
+                }
+                if(user.instructor) {
+                    setAccess((prev) => [...prev, instructorAccess])
+                }
+                if(user.administrator) {
+                    setAccess((prev) => [...prev, adminAccess])
+                }
             }
         }
         buildAccess()

@@ -1,7 +1,10 @@
 import IAccess from "./access/access.ts"
 import { 
     IUser,
-    IUserGrouped
+    IUserGrouped,
+    IAdministrator,
+    IStudent,
+    IInstructor,
 } from "./user.ts";
 import {
     IInstitution
@@ -28,7 +31,10 @@ export type {
     IUserGrouped,
     IAccess,
     IInstitution,
-    IPaginated
+    IPaginated,
+    IAdministrator,
+    IStudent,
+    IInstructor,
 }
 
 export {

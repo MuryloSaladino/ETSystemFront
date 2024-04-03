@@ -4,6 +4,7 @@ import CustomAppBar from "./CustomAppBar"
 import NavigationGrid from "./NavigationGrid"
 import StyledLink from "./Link"
 import SwitchInput from "./SwitchInput"
+import CustomDialog from "./DialogForm"
 
 
 export	{
@@ -12,5 +13,6 @@ export	{
     CustomAppBar,
     NavigationGrid,
     StyledLink,
-    SwitchInput
+    SwitchInput,
+    CustomDialog
 }

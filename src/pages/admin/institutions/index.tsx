@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
-import { toast } from "react-toastify";
+import AppToast from "../../../utils/AppToast";
 
 
 interface IInstitutionRow extends IInstitution {
@@ -69,7 +69,7 @@ const InstitutionsPage = () => {
                 const token:string|null = localStorage.getItem("@TOKEN")
                 setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
             } catch (error) {
-                
+                AppToast.notify("Oops! Something went wrong")
             }
         }
         buildUsers()

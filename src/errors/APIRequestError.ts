@@ -17,3 +17,5 @@ class APIRequestError extends Error {
         this.message = APIRequestError.messages[this.statusCode]
     }
 }
+
+export default APIRequestError

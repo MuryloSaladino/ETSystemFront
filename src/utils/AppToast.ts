@@ -1,4 +1,5 @@
 import { toast } from "react-toastify"
+import APIRequestError from "../errors/APIRequestError"
 
 type IToastType = "default" | "error" | "info" | "success" | "warning"
 
@@ -21,7 +22,7 @@ class AppToast {
     public static notifyError(error:APIRequestError | Error):void {
         const notificationMessage = error instanceof APIRequestError ? 
             error.message : APIRequestError.messages[400]
-            
+
         toast(
             notificationMessage, 
             { 

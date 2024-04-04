@@ -9,6 +9,7 @@ import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import AppToast from "../../../utils/AppToast";
+import APIRequestError from "../../../errors/APIRequestError";
 
 
 interface IInstitutionRow extends IInstitution {
@@ -69,7 +70,9 @@ const InstitutionsPage = () => {
                 const token:string|null = localStorage.getItem("@TOKEN")
                 setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
             } catch (error) {
-                AppToast.notify("Oops! Something went wrong")
+                if(error instanceof Error) {
+                    AppToast.notifyError(error)
+                }
             }
         }
         buildUsers()

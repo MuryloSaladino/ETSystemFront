@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { MessageContext } from "../../../context/MessageContext";
 import { getInstitutions } from "../../../service/institutions";
 import { CustomAppBar } from "../../../components";
-import { Container, Pagination, Stack, Typography } from "@mui/material";
+import { Container, Pagination, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
@@ -15,7 +15,6 @@ interface IInstitutionRow extends IInstitution {
     id: number;
 }
 
-
 const InstitutionsPage = () => {
 
     const [institutions, setInstitutions] = useState<IPaginated<IInstitution>>()
@@ -23,7 +22,7 @@ const InstitutionsPage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [currentInstitution, setCurrentInstitution] = useState<IInstitution|null>(null)
     const { popNotification } = useContext(MessageContext)
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, setValue } = useForm()
 
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
@@ -48,6 +47,7 @@ const InstitutionsPage = () => {
     const handleClick = (institution:IInstitutionRow) => {
         setOpen(true)
         setCurrentInstitution(institution)
+        setValue("name", institution.name)
     }
 
     const handleClose = () => {
@@ -61,7 +61,7 @@ const InstitutionsPage = () => {
     };
 
     const submit = async (data:FieldValues) => {
-
+        popNotification("nlbalvas")
     }
 
     useEffect(() => {
@@ -114,6 +114,10 @@ const InstitutionsPage = () => {
                 handleSubmit={handleSubmit}
                 submit={submit}
             >
+                <TextField
+                    {...register("name")}
+                    label="Name"
+                />
             </DialogForm>
         </>
     )

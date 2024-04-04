@@ -1,24 +1,19 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 import { IInstitution } from "../../interfaces";
-import React from "react";
+import { ReactNode } from "react";
+import { FieldValues, UseFormHandleSubmit } from "react-hook-form";
 
-interface IInputGeneration {
-    name: string;
-    Component: () => React.JSX.Element;
-}
 
 interface ICustomDialogProps {
+    title: string;
     open: boolean;
     handleClose: () => void;
-    handleSubmit: () => Promise<void>
-    formInputs: IInputGeneration[];
-    title: string;
-    institution: IInstitution;
+    handleSubmit: UseFormHandleSubmit<FieldValues, undefined>;
+    submit: (data:FieldValues) => Promise<void>;
+    children: ReactNode;
 }
 
-const DialogForm = ({open, handleClose, formInputs, title, institution, handleSubmit}:ICustomDialogProps) => {
-
-
+const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:ICustomDialogProps) => {
 
     return(
         <Dialog 
@@ -26,13 +21,9 @@ const DialogForm = ({open, handleClose, formInputs, title, institution, handleSu
             onClose={handleClose}>
 
             <DialogTitle>{title}</DialogTitle>
-            <form>
+            <form onSubmit={handleSubmit((data) => submit(data))}>
                 <DialogContent>
-                    {
-                        formInputs.map(FormInput => 
-                            <FormInput.Component key={FormInput.name} />
-                        )
-                    }
+                    {children}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

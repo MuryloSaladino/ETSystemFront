@@ -1,6 +1,6 @@
 import './styles/Reset.css'
+import './styles/GlobalStyles.css'
 import RoutesMain from "./routes/RoutesMain";
-import { StyledBody } from "./styles/GlobalStyled";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useContext } from 'react';
 import { ColorsContext } from './context/ColorsContext';
@@ -15,13 +15,11 @@ function App() {
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <StyledBody>
         <UserProvider>
           <MessageProvider>
             <RoutesMain/>
           </MessageProvider>
         </UserProvider>
-      </StyledBody>
     </ThemeProvider>
   ) 
 }

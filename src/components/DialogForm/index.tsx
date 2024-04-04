@@ -1,5 +1,4 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
-import { IInstitution } from "../../interfaces";
 import { ReactNode } from "react";
 import { FieldValues, UseFormHandleSubmit } from "react-hook-form";
 

@@ -13,7 +13,6 @@ import InstructorPage from "../pages/instructor";
 
 import StudentPage from "../pages/student";
 import UsersPage from "../pages/admin/users";
-import SingleUserView from "../pages/admin/users/SingleUserView";
 import InstructorsPage from "../pages/admin/instructors";
 import DisciplinesPage from "../pages/admin/disciplines";
 import StudentsPage from "../pages/admin/students";
@@ -34,7 +33,6 @@ const RoutesMain = () => {
             <Route path="/admin" element={<ProtectedRoute/>}>
                 <Route index element={<AdminPage/>}/>
                 <Route path="users" element={<UsersPage/>}/>
-                <Route path="users/:idUser" element={<SingleUserView/>}/>
                 <Route path="instructors" element={<InstructorsPage/>}/>
                 <Route path="disciplines" element={<DisciplinesPage/>}/>
                 <Route path="students" element={<StudentsPage/>}/>

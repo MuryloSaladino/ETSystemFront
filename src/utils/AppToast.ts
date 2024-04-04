@@ -13,7 +13,7 @@ class AppToast {
             message, 
             { 
                 type: type,
-                theme: AppToast.getTheme()
+                theme: AppToast.getTheme(),
             }
         )
     }

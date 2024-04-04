@@ -4,10 +4,16 @@ import { useSearchParams } from "react-router-dom";
 import { MessageContext } from "../../../context/MessageContext";
 import { getInstitutions } from "../../../service/institutions";
 import { CustomAppBar } from "../../../components";
-import { Container, IconButton, Pagination, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Container, Pagination, Stack, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
+import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
+
+
+interface IInstitutionRow extends IInstitution {
+    id: number;
+}
 
 
 const InstitutionsPage = () => {
@@ -18,9 +24,28 @@ const InstitutionsPage = () => {
     const [currentInstitution, setCurrentInstitution] = useState<IInstitution|null>(null)
     const { popNotification } = useContext(MessageContext)
     const { register, handleSubmit } = useForm()
+
+    const columns:GridColDef[] = [
+        { field: "name", headerName: "Name", flex: 0.5, sortable: false },
+        {
+            field: "actions",
+            type: "actions",
+            flex: 0.1,
+            headerName: "Actions",
+            getActions: (row) => {
+                return [
+                    <GridActionsCellItem
+                        icon={<EditIcon/>}
+                        onClick={() => handleClick(row.row)}
+                        label="Edit"
+                    />
+                ]
+            }
+        },
+    ]
     
 
-    const handleClick = (institution:IInstitution) => {
+    const handleClick = (institution:IInstitutionRow) => {
         setOpen(true)
         setCurrentInstitution(institution)
     }
@@ -59,30 +84,21 @@ const InstitutionsPage = () => {
                 <Stack spacing={3}>
                     <Typography variant="h4">Institutions</Typography>
 
-                    <TableContainer>
-                        <Table>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Name</TableCell>
-                                    <TableCell align="right">Actions</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {
-                                    institutions?.paginatedData.map(institution => 
-                                        <TableRow key={institution.idInstitution}>
-                                            <TableCell>{institution.name}</TableCell>
-                                            <TableCell align="right">
-                                                <IconButton onClick={() => handleClick(institution)}>
-                                                    <EditIcon/>
-                                                </IconButton>
-                                            </TableCell>
-                                        </TableRow>    
-                                    )
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    {
+                        institutions ? 
+                        <DataGrid
+                            columns={columns}
+                            rows={institutions.paginatedData.map((institution, index) =>
+                                ({
+                                    id: index, 
+                                    ...institution
+                                })
+                            )}
+                            rowSelection={false}
+                            hideFooter
+                        /> :
+                        <div>Tem nada ai</div>
+                    }
 
                     <Pagination 
                         count={institutions?.totalPages} 
@@ -96,7 +112,8 @@ const InstitutionsPage = () => {
                 open={open}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
-                submit={submit}>
+                submit={submit}
+            >
             </DialogForm>
         </>
     )

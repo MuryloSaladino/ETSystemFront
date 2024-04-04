@@ -5,7 +5,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { useContext } from 'react';
 import { ColorsContext } from './context/ColorsContext';
 import { UserProvider } from './context/UserContext';
-import { MessageProvider } from './context/MessageContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -15,11 +16,10 @@ function App() {
   return(
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-        <UserProvider>
-          <MessageProvider>
-            <RoutesMain/>
-          </MessageProvider>
-        </UserProvider>
+      <UserProvider>
+        <RoutesMain/>
+      </UserProvider>
+      <ToastContainer/>
     </ThemeProvider>
   ) 
 }

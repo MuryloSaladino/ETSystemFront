@@ -8,8 +8,8 @@ class APIRequestError extends Error {
         409: "It seems that what you were trying to do conflicts with our data.",
     }
 
-    message: string;
-    statusCode: number;
+    public message: string;
+    public statusCode: number;
 
     public constructor(statusCode:number = 400) {
         super()

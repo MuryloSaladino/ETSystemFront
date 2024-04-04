@@ -9,7 +9,7 @@ interface ICustomDialogProps {
     handleClose: () => void;
     handleSubmit: UseFormHandleSubmit<FieldValues, undefined>;
     submit: (data:FieldValues) => Promise<void>;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:ICustomDialogProps) => {

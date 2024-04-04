@@ -7,19 +7,18 @@ import { CustomAppBar } from "../../../components";
 import { Container, IconButton, Pagination, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
+import { FieldValues, useForm } from "react-hook-form";
 
 
 const InstitutionsPage = () => {
 
     const [institutions, setInstitutions] = useState<IPaginated<IInstitution>>()
     const [searchParams, setSearchParams] = useSearchParams({ page: "1" })
-    const { popNotification } = useContext(MessageContext)
     const [open, setOpen] = useState<boolean>(false)
     const [currentInstitution, setCurrentInstitution] = useState<IInstitution|null>(null)
-
-    const handleSubmit = async () => {
-
-    }
+    const { popNotification } = useContext(MessageContext)
+    const { register, handleSubmit } = useForm()
+    
 
     const handleClick = (institution:IInstitution) => {
         setOpen(true)
@@ -35,6 +34,10 @@ const InstitutionsPage = () => {
         e.preventDefault()
         setSearchParams({ page: String(value) });
     };
+
+    const submit = async (data:FieldValues) => {
+
+    }
 
     useEffect(() => {
         const buildUsers = async () => {
@@ -93,14 +96,8 @@ const InstitutionsPage = () => {
                 open={open}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
-                institution={currentInstitution!}
-                formInputs={[
-                    {
-                        name: "name",
-                        Component: () => <TextField/>
-                    },
-                ]}
-            />
+                submit={submit}>
+            </DialogForm>
         </>
     )
 }

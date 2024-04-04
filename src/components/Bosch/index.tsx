@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../../public/bosch_logo.svg'
+import logo from '/bosch_logo.svg'
 import Box from "@mui/material/Box"
 
 const Bosch = () => {

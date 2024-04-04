@@ -88,10 +88,6 @@
 body {
     padding-top: 130px;
     position: relative;
-
-    display: flex;
-    flex-flow: column nowrap;
-    gap: 30px;
 }
 
 body::after{
@@ -107,4 +103,10 @@ body::after{
     position: absolute;
     left: 0;
     top: 0;
+}
+
+#root{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
 }

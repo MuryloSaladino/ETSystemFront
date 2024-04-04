@@ -9,8 +9,6 @@ import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import AppToast from "../../../utils/AppToast";
-import APIRequestError from "../../../errors/APIRequestError";
-
 
 interface IInstitutionRow extends IInstitution {
     id: number;
@@ -49,12 +47,10 @@ const InstitutionsPage = () => {
         setCurrentInstitution(institution)
         setValue("name", institution.name)
     }
-
     const handleClose = () => {
         setOpen(false)
         setCurrentInstitution(null)
     }
-
     const handleChange = (e:ChangeEvent<unknown>, value:number) => {
         e.preventDefault()
         setSearchParams({ page: String(value) });
@@ -62,10 +58,11 @@ const InstitutionsPage = () => {
 
     const submit = async (data:FieldValues) => {
         console.log(data)
+        console.log(currentInstitution)
     }
 
     useEffect(() => {
-        const buildUsers = async () => {
+        const retrieveInstitutions = async () => {
             try {
                 const token:string|null = localStorage.getItem("@TOKEN")
                 setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
@@ -75,7 +72,7 @@ const InstitutionsPage = () => {
                 }
             }
         }
-        buildUsers()
+        retrieveInstitutions()
     }, [searchParams])
 
     return(
@@ -87,7 +84,7 @@ const InstitutionsPage = () => {
                     <Typography variant="h4">Institutions</Typography>
 
                     {
-                        institutions ? 
+                        institutions &&
                         <DataGrid
                             columns={columns}
                             rows={institutions.paginatedData.map((institution, index) =>
@@ -98,8 +95,7 @@ const InstitutionsPage = () => {
                             )}
                             rowSelection={false}
                             hideFooter
-                        /> :
-                        <div>Tem nada ai</div>
+                        />
                     }
 
                     <Pagination 

@@ -1,7 +1,6 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IInstitution, IPaginated } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
-import { MessageContext } from "../../../context/MessageContext";
 import { getInstitutions } from "../../../service/institutions";
 import { CustomAppBar } from "../../../components";
 import { Container, Pagination, Stack, TextField, Typography } from "@mui/material";
@@ -9,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
+import { toast } from "react-toastify";
 
 
 interface IInstitutionRow extends IInstitution {
@@ -21,7 +21,6 @@ const InstitutionsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams({ page: "1" })
     const [open, setOpen] = useState<boolean>(false)
     const [currentInstitution, setCurrentInstitution] = useState<IInstitution|null>(null)
-    const { popNotification } = useContext(MessageContext)
     const { register, handleSubmit, setValue } = useForm()
 
     const columns:GridColDef[] = [
@@ -61,7 +60,7 @@ const InstitutionsPage = () => {
     };
 
     const submit = async (data:FieldValues) => {
-        popNotification("nlbalvas")
+        console.log(data)
     }
 
     useEffect(() => {
@@ -70,7 +69,7 @@ const InstitutionsPage = () => {
                 const token:string|null = localStorage.getItem("@TOKEN")
                 setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
             } catch (error) {
-                popNotification("Oops! Something went wrong", "error")
+                
             }
         }
         buildUsers()

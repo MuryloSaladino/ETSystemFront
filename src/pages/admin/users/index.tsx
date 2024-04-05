@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react"
-import { CustomAppBar } from "../../../components"
+import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
 import { getUsers } from "../../../service/user"
 import { useSearchParams } from "react-router-dom"
@@ -27,6 +27,13 @@ const UsersPage = () => {
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
         { field: "email", headerName: "Email", flex: 0.3, sortable: false },
+        { 
+            field: "access",
+            headerName: "Access",
+            flex: 0.3,
+            sortable: false,
+            renderCell: (params) => <AccessChips user={params.row}/>
+        },
         {
             field: "actions",
             type: "actions",
@@ -109,6 +116,7 @@ const UsersPage = () => {
                             )}
                             rowSelection={false}
                             hideFooter
+                            disableColumnFilter
                         />
                     }
 

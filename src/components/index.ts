@@ -5,6 +5,7 @@ import NavigationGrid from "./NavigationGrid"
 import StyledLink from "./Link"
 import SwitchInput from "./SwitchInput"
 import CustomDialog from "./DialogForm"
+import AccessChips from "./AccessChips"
 
 
 export	{
@@ -14,5 +15,6 @@ export	{
     NavigationGrid,
     StyledLink,
     SwitchInput,
-    CustomDialog
+    CustomDialog,
+    AccessChips
 }

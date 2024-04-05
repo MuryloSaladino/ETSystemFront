@@ -9,6 +9,7 @@ import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import AppToast from "../../../utils/AppToast";
+import AppBreadcrumbs from "../../../components/Breadcrumbs";
 
 interface IInstitutionRow extends IInstitution {
     id: number;
@@ -81,6 +82,8 @@ const InstitutionsPage = () => {
 
             <Container maxWidth="md">
                 <Stack spacing={3}>
+                    <AppBreadcrumbs/>
+
                     <Typography variant="h4">Institutions</Typography>
 
                     {

@@ -1,5 +1,9 @@
+import loginService from "./login";
 import userService from "./user";
+import institutionService from "./institutions";
 
 export {
-    userService
+    loginService,
+    userService,
+    institutionService
 };

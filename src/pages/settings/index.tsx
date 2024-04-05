@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
 import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
-import { updateUser } from "../../service/user";
+import { userService } from "../../service";
 import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
 import { StyledForm, StyledStack } from "./styles";
@@ -31,7 +31,7 @@ const SettingsPage = () => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {
             try {
-                await updateUser(user.idUser, token, clearEmptyProperties(data))
+                await userService.updateUser(user.idUser, clearEmptyProperties(data))
                 popNotification("Your data has been updated", "success")
                 buildUser()
             } catch (error) {

@@ -3,7 +3,7 @@ import { EndpointOptions } from "./RequestsManager";
 import { BaseService } from "./BaseService";
 
 class InstitutionService extends BaseService {
-    getInstitutions = async(page: number): Promise<IPaginated<IInstitution>> => {
+    getInstitutions = async(page: string): Promise<IPaginated<IInstitution>> => {
         this.manager.setAuth();
         const response = await this.manager.get(
             new EndpointOptions(

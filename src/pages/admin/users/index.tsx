@@ -10,6 +10,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
 import { clearEmptyProperties } from "../../../utils/object";
+import AppToast from "../../../utils/AppToast";
+import { updateUser } from "../../../service/user";
 
 
 interface IUserRow extends IUser {
@@ -67,14 +69,20 @@ const UsersPage = () => {
     }
 
     const submit = async (data:FieldValues) => {
-        console.log(clearEmptyProperties(data))
         try {
-            await userService.updateUser(
-                currentUser!.idUser, 
+            // await userService.updateUser(
+            //     currentUser!.idUser,
+            //     clearEmptyProperties(data)
+            // )
+            await updateUser(
+                currentUser!.idUser,
+                localStorage.getItem("@TOKEN")!,
                 clearEmptyProperties(data)
             )
+            AppToast.notify("Your data has been updated")
         } catch (error) {
-            
+            if(error instanceof Error)
+                AppToast.notifyError(error)
         }
         handleClose()
     }

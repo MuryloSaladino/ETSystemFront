@@ -1,5 +1,5 @@
-import { RequestsManager } from "./classes/RequestsManager";
-import { EndpointOptions } from "./classes/EndpointOptions";
+import { RequestsManager } from "./RequestsManager";
+import { EndpointOptions } from "./EndpointOptions";
 
 export {
     RequestsManager,

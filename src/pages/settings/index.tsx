@@ -30,7 +30,7 @@ const SettingsPage = () => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {
             try {
-                await updateUser(user.idUser, token, clearEmptyProperties(data))
+                await userService.updateUser(user.idUser, clearEmptyProperties(data))
                 AppToast.notify("Data has been updated!", "success")
                 buildUser()
             } catch (error) {

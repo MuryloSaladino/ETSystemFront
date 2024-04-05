@@ -11,7 +11,6 @@ import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
 import { clearEmptyProperties } from "../../../utils/object";
 import AppToast from "../../../utils/AppToast";
-import { updateUser } from "../../../service/user";
 
 
 interface IUserRow extends IUser {
@@ -70,13 +69,8 @@ const UsersPage = () => {
 
     const submit = async (data:FieldValues) => {
         try {
-            // await userService.updateUser(
-            //     currentUser!.idUser,
-            //     clearEmptyProperties(data)
-            // )
-            await updateUser(
+            await userService.updateUser(
                 currentUser!.idUser,
-                localStorage.getItem("@TOKEN")!,
                 clearEmptyProperties(data)
             )
             AppToast.notify("Your data has been updated")

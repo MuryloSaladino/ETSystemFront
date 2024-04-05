@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { IInstitution, IPaginated } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
-import { getInstitutions } from "../../../service/institutions";
+import { institutionService } from "../../../service";
 import { CustomAppBar } from "../../../components";
 import { Chip, Container, Pagination, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
@@ -70,8 +70,7 @@ const InstitutionsPage = () => {
     useEffect(() => {
         const retrieveInstitutions = async () => {
             try {
-                const token:string|null = localStorage.getItem("@TOKEN")
-                setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
+                setInstitutions(await institutionService.getInstitutions(searchParams.get("page")!))
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)

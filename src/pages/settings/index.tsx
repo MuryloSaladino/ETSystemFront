@@ -3,7 +3,7 @@ import { CustomAppBar, SwitchInput } from "../../components"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
 import { FieldValues, useForm } from "react-hook-form";
-import { updateUser } from "../../service/user";
+import { userService } from "../../service";
 import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
 import { StyledForm, StyledStack } from "./styles";

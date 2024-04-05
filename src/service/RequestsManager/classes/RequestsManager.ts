@@ -5,8 +5,12 @@ class RequestsManager {
     instance: AxiosInstance;
     auth: AxiosHeaderValue;
 
-    public constructor(instance: AxiosInstance, token: string) {
+    public constructor(instance: AxiosInstance) {
         this.instance = instance;
+        this.auth = null;
+    }
+
+    setAuth(token: string) {
         this.auth = `Bearer ${token}`;
     }
 

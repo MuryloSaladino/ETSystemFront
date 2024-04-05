@@ -4,8 +4,12 @@ import { RequestsManager } from "../RequestsManager";
 abstract class BaseService {
     manager: RequestsManager;
 
-    public constructor(instance: AxiosInstance, token: string) {
-        this.manager = new RequestsManager(instance, token);
+    public constructor(instance: AxiosInstance) {
+        this.manager = new RequestsManager(instance);
+    }
+
+    public setAuth(token: string) {
+        this.manager.setAuth(token);
     }
 }
 

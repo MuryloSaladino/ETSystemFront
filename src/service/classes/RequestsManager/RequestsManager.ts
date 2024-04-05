@@ -10,8 +10,8 @@ class RequestsManager {
         this.auth = null;
     }
 
-    setAuth(token: string) {
-        this.auth = `Bearer ${token}`;
+    setAuth() {
+        this.auth = `Bearer ${localStorage.getItem("@TOKEN") || ""}`;
     }
 
     get = async(endpointOptions: EndpointOptions) => {
@@ -38,7 +38,15 @@ class RequestsManager {
             data,
             { headers: { Authorization: this.auth } }
         )
-    }
+    };
+
+    delete = async(endpointOptions: EndpointOptions) => {
+        const endpointUrl = endpointOptions.getEndpoint();
+        return await this.instance.delete(
+            endpointUrl,
+            { headers: { Authorization: this.auth } }
+        );
+    };
 }
 
 export { RequestsManager };

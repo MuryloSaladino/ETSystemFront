@@ -1,7 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
-import { getUsers } from "../../../service/user"
+// import { getUsers } from "../../../service/user"
+import { userService } from "../../../service";
 import { useSearchParams } from "react-router-dom"
 import { Container, Pagination, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
@@ -73,8 +74,7 @@ const UsersPage = () => {
     useEffect(() => {
         const retrieveUsers = async () => {
             try {
-                const token:string|null = localStorage.getItem("@TOKEN")
-                setUsers(await getUsers(token!, searchParams.get("page")!))
+                setUsers(await userService.getUsers(Number(searchParams.get("page"))!));
             } catch (error) {
 
             }

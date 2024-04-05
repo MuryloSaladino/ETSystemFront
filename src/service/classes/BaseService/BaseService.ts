@@ -7,10 +7,6 @@ abstract class BaseService {
     public constructor(instance: AxiosInstance) {
         this.manager = new RequestsManager(instance);
     }
-
-    public setAuth(token: string) {
-        this.manager.setAuth(token);
-    }
 }
 
 export { BaseService };

@@ -26,8 +26,8 @@ class EndpointOptions {
     private setEndpointQueries(): void {
         let foundOne = false;
         for (const param in this.queryParams) {
-            foundOne = true;
             this.formatEndpoint += `${foundOne ? "&" : "?"}${param}=${this.queryParams[param]}`;
+            foundOne = true;
         }
     }
 

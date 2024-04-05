@@ -4,6 +4,7 @@ import { BaseService } from "./BaseService";
 
 class UserService extends BaseService {
     getUsers = async(page: number): Promise<IPaginated<IUserGrouped>> => {
+        this.manager.setAuth();
         const response = await this.manager.get(new EndpointOptions(
             "/user",
             { },
@@ -13,6 +14,7 @@ class UserService extends BaseService {
     };
 
     getUser = async(idUser: string): Promise<IUser> => {
+        this.manager.setAuth();
         const response = await this.manager.get(new EndpointOptions(
             "/user/:idUser",
             { idUser: idUser },
@@ -22,6 +24,7 @@ class UserService extends BaseService {
     };
 
     updateUser = async(idUser: string, data: any): Promise<IUser> => {
+        this.manager.setAuth();
         const response = await this.manager.patch<any>(
             new EndpointOptions(
                 "/user/:idUser",

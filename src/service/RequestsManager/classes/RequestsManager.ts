@@ -10,8 +10,8 @@ class RequestsManager {
         this.auth = null;
     }
 
-    setAuth(token: string) {
-        this.auth = `Bearer ${token}`;
+    setAuth() {
+        this.auth = `Bearer ${localStorage.getItem("@TOKEN") || ""}`;
     }
 
     get = async(endpointOptions: EndpointOptions) => {

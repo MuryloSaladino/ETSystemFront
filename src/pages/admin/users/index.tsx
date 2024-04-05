@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react"
-import { CustomAppBar } from "../../../components"
+import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
 import { getUsers } from "../../../service/user"
 import { useSearchParams } from "react-router-dom"
@@ -31,10 +31,7 @@ const UsersPage = () => {
             field: "access",
             headerName: "Access",
             flex: 0.3,
-            valueGetter: (value, row) => {
-              const result = []
-                
-            } 
+            renderCell: (params) => <AccessChips user={params.row}/>
         },
         {
             field: "actions",

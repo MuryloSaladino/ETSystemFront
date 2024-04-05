@@ -11,7 +11,7 @@ interface IAccessChipsProps {
 const AccessChips = ({user}:IAccessChipsProps) => {
 
     return(
-        <Stack flexDirection="row" gap={1}>
+        <Stack flexDirection="row" gap={1} alignItems="center" height="100%">
             {
                 user.idAdministrator &&
                 <Chip icon={<AdminPanelSettingsIcon/>} label="Administrator"></Chip> 

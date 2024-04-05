@@ -10,6 +10,10 @@ import {
     IInstitution
 } from "./institution.ts";
 import {
+    IStudentGroup,
+    IStudentGroupGrouped
+} from "./studentGroup.ts";
+import {
     IPaginated
 } from "./paginated.ts";
 import {
@@ -35,6 +39,8 @@ export type {
     IAdministrator,
     IStudent,
     IInstructor,
+    IStudentGroup,
+    IStudentGroupGrouped
 }
 
 export {

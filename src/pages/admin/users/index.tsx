@@ -9,6 +9,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
+import AppBreadcrumbs from "../../../components/Breadcrumbs"
 
 
 interface IUserRow extends IUser {
@@ -95,6 +96,8 @@ const UsersPage = () => {
 
             <Container maxWidth="md">
                 <Stack spacing={3}>
+                    <AppBreadcrumbs/>
+
                     <Typography variant="h4">Users</Typography>
 
                     {

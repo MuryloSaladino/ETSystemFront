@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
-// import { getUsers } from "../../../service/user"
 import { userService } from "../../../service";
 import { useSearchParams } from "react-router-dom"
 import { Container, Pagination, Stack, TextField, Tooltip, Typography } from "@mui/material"

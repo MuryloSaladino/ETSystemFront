@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeIcon from '@mui/icons-material/Home';
-import { MessageContext } from "../../context/MessageContext";
+import AppToast from "../../utils/AppToast";
 
 interface IActionsDrawerProps {
     open: boolean;
@@ -18,7 +18,6 @@ interface IActionsDrawerProps {
 const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
 
     const { access, logout } = useContext(UserContext)
-    const { popNotification } = useContext(MessageContext)
     const navigate = useNavigate()
 
     return(
@@ -49,7 +48,7 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                         <Typography variant="h5">Settings</Typography>
                     </StyledListItemButton>
 
-                    <StyledListItemButton onClick={() => { logout(); popNotification("Logged out") }}>
+                    <StyledListItemButton onClick={() => { logout(); AppToast.notify("Logged out") }}>
                         <LogoutIcon/>
                         <Typography variant="h5">Logout</Typography>
                     </StyledListItemButton>

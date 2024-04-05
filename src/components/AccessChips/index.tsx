@@ -14,15 +14,15 @@ const AccessChips = ({user}:IAccessChipsProps) => {
         <Stack flexDirection="row" gap={1} alignItems="center" height="100%">
             {
                 user.idAdministrator &&
-                <Chip icon={<AdminPanelSettingsIcon/>} label="Administrator"></Chip> 
+                <Chip icon={<AdminPanelSettingsIcon/>} label="Administrator" color="primary"></Chip> 
             }
             {
                 user.idInstructor &&
-                <Chip icon={<SchoolIcon/>} label="Instructor"></Chip> 
+                <Chip icon={<SchoolIcon/>} label="Instructor" color="secondary"></Chip> 
             }
             {
                 user.idStudent &&
-                <Chip icon={<BackpackIcon/>} label="Student"></Chip> 
+                <Chip icon={<BackpackIcon/>} label="Student" color="success"></Chip> 
             }
         </Stack>
     )

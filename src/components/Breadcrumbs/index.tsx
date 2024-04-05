@@ -19,7 +19,7 @@ const AppBreadcrumbs = () => {
 
     const handleLink = (link:string):string => {
         const location = window.location.pathname
-        return location.substring(0, location.indexOf(link))
+        return location.substring(0, location.indexOf("/", location.indexOf(link)))
     }
 
     return(

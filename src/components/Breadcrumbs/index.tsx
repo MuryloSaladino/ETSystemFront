@@ -30,13 +30,13 @@ const AppBreadcrumbs = () => {
                         to={handleLink(link)} 
                         key={index}
                     >
-                        {titleCase(link)}
+                        <Typography>{titleCase(link)}</Typography>
                     </StyledLink>
                 )
             }
             {
                 currentPage &&
-                <Typography fontWeight={600}>{titleCase(currentPage)}</Typography>
+                <Typography fontWeight={600} sx={{ textDecoration: "underline" }}>{titleCase(currentPage)}</Typography>
             }
         </Breadcrumbs>
     )

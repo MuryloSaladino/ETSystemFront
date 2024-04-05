@@ -23,11 +23,75 @@ class UserService extends BaseService {
         return response.data;
     };
 
+    createUser = async(data: any): Promise<IUser> => {
+        this.manager.setAuth();
+        const response = await this.manager.post(
+            new EndpointOptions(
+                "/user",
+                { },
+                { }
+            ),
+            data
+        );
+        return response.data;
+    };
+
     updateUser = async(idUser: string, data: any): Promise<IUser> => {
         this.manager.setAuth();
         const response = await this.manager.patch<any>(
             new EndpointOptions(
                 "/user/:idUser",
+                { idUser: idUser },
+                { }
+            ),
+            data
+        );
+        return response.data;
+    };
+
+    deleteUser = async(idUser: string): Promise<void> => {
+        this.manager.setAuth();
+        const response = await this.manager.delete(
+            new EndpointOptions(
+                "/user/:idUser",
+                { idUser: idUser },
+                { }
+            )
+        );
+        return response.data;
+    };
+
+    createAdmin = async(idUser: string, data: any): Promise<IUser> => {
+        this.manager.setAuth();
+        const response = await this.manager.post(
+            new EndpointOptions(
+                "/user/:idUser/admin",
+                { idUser: idUser },
+                { }
+            ),
+            data
+        );
+        return response.data;
+    };
+
+    createInstructor = async(idUser: string, data: any): Promise<IUser> => {
+        this.manager.setAuth();
+        const response = await this.manager.post(
+            new EndpointOptions(
+                "/user/:idUser/instructor",
+                { idUser: idUser },
+                { }
+            ),
+            data
+        );
+        return response.data;
+    };
+
+    createStudent = async(idUser: string, data: any): Promise<IUser> => {
+        this.manager.setAuth();
+        const response = await this.manager.post(
+            new EndpointOptions(
+                "/user/:idUser/student",
                 { idUser: idUser },
                 { }
             ),

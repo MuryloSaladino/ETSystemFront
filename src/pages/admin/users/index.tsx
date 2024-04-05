@@ -67,7 +67,6 @@ const UsersPage = () => {
     useEffect(() => {
         const retrieveUsers = async () => {
             try {
-                const token:string|null = localStorage.getItem("@TOKEN")
                 setUsers(await userService.getUsers(Number(searchParams.get("page"))!));
             } catch (error) {
 

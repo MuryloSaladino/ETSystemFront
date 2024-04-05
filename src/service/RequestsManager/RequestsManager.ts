@@ -38,7 +38,15 @@ class RequestsManager {
             data,
             { headers: { Authorization: this.auth } }
         )
-    }
+    };
+
+    delete = async(endpointOptions: EndpointOptions) => {
+        const endpointUrl = endpointOptions.getEndpoint();
+        return await this.instance.delete(
+            endpointUrl,
+            { headers: { Authorization: this.auth } }
+        );
+    };
 }
 
 export { RequestsManager };

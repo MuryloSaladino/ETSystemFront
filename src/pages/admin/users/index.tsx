@@ -31,6 +31,7 @@ const UsersPage = () => {
             field: "access",
             headerName: "Access",
             flex: 0.3,
+            sortable: false,
             renderCell: (params) => <AccessChips user={params.row}/>
         },
         {
@@ -115,6 +116,7 @@ const UsersPage = () => {
                             )}
                             rowSelection={false}
                             hideFooter
+                            disableColumnFilter
                         />
                     }
 

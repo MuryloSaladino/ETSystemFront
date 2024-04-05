@@ -9,6 +9,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
+import { clearEmptyProperties } from "../../../utils/object";
 
 
 interface IUserRow extends IUser {
@@ -66,8 +67,16 @@ const UsersPage = () => {
     }
 
     const submit = async (data:FieldValues) => {
-        console.log(data)
-        console.log(currentUser)
+        console.log(clearEmptyProperties(data))
+        try {
+            await userService.updateUser(
+                currentUser!.idUser, 
+                clearEmptyProperties(data)
+            )
+        } catch (error) {
+            
+        }
+        handleClose()
     }
 
     useEffect(() => {

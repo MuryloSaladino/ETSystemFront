@@ -14,12 +14,8 @@ class EndpointOptions {
     }
 
     private setEndpointPath(): void {
-        const regex = /\/:([^\/]+)/g;
-        this.formatEndpoint.replace(regex, (_, token) => {
-            if (this.pathParams.hasOwnProperty(token)) {
-                return `/${this.pathParams[token]}`;
-            }
-            throw new Error(`Token "${token}" not found in path parameters.`);
+        Object.keys(this.pathParams).forEach(param => {
+            this.formatEndpoint = this.formatEndpoint.replace(`:${param}`, String(this.pathParams[param]))
         });
     }
 

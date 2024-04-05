@@ -1,0 +1,112 @@
+:root{
+    --primary-light: #007bc0;
+    --primary-main: #00629a;
+    --primary-dark: #004975;
+     
+    --secondary-light: #9e2896;
+    --secondary-main: #791d73;
+    --secondary-dark: #551151;
+     
+    --error-light: #ed0007;
+    --error-main: #be0004;
+    --error-dark: #920002;
+     
+    --warning-light: #ffcf00;
+    --warning-main: #deb300;
+    --warning-dark: #bd9900;
+     
+    --info-light: #18837e;
+    --info-main: #116864;
+    --info-dark: #0a4f4b;
+     
+    --success-light: #00884a;
+    --success-main: #006c3a;
+    --success-dark: #00512a;
+
+    --toastify-color-light: #fff;
+    --toastify-color-dark: #121212;
+    --toastify-color-info: var(--info-main);
+    --toastify-color-success: var(--success-main);
+    --toastify-color-warning: var(--warning-main);
+    --toastify-color-error: var(--error-main);
+    --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+    --toastify-icon-color-info: var(--toastify-color-info);
+    --toastify-icon-color-success: var(--toastify-color-success);
+    --toastify-icon-color-warning: var(--toastify-color-warning);
+    --toastify-icon-color-error: var(--toastify-color-error);
+
+    --toastify-toast-width: 320px;
+    --toastify-toast-background: #fff;
+    --toastify-toast-min-height: 64px;
+    --toastify-toast-max-height: 800px;
+    --toastify-font-family: sans-serif;
+    --toastify-z-index: 9999;
+
+    --toastify-text-color-light: #757575;
+    --toastify-text-color-dark: #fff;
+
+    /* Used only for colored theme */
+    --toastify-text-color-info: #fff;
+    --toastify-text-color-success: #fff;
+    --toastify-text-color-warning: #fff;
+    --toastify-text-color-error: #fff;
+
+    --toastify-spinner-color: #616161;
+    --toastify-spinner-color-empty-area: #e0e0e0;
+
+    /* Used when no type is provided */
+    /* toast("**hello**") */
+    --toastify-color-progress-light: linear-gradient(
+        to right,
+        #952432,
+        #b12739,
+        #d42027,
+        #67398e,
+        #353c7f,
+        #2a3886,
+        #255da1,
+        #2f7eb5,
+        #3aa4cb,
+        #05a5cb,
+        #0a9d5d,
+        #89bc6d,
+        #328d46,
+    );
+    /* Used when no type is provided */
+    --toastify-color-progress-dark: var(--secondary-dark);
+    --toastify-color-progress-info: var(--toastify-color-info);
+    --toastify-color-progress-success: var(--toastify-color-success);
+    --toastify-color-progress-warning: var(--toastify-color-warning);
+    --toastify-color-progress-error: var(--toastify-color-error);
+
+    /* used to control the opacity of the progress trail */
+    --toastify-color-progress-bgo: .2;
+}
+
+
+body {
+    padding-top: 130px;
+    position: relative;
+}
+
+body::after{
+    content: "";
+    background-image: url("../../bosch_colors.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% center;
+
+    width: 100vw;
+    height: 6px;
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#root{
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 30px;
+}

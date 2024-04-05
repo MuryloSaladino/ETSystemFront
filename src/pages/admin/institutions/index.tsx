@@ -1,7 +1,6 @@
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { IInstitution, IPaginated } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
-import { MessageContext } from "../../../context/MessageContext";
 import { getInstitutions } from "../../../service/institutions";
 import { CustomAppBar } from "../../../components";
 import { Container, Pagination, Stack, TextField, Typography } from "@mui/material";
@@ -9,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
-
+import AppToast from "../../../utils/AppToast";
 
 interface IInstitutionRow extends IInstitution {
     id: number;
@@ -21,7 +20,6 @@ const InstitutionsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams({ page: "1" })
     const [open, setOpen] = useState<boolean>(false)
     const [currentInstitution, setCurrentInstitution] = useState<IInstitution|null>(null)
-    const { popNotification } = useContext(MessageContext)
     const { register, handleSubmit, setValue } = useForm()
 
     const columns:GridColDef[] = [
@@ -49,31 +47,32 @@ const InstitutionsPage = () => {
         setCurrentInstitution(institution)
         setValue("name", institution.name)
     }
-
     const handleClose = () => {
         setOpen(false)
         setCurrentInstitution(null)
     }
-
     const handleChange = (e:ChangeEvent<unknown>, value:number) => {
         e.preventDefault()
         setSearchParams({ page: String(value) });
     };
 
     const submit = async (data:FieldValues) => {
-        popNotification("nlbalvas")
+        console.log(data)
+        console.log(currentInstitution)
     }
 
     useEffect(() => {
-        const buildUsers = async () => {
+        const retrieveInstitutions = async () => {
             try {
                 const token:string|null = localStorage.getItem("@TOKEN")
                 setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
             } catch (error) {
-                popNotification("Oops! Something went wrong", "error")
+                if(error instanceof Error) {
+                    AppToast.notifyError(error)
+                }
             }
         }
-        buildUsers()
+        retrieveInstitutions()
     }, [searchParams])
 
     return(
@@ -85,7 +84,7 @@ const InstitutionsPage = () => {
                     <Typography variant="h4">Institutions</Typography>
 
                     {
-                        institutions ? 
+                        institutions &&
                         <DataGrid
                             columns={columns}
                             rows={institutions.paginatedData.map((institution, index) =>
@@ -96,8 +95,7 @@ const InstitutionsPage = () => {
                             )}
                             rowSelection={false}
                             hideFooter
-                        /> :
-                        <div>Tem nada ai</div>
+                        />
                     }
 
                     <Pagination 

@@ -17,11 +17,11 @@ const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:I
     return(
         <Dialog 
             open={open}
-            onClose={handleClose}>
-
+            onClose={handleClose}
+            sx={{ maxWidth: "100%" }}>
             <DialogTitle>{title}</DialogTitle>
             <form onSubmit={handleSubmit((data) => submit(data))}>
-                <DialogContent>
+                <DialogContent sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 2 }}>
                     {children}
                 </DialogContent>
                 <DialogActions>
@@ -29,6 +29,7 @@ const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:I
                     <Button type="submit">Send</Button>
                 </DialogActions>
             </form>
+
         </Dialog>
     )
 }

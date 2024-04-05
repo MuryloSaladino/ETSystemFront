@@ -9,14 +9,13 @@ import { StyledLoginContainer, StyledStack } from './styles'
 import { login } from '../../service/login'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
-import { MessageContext } from '../../context/MessageContext'
+import AppToast from '../../utils/AppToast'
 
 
 const Login = () => {
 
     const [error, setError] = useState<boolean>(false)
     const { buildUser } = useContext(UserContext)
-    const { popNotification } = useContext(MessageContext)
     const { register, handleSubmit } = useForm()
     const navigate = useNavigate()
 
@@ -24,12 +23,14 @@ const Login = () => {
         setError(false)
         try {
             await login(data.username, data.password)
-            popNotification("Logged in", "success")
+            AppToast.notify("Logged in.", "success")
             navigate("/dashboard")
             await buildUser()
         } catch (error) {
             setError(true)
-            popNotification("Invalid Credentials", "error")
+            if(error instanceof Error) {
+                AppToast.notifyError(error)
+            }
         }
     }
 

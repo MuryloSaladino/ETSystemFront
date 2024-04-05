@@ -26,6 +26,15 @@ class RequestsManager {
             { headers: { Authorization: this.auth } }
         );
     };
+
+    patch = async<TData>(endpointOptions: EndpointOptions, data: TData) => {
+        const endpointUrl = endpointOptions.getEndpoint();
+        return await this.instance.patch(
+            endpointUrl,
+            data,
+            { headers: { Authorization: this.auth } }
+        )
+    }
 }
 
 export { RequestsManager };

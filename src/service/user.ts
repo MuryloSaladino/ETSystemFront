@@ -1,6 +1,6 @@
 import { IPaginated } from '../interfaces/paginated.ts'
 import { IUser, IUserGrouped } from '../interfaces/user.ts'
-import { UserService } from './BaseService';
+import { UserService } from './classes';
 import api from './api.ts'
 
 const userService = new UserService(api);

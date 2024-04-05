@@ -1,5 +1,5 @@
 import { IPaginated, IUser, IUserGrouped } from "../../interfaces";
-import { EndpointOptions } from "../RequestsManager";
+import { EndpointOptions } from "./RequestsManager";
 import { BaseService } from "./BaseService";
 
 class UserService extends BaseService {

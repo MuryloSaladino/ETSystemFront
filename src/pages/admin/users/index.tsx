@@ -27,6 +27,15 @@ const UsersPage = () => {
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
         { field: "email", headerName: "Email", flex: 0.3, sortable: false },
+        { 
+            field: "access",
+            headerName: "Access",
+            flex: 0.3,
+            valueGetter: (value, row) => {
+              const result = []
+                
+            } 
+        },
         {
             field: "actions",
             type: "actions",

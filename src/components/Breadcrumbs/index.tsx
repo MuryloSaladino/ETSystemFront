@@ -24,6 +24,9 @@ const AppBreadcrumbs = () => {
 
     return(
         <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />}>
+            <StyledLink to={"/"}>
+                <Typography>{"Home"}</Typography>
+            </StyledLink>
             {
                 links.map((link, index) => 
                     <StyledLink 

@@ -8,7 +8,6 @@ import ProtectedRoute from "./ProtectedRoute"
 import SwitchInput from "./SwitchInput"
 import CustomDialog from "./DialogForm"
 import AccessChips from "./AccessChips"
-
 import StyledLink from "./StyledLink"
 
 export	{
@@ -21,6 +20,6 @@ export	{
     ProtectedRoute,
     SwitchInput,
     CustomDialog,
-    AccessChips
+    AccessChips,
     StyledLink,
 }

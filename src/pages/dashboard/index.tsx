@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material"
+import { Chip, Container, Stack, Typography } from "@mui/material"
 import { CustomAppBar, NavigationGrid } from "../../components"
 import { StyledHeaderBox, StyledHeaderContainer } from "./styles"
 import { useContext } from "react"
@@ -19,8 +19,12 @@ const DashboardPage = () => {
 
             <StyledHeaderBox>
                 <StyledHeaderContainer maxWidth="md">
-                    <Typography variant="h5"><PersonIcon/> {user?.name || user?.username}</Typography>
-                    <Typography variant="h5"><LocationOnIcon/> {user?.institution.name} - {dateParsed}</Typography>
+                    <Stack alignItems="center" flexDirection="row" gap={1}>
+                        <PersonIcon/><Typography variant="h5">{user?.name || user?.username}</Typography>
+                    </Stack>
+                    <Stack alignItems="center" flexDirection="row" gap={1}>
+                        <LocationOnIcon/><Typography variant="h5">{user?.institution.name} - {dateParsed}</Typography>
+                    </Stack>
                 </StyledHeaderContainer>
             </StyledHeaderBox>
 

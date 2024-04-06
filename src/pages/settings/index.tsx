@@ -2,18 +2,17 @@ import { Button, Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar, SwitchInput } from "../../components"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/UserContext"
-import { MessageContext } from "../../context/MessageContext";
 import { FieldValues, useForm } from "react-hook-form";
-import { updateUser } from "../../service/user";
+import { userService } from "../../service";
 import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
 import { StyledForm, StyledStack } from "./styles";
+import AppToast from "../../utils/AppToast";
 
 
 const SettingsPage = () => {
 
     const { user, buildUser } = useContext(UserContext)
-    const { popNotification } = useContext(MessageContext)
     const { handleSubmit, register, setValue, getValues } = useForm()
 
     useEffect(() => {
@@ -31,11 +30,12 @@ const SettingsPage = () => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {
             try {
-                await updateUser(user.idUser, token, clearEmptyProperties(data))
-                popNotification("Your data has been updated", "success")
+                await userService.updateUser(user.idUser, clearEmptyProperties(data))
+                AppToast.notify("Data has been updated!", "success")
                 buildUser()
             } catch (error) {
-                popNotification("Oops! Something went wrong", "error")
+                if(error instanceof Error)
+                    AppToast.notifyError(error)
             }
         }
     }

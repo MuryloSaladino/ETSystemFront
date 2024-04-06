@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react"
-import { CustomAppBar } from "../../../components"
+import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
-import { getUsers } from "../../../service/user"
+import { userService } from "../../../service";
 import { useSearchParams } from "react-router-dom"
 import { Container, Pagination, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
@@ -9,6 +9,8 @@ import { FieldValues, useForm } from "react-hook-form"
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
+import { clearEmptyProperties } from "../../../utils/object";
+import AppToast from "../../../utils/AppToast";
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 
 
@@ -28,6 +30,13 @@ const UsersPage = () => {
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
         { field: "email", headerName: "Email", flex: 0.3, sortable: false },
+        { 
+            field: "access",
+            headerName: "Access",
+            flex: 0.3,
+            sortable: false,
+            renderCell: (params) => <AccessChips user={params.row}/>
+        },
         {
             field: "actions",
             type: "actions",
@@ -60,15 +69,23 @@ const UsersPage = () => {
     }
 
     const submit = async (data:FieldValues) => {
-        console.log(data)
-        console.log(currentUser)
+        try {
+            await userService.updateUser(
+                currentUser!.idUser,
+                clearEmptyProperties(data)
+            )
+            AppToast.notify("Your data has been updated")
+        } catch (error) {
+            if(error instanceof Error)
+                AppToast.notifyError(error)
+        }
+        handleClose()
     }
 
     useEffect(() => {
         const retrieveUsers = async () => {
             try {
-                const token:string|null = localStorage.getItem("@TOKEN")
-                setUsers(await getUsers(token!, searchParams.get("page")!))
+                setUsers(await userService.getUsers(Number(searchParams.get("page"))!));
             } catch (error) {
 
             }
@@ -112,6 +129,7 @@ const UsersPage = () => {
                             )}
                             rowSelection={false}
                             hideFooter
+                            disableColumnFilter
                         />
                     }
 

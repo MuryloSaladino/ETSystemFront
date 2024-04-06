@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { IInstitution, IPaginated } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
-import { getInstitutions } from "../../../service/institutions";
+import { institutionService } from "../../../service";
 import { CustomAppBar } from "../../../components";
-import { Container, Pagination, Stack, TextField, Typography } from "@mui/material";
+import { Chip, Container, Pagination, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
@@ -25,6 +25,12 @@ const InstitutionsPage = () => {
 
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
+        {
+            field: "origin",
+            headerName: "Origin",
+            flex: 0.3,
+            renderCell: (params) => params.row.isBosch ? <Chip label="Bosch" color="primary"/> : ""
+        },
         {
             field: "actions",
             type: "actions",
@@ -65,8 +71,7 @@ const InstitutionsPage = () => {
     useEffect(() => {
         const retrieveInstitutions = async () => {
             try {
-                const token:string|null = localStorage.getItem("@TOKEN")
-                setInstitutions(await getInstitutions(token!, searchParams.get("page")!))
+                setInstitutions(await institutionService.getInstitutions(searchParams.get("page")!))
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)

@@ -6,7 +6,7 @@ import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import { StyledLoginContainer, StyledStack } from './styles'
-import { login } from '../../service/login'
+import { loginService } from '../../service'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 import AppToast from '../../utils/AppToast'
@@ -22,7 +22,7 @@ const Login = () => {
     const submit = async (data:FieldValues) => {
         setError(false)
         try {
-            await login(data.username, data.password)
+            await loginService.login(data.username, data.password)
             AppToast.notify("Logged in.", "success")
             navigate("/dashboard")
             await buildUser()

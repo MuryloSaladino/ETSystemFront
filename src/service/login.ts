@@ -1,16 +1,6 @@
+import { LoginService } from "./classes"
 import api from "./api"
 
-export const login = async (username:string, password:string) => {
-    try {
-        const response = await api.post("/login", {
-            username: username,
-            password: password
-        })
-        const { idUser, token } = response.data
+const loginService = new LoginService(api);
 
-        localStorage.setItem("@IDUSER", idUser)
-        localStorage.setItem("@TOKEN", token)
-    } catch (error) {
-        throw new Error("Invalid credentials")
-    }
-}
+export default loginService;

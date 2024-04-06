@@ -6,6 +6,9 @@ import DialogForm from "./DialogForm"
 import NavigationGrid from "./NavigationGrid"
 import ProtectedRoute from "./ProtectedRoute"
 import SwitchInput from "./SwitchInput"
+import CustomDialog from "./DialogForm"
+import AccessChips from "./AccessChips"
+
 import StyledLink from "./StyledLink"
 
 export	{
@@ -17,5 +20,7 @@ export	{
     NavigationGrid,
     ProtectedRoute,
     SwitchInput,
+    CustomDialog,
+    AccessChips
     StyledLink,
 }

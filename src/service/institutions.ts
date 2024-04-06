@@ -1,15 +1,6 @@
-import { IInstitution, IPaginated } from "../interfaces";
+import { InstitutionService } from "./classes";
 import api from "./api";
 
-export const getInstitutions = async (token:string, page:string):Promise<IPaginated<IInstitution>> => {
-    try {
-        const response = await api.get(`/institution?page=${page}&limit=10`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }
-        })
-        return response.data
-    } catch (error) {
-        throw new Error
-    }
-}
+const institutionService = new InstitutionService(api);
+
+export default institutionService;

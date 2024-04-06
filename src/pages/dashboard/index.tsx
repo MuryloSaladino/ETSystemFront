@@ -1,4 +1,4 @@
-import { Chip, Container, Stack, Typography } from "@mui/material"
+import { Container, Stack, Typography } from "@mui/material"
 import { CustomAppBar, NavigationGrid } from "../../components"
 import { StyledHeaderBox, StyledHeaderContainer } from "./styles"
 import { useContext } from "react"

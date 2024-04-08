@@ -14,6 +14,9 @@ import {
     IStudentGroupGrouped
 } from "./studentGroup.ts";
 import {
+    IDisciplineCategory
+} from "./disciplineCategory.ts";
+import {
     IPaginated
 } from "./paginated.ts";
 import {
@@ -40,7 +43,8 @@ export type {
     IStudent,
     IInstructor,
     IStudentGroup,
-    IStudentGroupGrouped
+    IStudentGroupGrouped,
+    IDisciplineCategory
 }
 
 export {

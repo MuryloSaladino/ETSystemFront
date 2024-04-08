@@ -125,22 +125,19 @@ const UsersPage = () => {
 
                     <Typography variant="h4">Users</Typography>
 
-                    {
-                        users &&
-                        <DataGrid
-                            loading={loading}
-                            columns={columns}
-                            rows={users.paginatedData.map((user, index) =>
-                                ({
-                                    id: index, 
-                                    ...user
-                                })
-                            )}
-                            rowSelection={false}
-                            hideFooter
-                            disableColumnFilter
-                        />
-                    }
+                    <DataGrid
+                        loading={loading}
+                        columns={columns}
+                        rows={users?.paginatedData.map((user, index) =>
+                            ({
+                                id: index, 
+                                ...user
+                            })
+                        ) || []}
+                        rowSelection={false}
+                        hideFooter
+                        disableColumnFilter
+                    />
 
                     <Pagination
                         page={Number(searchParams.get("page"))}

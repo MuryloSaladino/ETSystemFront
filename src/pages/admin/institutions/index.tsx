@@ -121,20 +121,19 @@ const InstitutionsPage = () => {
                         }
                     </Stack>
 
-                    {
-                        institutions &&
-                        <DataGrid
-                            columns={columns}
-                            rows={institutions.paginatedData.map((institution, index) =>
-                                ({
-                                    id: index, 
-                                    ...institution
-                                })
-                            )}
-                            rowSelection={false}
-                            hideFooter
-                        />
-                    }
+
+                    <DataGrid
+                        columns={columns}
+                        rows={institutions?.paginatedData.map((institution, index) =>
+                            ({
+                                id: index, 
+                                ...institution
+                            })
+                        ) || []}
+                        rowSelection={false}
+                        hideFooter
+                    />
+                    
 
                     <Pagination 
                         page={Number(searchParams.get("page"))}

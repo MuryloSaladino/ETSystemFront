@@ -15,7 +15,7 @@ const DisciplinesPage = () => {
                     <AppBreadcrumbs/>
 
                     
-
+                    
                 </Stack>
             </Container>
         </>

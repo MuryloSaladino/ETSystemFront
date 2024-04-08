@@ -9,6 +9,9 @@ import { FieldValues, useForm } from "react-hook-form"
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
 import { datetimeToBrazilDate } from "../../../utils/date"
+import { clearEmptyProperties } from "../../../utils/object";
+import AppToast from "../../../utils/AppToast";
+import AppBreadcrumbs from "../../../components/Breadcrumbs"
 
 
 interface IUserRow extends IUser {
@@ -42,7 +45,7 @@ const UsersPage = () => {
             getActions: (row) => {
                 return [
                     <GridActionsCellItem
-                        icon={<Tooltip title="Edit"><EditIcon/></Tooltip>}
+                        icon={<Tooltip title="Edit" placement="right"><EditIcon/></Tooltip>}
                         onClick={() => handleClick(row.row)}
                         label="Edit"
                     />
@@ -66,8 +69,17 @@ const UsersPage = () => {
     }
 
     const submit = async (data:FieldValues) => {
-        console.log(data)
-        console.log(currentUser)
+        try {
+            await userService.updateUser(
+                currentUser!.idUser,
+                clearEmptyProperties(data)
+            )
+            AppToast.notify("Your data has been updated")
+        } catch (error) {
+            if(error instanceof Error)
+                AppToast.notifyError(error)
+        }
+        handleClose()
     }
 
     useEffect(() => {
@@ -101,6 +113,8 @@ const UsersPage = () => {
 
             <Container maxWidth="md">
                 <Stack spacing={3}>
+                    <AppBreadcrumbs/>
+
                     <Typography variant="h4">Users</Typography>
 
                     {

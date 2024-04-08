@@ -1,4 +1,4 @@
-import { Autocomplete, Chip, Container, FormControlLabel, FormLabel, IconButton, Pagination, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material"
+import { Autocomplete, Chip, Container, IconButton, Pagination, Stack, TextField, Typography } from "@mui/material"
 import { CustomAppBar, DialogForm } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
@@ -52,7 +52,6 @@ const DisciplinesPage = () => {
     const { register, handleSubmit, setValue } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [categories, setCategories] = useState<IPaginated<IDisciplineCategory>>()
-    const [currentCategory, setCurrentCategory] = useState<IDisciplineCategory|null>(null)
 
     const handleClick = (discipline:IDisciplineRow) => {
         setOpen(true)

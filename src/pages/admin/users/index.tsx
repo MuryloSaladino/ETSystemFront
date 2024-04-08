@@ -91,7 +91,7 @@ const UsersPage = () => {
             }
         }
         retrieveUsers()
-    }, [searchParams])
+    }, [searchParams, open])
 
     useEffect(() => {
         if(currentUser) {
@@ -148,17 +148,22 @@ const UsersPage = () => {
                 submit={submit}
             >
                 <TextField 
+                    label="Username"
                     {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
                     helperText="Must start with a letter"/>
                 <TextField
+                    label="Name"
                     {...register("name")}/>
                 <TextField
+                    label="Email"
                     {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
                     helperText="Must be in a valid email format"/>
                 <TextField
+                    label="Contact"
                     {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
                     helperText="(XX)XXXXX-XXXX"/>
                 <TextField
+                    label="Birth Date"
                     {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}
                     helperText="DD/MM/YYYY"/>
             </DialogForm>

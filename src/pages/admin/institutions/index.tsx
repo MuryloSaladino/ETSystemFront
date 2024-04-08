@@ -153,6 +153,7 @@ const InstitutionsPage = () => {
                 <TextField
                     {...register("name")}
                     label="Name"
+                    required
                 />
                 {
                     user?.institution.isBosch &&

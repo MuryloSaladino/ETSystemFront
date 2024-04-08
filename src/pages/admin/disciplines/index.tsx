@@ -163,6 +163,7 @@ const DisciplinesPage = () => {
                 <TextField
                     {...register("name")}
                     label="Discipline Name"
+                    required
                 />
                 {
                     !currentDiscipline &&
@@ -175,6 +176,7 @@ const DisciplinesPage = () => {
                             <TextField 
                                 {...params} 
                                 {...register("category")}
+                                required
                                 label="Category"
                             />
                         }

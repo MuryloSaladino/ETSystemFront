@@ -25,6 +25,7 @@ const UsersPage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<IUser|null>(null)
     const { register, handleSubmit, setValue, getValues } = useForm()
+    const [loading, setLoading] = useState<boolean>(false)
     
 
     const columns:GridColDef[] = [
@@ -70,14 +71,17 @@ const UsersPage = () => {
 
     const submit = async (data:FieldValues) => {
         try {
+            setLoading(true)
             await userService.updateUser(
                 currentUser!.idUser,
                 clearEmptyProperties(data)
             )
-            AppToast.notify("Your data has been updated")
+            AppToast.notify("Your data has been updated", "success")
         } catch (error) {
             if(error instanceof Error)
                 AppToast.notifyError(error)
+        } finally {
+            setLoading(false)
         }
         handleClose()
     }
@@ -85,9 +89,13 @@ const UsersPage = () => {
     useEffect(() => {
         const retrieveUsers = async () => {
             try {
-                setUsers(await userService.getUsers(Number(searchParams.get("page"))!));
+                setLoading(true)
+                setUsers(await userService.getUsers(Number(searchParams.get("page"))!))
             } catch (error) {
-
+                if(error instanceof Error) 
+                    AppToast.notifyError(error)
+            } finally {
+                setLoading(false)
             }
         }
         retrieveUsers()
@@ -120,6 +128,7 @@ const UsersPage = () => {
                     {
                         users &&
                         <DataGrid
+                            loading={loading}
                             columns={columns}
                             rows={users.paginatedData.map((user, index) =>
                                 ({

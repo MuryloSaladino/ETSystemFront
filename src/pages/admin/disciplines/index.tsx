@@ -9,10 +9,12 @@ const DisciplinesPage = () => {
         <>
             <CustomAppBar/>
 
-            <Container>
+            <Container maxWidth="md">
                 <Stack spacing={3}>
 
                     <AppBreadcrumbs/>
+
+                    
 
                 </Stack>
             </Container>

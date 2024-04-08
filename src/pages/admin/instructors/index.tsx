@@ -9,7 +9,7 @@ const InstructorsPage = () => {
         <>
             <CustomAppBar/>
 
-            <Container>
+            <Container maxWidth="md">
                 <Stack spacing={3}>
 
                     <AppBreadcrumbs/>

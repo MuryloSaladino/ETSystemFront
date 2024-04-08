@@ -137,6 +137,7 @@ const InstitutionsPage = () => {
                     }
 
                     <Pagination 
+                        page={Number(searchParams.get("page"))}
                         count={institutions?.totalPages} 
                         onChange={handleChange}
                         sx={{ alignSelf:"end" }}/>

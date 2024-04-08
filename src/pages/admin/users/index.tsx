@@ -142,7 +142,8 @@ const UsersPage = () => {
                         />
                     }
 
-                    <Pagination 
+                    <Pagination
+                        page={Number(searchParams.get("page"))}
                         count={users?.totalPages} 
                         onChange={handleChange}
                         sx={{ alignSelf:"end" }}/>

@@ -137,7 +137,7 @@ const DisciplinesPage = () => {
                                 id: index, 
                                 ...institution
                             })
-                        ) || []}
+                        ) || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})}
                         rowSelection={false}
                         hideFooter
                         disableColumnFilter

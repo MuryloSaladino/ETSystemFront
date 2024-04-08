@@ -12,6 +12,8 @@ import { datetimeToBrazilDate } from "../../../utils/date"
 import { clearEmptyProperties } from "../../../utils/object";
 import AppToast from "../../../utils/AppToast";
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
+import { DateField } from '@mui/x-date-pickers';
+import dayjs from "dayjs";
 
 
 interface IUserRow extends IUser {
@@ -26,6 +28,7 @@ const UsersPage = () => {
     const [currentUser, setCurrentUser] = useState<IUser|null>(null)
     const { register, handleSubmit, setValue, getValues } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
+    const [dateOfBirth, setDateOfBirth] = useState<string>()
     
 
     const columns:GridColDef[] = [
@@ -74,7 +77,7 @@ const UsersPage = () => {
             setLoading(true)
             await userService.updateUser(
                 currentUser!.idUser,
-                clearEmptyProperties(data)
+                clearEmptyProperties({...data, dateOfBirth: dateOfBirth})
             )
             AppToast.notify("Your data has been updated", "success")
         } catch (error) {
@@ -157,22 +160,27 @@ const UsersPage = () => {
                 <TextField 
                     label="Username"
                     {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
-                    helperText="Must start with a letter"/>
+                    helperText="Must start with a letter"
+                />
                 <TextField
                     label="Name"
-                    {...register("name")}/>
+                    {...register("name")}
+                />
                 <TextField
                     label="Email"
                     {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
-                    helperText="Must be in a valid email format"/>
+                    helperText="Must be in a valid email format"
+                />
                 <TextField
                     label="Contact"
                     {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
-                    helperText="(XX)XXXXX-XXXX"/>
-                <TextField
-                    label="Birth Date"
-                    {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}
-                    helperText="DD/MM/YYYY"/>
+                    helperText="(XX)XXXXX-XXXX"
+                />
+                <DateField
+                    format="DD/MM/YYYY"
+                    defaultValue={currentUser?.dateOfBirth ? dayjs(currentUser?.dateOfBirth) : null}
+                    onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
+                />
             </DialogForm>
         </>
     )

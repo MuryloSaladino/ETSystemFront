@@ -40,16 +40,16 @@ class CompetenceService extends BaseService {
     };
 
     deleteCompetence = async(idCompetence: string): Promise<void> => {
-            this.manager.setAuth();
-            const response = await this.manager.delete(
-                new EndpointOptions(
-                    "/competence/:idCompetence",
-                    { idCompetence: idCompetence },
-                    { }
-                )
-            );
+        this.manager.setAuth();
+        const response = await this.manager.delete(
+            new EndpointOptions(
+                "/competence/:idCompetence",
+                { idCompetence: idCompetence },
+                { }
+            )
+        );
 
-            return response.data;
+        return response.data;
     };
 }
 

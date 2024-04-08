@@ -130,12 +130,10 @@ const UsersPage = () => {
                     <DataGrid
                         loading={loading}
                         columns={columns}
-                        rows={users?.paginatedData.map((user, index) =>
-                            ({
-                                id: index, 
-                                ...user
-                            })
-                        ) || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})}
+                        rows={
+                            users?.paginatedData.map((user, index) => ({ id: index, ...user })) 
+                            || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})
+                        }
                         rowSelection={false}
                         hideFooter
                         disableColumnFilter

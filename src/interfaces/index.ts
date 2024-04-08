@@ -21,6 +21,9 @@ import {
     IDisciplineGrouped
 } from "./discipline.ts";
 import {
+    ICompetence
+} from "./competence.ts";
+import {
     IPaginated
 } from "./paginated.ts";
 import {
@@ -50,7 +53,8 @@ export type {
     IStudentGroupGrouped,
     IDisciplineCategory,
     IDiscipline,
-    IDisciplineGrouped
+    IDisciplineGrouped,
+    ICompetence
 };
 
 export {

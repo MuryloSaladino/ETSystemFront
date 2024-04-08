@@ -80,7 +80,6 @@ const InstitutionsPage = () => {
                 )
                 AppToast.notify("Institution data has been updated.", "success")
             } else {
-                console.log({...data, isBosch: isBosch})
                 await institutionService.createInstitution({...data, isBosch: isBosch})
                 AppToast.notify("Institution created.", "success")
             }
@@ -132,6 +131,7 @@ const InstitutionsPage = () => {
                         ) || []}
                         rowSelection={false}
                         hideFooter
+                        disableColumnFilter
                     />
                     
 

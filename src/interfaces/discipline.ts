@@ -9,4 +9,5 @@ export interface IDiscipline {
 export interface IDisciplineGrouped {
     idDiscipline: string;
     name: string;
+    category: IDisciplineCategory;
 };

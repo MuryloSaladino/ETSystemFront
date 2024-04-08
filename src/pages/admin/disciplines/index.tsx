@@ -147,7 +147,8 @@ const DisciplinesPage = () => {
                         page={Number(searchParams.get("page"))}
                         count={disciplines?.totalPages} 
                         onChange={handleChange}
-                        sx={{ alignSelf:"end" }}/>
+                        sx={{ alignSelf:"end" }}
+                    />
 
                 </Stack>
             </Container>

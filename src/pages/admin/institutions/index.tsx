@@ -144,7 +144,7 @@ const InstitutionsPage = () => {
             </Container>
 
             <DialogForm
-                title="Edit Institution"
+                title={(currentInstitution ? "Edit" : "Create")+" Institution"}
                 open={open}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}

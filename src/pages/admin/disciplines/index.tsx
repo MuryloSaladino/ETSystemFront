@@ -26,7 +26,7 @@ const DisciplinesPage = () => {
             headerName: "Category",
             flex: 0.3,
             sortable: false,
-            renderCell: (params) => <Chip label={params.row.category?.name || "ARRUMAR"}/>
+            renderCell: (params) => <Chip label={params.row.category?.name}/>
         },
         {
             field: "actions",
@@ -154,7 +154,7 @@ const DisciplinesPage = () => {
             </Container>
 
             <DialogForm
-                title="Edit Discipline"
+                title={(currentDiscipline ? "Edit" : "Create")+" Discipline"}
                 open={open}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
@@ -162,7 +162,7 @@ const DisciplinesPage = () => {
             >
                 <TextField
                     {...register("name")}
-                    label="Name"
+                    label="Discipline Name"
                 />
                 {
                     !currentDiscipline &&

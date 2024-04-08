@@ -87,7 +87,6 @@
 
 body {
     padding-top: 130px;
-    position: relative;
 }
 
 body::after{
@@ -100,7 +99,7 @@ body::after{
     width: 100vw;
     height: 6px;
     
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
 }

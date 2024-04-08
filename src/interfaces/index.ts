@@ -10,6 +10,17 @@ import {
     IInstitution
 } from "./institution.ts";
 import {
+    IStudentGroup,
+    IStudentGroupGrouped
+} from "./studentGroup.ts";
+import {
+    IDisciplineCategory
+} from "./disciplineCategory.ts";
+import {
+    IDiscipline,
+    IDisciplineGrouped
+} from "./discipline.ts";
+import {
     IPaginated
 } from "./paginated.ts";
 import {
@@ -35,7 +46,12 @@ export type {
     IAdministrator,
     IStudent,
     IInstructor,
-}
+    IStudentGroup,
+    IStudentGroupGrouped,
+    IDisciplineCategory,
+    IDiscipline,
+    IDisciplineGrouped
+};
 
 export {
     adminAccess, 
@@ -46,4 +62,4 @@ export {
     adminInstructorsAccess,
     adminStudentsAccess,
     adminUsersAccess,
-}
+};

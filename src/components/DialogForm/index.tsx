@@ -21,7 +21,7 @@ const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:I
             sx={{ maxWidth: "100%" }}>
             <DialogTitle>{title}</DialogTitle>
             <form onSubmit={handleSubmit((data) => submit(data))}>
-                <DialogContent sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 2 }}>
+                <DialogContent sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 2, flexDirection:"column" }}>
                     {children}
                 </DialogContent>
                 <DialogActions>

@@ -6,7 +6,7 @@ export interface IDiscipline {
     category: IDisciplineCategory;
 };
 
-export interface iDisciplineGrouped {
+export interface IDisciplineGrouped {
     idDiscipline: string;
     name: string;
 };

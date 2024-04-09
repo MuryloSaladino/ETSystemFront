@@ -8,9 +8,9 @@ import { BaseService } from "./BaseService";
 
 class StudentGroupService extends BaseService {
     getStudentGroups = async(
-        wperiod: string,
-        year: number,
-        page: number
+        page: string,
+        wperiod: string = "",
+        year: string = "",
     ): Promise<IPaginated<IStudentGroupGrouped>> => {
 
         this.manager.setAuth();

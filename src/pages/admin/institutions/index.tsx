@@ -94,7 +94,7 @@ const InstitutionsPage = () => {
     useEffect(() => {
         const retrieveInstitutions = async () => {
             try {
-                setInstitutions(await institutionService.getInstitutions(searchParams.get("page")!))
+                setInstitutions(await institutionService.getInstitutions(searchParams.get("page") || "1"))
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)

@@ -72,7 +72,7 @@ const DisciplinesPage = () => {
         const retrieveDisciplines = async () => {
             try {
                 setLoading(true)
-                setDisciplines(await disciplineService.getDisciplines(searchParams.get("page")!))
+                setDisciplines(await disciplineService.getDisciplines(searchParams.get("page") || "1"))
                 setCategories(await disciplineCategoryService.getDisciplineCategories())
             } catch (error) {
                 if(error instanceof Error) {

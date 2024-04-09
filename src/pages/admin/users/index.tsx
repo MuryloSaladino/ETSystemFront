@@ -92,7 +92,7 @@ const UsersPage = () => {
         const retrieveUsers = async () => {
             try {
                 setLoading(true)
-                setUsers(await userService.getUsers(Number(searchParams.get("page"))!))
+                setUsers(await userService.getUsers(Number(searchParams.get("page") || "1")))
             } catch (error) {
                 if(error instanceof Error) 
                     AppToast.notifyError(error)

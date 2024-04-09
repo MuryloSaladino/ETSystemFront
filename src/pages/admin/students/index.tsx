@@ -1,8 +1,8 @@
 import { Chip, Container, IconButton, Pagination, Stack, TextField, Typography } from "@mui/material"
 import { CustomAppBar, DialogForm, StyledLink } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
-import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
-import { IPaginated, IStudentGroup, IStudentGroupGrouped } from "../../../interfaces";
+import { DataGrid, GridColDef } from "@mui/x-data-grid"
+import { IPaginated, IStudentGroupGrouped } from "../../../interfaces";
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useSearchParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -12,20 +12,21 @@ import AppToast from "../../../utils/AppToast";
 import { studentGroupService } from "../../../service";
 
 
-interface IStudentGroupRow extends IStudentGroup {
-    id: number;
-}
-
 const StudentsPage = () => {
 
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
         { 
             field: "workPeriod",
-            headerName: "Work Period",
+            headerName: "Work Period (at Bosch)",
             flex: 0.3,
             sortable: false,
-            renderCell: (params) => <Chip label={params.row.workPeriod}/>
+            renderCell: (params) => {
+                const period = params.row.workPeriod === "a" ? "Afternoon" : "Morning"
+                return(
+                    <Chip label={period}/>
+                )
+            }
         },
         {
             field: "actions",

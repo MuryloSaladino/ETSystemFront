@@ -9,20 +9,22 @@ import { BaseService } from "./BaseService";
 class StudentGroupService extends BaseService {
     getStudentGroups = async(
         page: string,
-        wperiod: string = "",
-        year: string = "",
+        wperiod?: string,
+        year?: string,
     ): Promise<IPaginated<IStudentGroupGrouped>> => {
+
+        const options:Record<string, string | number> = {
+            page: page,
+            limit: 10
+        }
+        if(wperiod) options.wperiod = wperiod
+        if(year) options.year = year
 
         this.manager.setAuth();
         const response = await this.manager.get(new EndpointOptions(
             "/studentGroup",
             { },
-            {
-                page: page,
-                limit: 10,
-                wperiod: wperiod,
-                year: year
-            }
+            options
         ));
 
         return response.data;

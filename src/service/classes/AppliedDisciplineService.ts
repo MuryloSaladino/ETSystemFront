@@ -16,7 +16,7 @@ class AppliedDisciplineService extends BaseService {
             new EndpointOptions(
                 "/appliedDiscipline",
                 { },
-                { page: page, limit: 10 }
+                { page: page, limit: 1000 }
             )
         );
 

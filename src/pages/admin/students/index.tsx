@@ -29,9 +29,9 @@ const StudentsPage = () => {
             }
         },
         {
-            field: "actions",
-            flex: 0.1,
-            headerName: "Actions",
+            field: "link",
+            flex: 0.12,
+            headerName: "Single View",
             sortable: false,
             renderCell: (params) => 
                 <StyledLink to={params.row.idStudentGroup}>

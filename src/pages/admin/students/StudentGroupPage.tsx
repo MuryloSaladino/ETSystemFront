@@ -1,4 +1,4 @@
-import { Container, Stack } from "@mui/material"
+import { Chip, Container, Stack, Typography } from "@mui/material"
 import { CustomAppBar } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useEffect, useState } from "react"
@@ -42,11 +42,22 @@ const StudentGroupPage = () => {
             <CustomAppBar/>
 
             <Container maxWidth="md">
-                <Stack spacing={3}>
+                <Stack spacing={5}>
 
                     <AppBreadcrumbs customCurrentPage={studentGroupName}/>
 
-                    
+                    <Typography variant="h4">Students</Typography>
+                    <Stack flexDirection="row" alignItems="center" gap={2}>
+                    {
+                        studentGroup &&
+                        studentGroup.students.map((student, index) => 
+                            <Chip
+                                key={index}
+                                label={student.idStudent.substring(0, 5)}
+                            />
+                        )
+                    }
+                    </Stack>
 
                 </Stack>
             </Container>

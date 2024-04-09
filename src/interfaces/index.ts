@@ -27,6 +27,10 @@ import {
     ICompetenceGroup
 } from "./competenceGroup.ts";
 import {
+    IAppliedDiscipline,
+    IAppliedDisciplineGrouped
+ } from "./appliedDiscipline.ts";
+import {
     IPaginated
 } from "./paginated.ts";
 import {
@@ -59,6 +63,8 @@ export type {
     IDisciplineGrouped,
     ICompetence,
     ICompetenceGroup,
+    IAppliedDiscipline,
+    IAppliedDisciplineGrouped
 };
 
 export {

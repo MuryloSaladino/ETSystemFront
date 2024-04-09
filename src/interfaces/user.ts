@@ -6,6 +6,7 @@ export interface IAdministrator {
 }
 export interface IStudent {
     idStudent: string;
+    idStudentGroup: string;
 }
 export interface IInstructor {
     idInstructor: string;

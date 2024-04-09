@@ -11,7 +11,8 @@ import {
 } from "./institution.ts";
 import {
     IStudentGroup,
-    IStudentGroupGrouped
+    IStudentGroupGrouped,
+    IStudentResponseStudentGroup
 } from "./studentGroup.ts";
 import {
     IDisciplineCategory
@@ -64,7 +65,8 @@ export type {
     ICompetence,
     ICompetenceGroup,
     IAppliedDiscipline,
-    IAppliedDisciplineGrouped
+    IAppliedDisciplineGrouped,
+    IStudentResponseStudentGroup
 };
 
 export {

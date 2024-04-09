@@ -13,7 +13,7 @@ const StudentPage = () => {
     useEffect(() => {
         const retrieveDisciplines = async () => {
             setDisciplines(
-                await appliedDisciplineService.getAppliedDisciplines("1")
+                await appliedDisciplineService.getAppliedDisciplines()
             )
             disciplines?.paginatedData.forEach((discipline) => {
                 if(!periods.includes(discipline.period)) {

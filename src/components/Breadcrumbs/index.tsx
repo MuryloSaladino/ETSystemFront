@@ -4,11 +4,15 @@ import { useEffect, useState } from "react";
 import { StyledLink } from "..";
 import { titleCase } from "../../utils/string";
 
+interface AppBreadcrumbsProps {
+    customCurrentPage?: string;
+} 
 
-const AppBreadcrumbs = () => {
+
+const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
 
     const [links, setLinks] = useState<string[]>([])
-    const [currentPage, setCurrentPage] = useState<string>("")
+    const [currentPage, setCurrentPage] = useState<string>(customCurrentPage || "")
 
     useEffect(() => {
         const windowLinks = window.location.pathname.split("/")
@@ -39,7 +43,12 @@ const AppBreadcrumbs = () => {
             }
             {
                 currentPage &&
-                <Typography fontWeight={600} sx={{ textDecoration: "underline" }}>{titleCase(currentPage)}</Typography>
+                <Typography
+                    fontWeight={600}
+                    sx={{ textDecoration: "underline" }}
+                >
+                    {titleCase(currentPage)}
+                </Typography>
             }
         </Breadcrumbs>
     )

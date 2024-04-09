@@ -6,7 +6,7 @@ export interface IStudentGroup {
     dateOfStart: string;
     dateOfFinish: string | null;
     workPeriod: string;
-    students: IStudent[] | null;
+    students: IStudent[];
 }
 
 export interface IStudentGroupGrouped {

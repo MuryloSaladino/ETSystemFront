@@ -1,4 +1,4 @@
 export interface IDisciplineCategory {
-    idDisciplineCastegory: string;
+    idDisciplineCategory: string;
     name: string;
 };

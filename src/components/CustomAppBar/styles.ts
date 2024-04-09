@@ -3,8 +3,6 @@ import { AppBar, Box, Toolbar, styled } from "@mui/material";
 export const StyledAppBar = styled(AppBar)`
     position: fixed;
     top: 6px;
-
-    background-color: var(--bs-gray-100);
 `
 
 export const StyledToolbar = styled(Toolbar)`

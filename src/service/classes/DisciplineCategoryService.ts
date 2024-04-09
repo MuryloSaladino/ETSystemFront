@@ -6,16 +6,15 @@ import { EndpointOptions } from "./RequestsManager";
 import { BaseService } from "./BaseService";
 
 class DisciplineCategoryService extends BaseService {
-    getDisciplineCategories = async(
-        page: string
-    ): Promise<IPaginated<IDisciplineCategory>> => {
+    getDisciplineCategories = async(): 
+        Promise<IPaginated<IDisciplineCategory>> => {
 
         this.manager.setAuth();
         const response = await this.manager.get(
             new EndpointOptions(
                 "/disciplineCategory",
                 { },
-                { page: page, limit: 10 }
+                { page: 1, limit: 9999 }
             )
         );
 

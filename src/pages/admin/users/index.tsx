@@ -12,6 +12,8 @@ import { datetimeToBrazilDate } from "../../../utils/date"
 import { clearEmptyProperties } from "../../../utils/object";
 import AppToast from "../../../utils/AppToast";
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
+import { DateField } from '@mui/x-date-pickers';
+import dayjs from "dayjs";
 
 
 interface IUserRow extends IUser {
@@ -25,11 +27,12 @@ const UsersPage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<IUser|null>(null)
     const { register, handleSubmit, setValue, getValues } = useForm()
+    const [loading, setLoading] = useState<boolean>(false)
+    const [dateOfBirth, setDateOfBirth] = useState<string>()
     
 
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
-        { field: "email", headerName: "Email", flex: 0.3, sortable: false },
         { 
             field: "access",
             headerName: "Access",
@@ -70,14 +73,17 @@ const UsersPage = () => {
 
     const submit = async (data:FieldValues) => {
         try {
+            setLoading(true)
             await userService.updateUser(
                 currentUser!.idUser,
-                clearEmptyProperties(data)
+                clearEmptyProperties({...data, dateOfBirth: dateOfBirth})
             )
-            AppToast.notify("Your data has been updated")
+            AppToast.notify("Your data has been updated", "success")
         } catch (error) {
             if(error instanceof Error)
                 AppToast.notifyError(error)
+        } finally {
+            setLoading(false)
         }
         handleClose()
     }
@@ -85,9 +91,13 @@ const UsersPage = () => {
     useEffect(() => {
         const retrieveUsers = async () => {
             try {
-                setUsers(await userService.getUsers(Number(searchParams.get("page"))!));
+                setLoading(true)
+                setUsers(await userService.getUsers(Number(searchParams.get("page") || "1")))
             } catch (error) {
-
+                if(error instanceof Error) 
+                    AppToast.notifyError(error)
+            } finally {
+                setLoading(false)
             }
         }
         retrieveUsers()
@@ -117,23 +127,20 @@ const UsersPage = () => {
 
                     <Typography variant="h4">Users</Typography>
 
-                    {
-                        users &&
-                        <DataGrid
-                            columns={columns}
-                            rows={users.paginatedData.map((user, index) =>
-                                ({
-                                    id: index, 
-                                    ...user
-                                })
-                            )}
-                            rowSelection={false}
-                            hideFooter
-                            disableColumnFilter
-                        />
-                    }
+                    <DataGrid
+                        loading={loading}
+                        columns={columns}
+                        rows={
+                            users?.paginatedData.map((user, index) => ({ id: index, ...user })) 
+                            || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})
+                        }
+                        rowSelection={false}
+                        hideFooter
+                        disableColumnFilter
+                    />
 
-                    <Pagination 
+                    <Pagination
+                        page={Number(searchParams.get("page"))}
                         count={users?.totalPages} 
                         onChange={handleChange}
                         sx={{ alignSelf:"end" }}/>
@@ -150,22 +157,27 @@ const UsersPage = () => {
                 <TextField 
                     label="Username"
                     {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
-                    helperText="Must start with a letter"/>
+                    helperText="Must start with a letter"
+                />
                 <TextField
                     label="Name"
-                    {...register("name")}/>
+                    {...register("name")}
+                />
                 <TextField
                     label="Email"
                     {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
-                    helperText="Must be in a valid email format"/>
+                    helperText="Must be in a valid email format"
+                />
                 <TextField
                     label="Contact"
                     {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
-                    helperText="(XX)XXXXX-XXXX"/>
-                <TextField
-                    label="Birth Date"
-                    {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}
-                    helperText="DD/MM/YYYY"/>
+                    helperText="(XX)XXXXX-XXXX"
+                />
+                <DateField
+                    format="DD/MM/YYYY"
+                    defaultValue={currentUser?.dateOfBirth ? dayjs(currentUser?.dateOfBirth) : null}
+                    onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
+                />
             </DialogForm>
         </>
     )

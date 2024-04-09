@@ -80,7 +80,6 @@ const InstitutionsPage = () => {
                 )
                 AppToast.notify("Institution data has been updated.", "success")
             } else {
-                console.log({...data, isBosch: isBosch})
                 await institutionService.createInstitution({...data, isBosch: isBosch})
                 AppToast.notify("Institution created.", "success")
             }
@@ -95,7 +94,7 @@ const InstitutionsPage = () => {
     useEffect(() => {
         const retrieveInstitutions = async () => {
             try {
-                setInstitutions(await institutionService.getInstitutions(searchParams.get("page")!))
+                setInstitutions(await institutionService.getInstitutions(searchParams.get("page") || "1"))
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)
@@ -121,22 +120,23 @@ const InstitutionsPage = () => {
                         }
                     </Stack>
 
-                    {
-                        institutions &&
-                        <DataGrid
-                            columns={columns}
-                            rows={institutions.paginatedData.map((institution, index) =>
-                                ({
-                                    id: index, 
-                                    ...institution
-                                })
-                            )}
-                            rowSelection={false}
-                            hideFooter
-                        />
-                    }
+
+                    <DataGrid
+                        columns={columns}
+                        rows={institutions?.paginatedData.map((institution, index) =>
+                            ({
+                                id: index, 
+                                ...institution
+                            })
+                        ) || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})}
+                        rowSelection={false}
+                        hideFooter
+                        disableColumnFilter
+                    />
+                    
 
                     <Pagination 
+                        page={Number(searchParams.get("page"))}
                         count={institutions?.totalPages} 
                         onChange={handleChange}
                         sx={{ alignSelf:"end" }}/>
@@ -144,7 +144,7 @@ const InstitutionsPage = () => {
             </Container>
 
             <DialogForm
-                title="Edit Institution"
+                title={(currentInstitution ? "Edit" : "Create")+" Institution"}
                 open={open}
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
@@ -153,6 +153,7 @@ const InstitutionsPage = () => {
                 <TextField
                     {...register("name")}
                     label="Name"
+                    required
                 />
                 {
                     user?.institution.isBosch &&

@@ -2,25 +2,26 @@ import { Container, Stack } from "@mui/material"
 import { CustomAppBar } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
 import { IStudentGroup } from "../../../interfaces"
 import AppToast from "../../../utils/AppToast"
+import { studentGroupService } from "../../../service"
+import { useParams } from "react-router-dom"
 
-interface StudentGroupPageProps {
-    idStudentGroup: string;
-}
 
-const StudentGroupPage = ({ idStudentGroup }:StudentGroupPageProps) => {
+const StudentGroupPage = () => {
 
-    const [searchParams, setSearchParams] = useSearchParams({ idStudentGroup: idStudentGroup })
+    const { idStudentGroup } = useParams()
     const [studentGroup, setStudentGroup] = useState<IStudentGroup>()
+    const [studentGroupName, setStudentGroupName] = useState<string>()
     const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
         const retrieveStudentGroup = async () => {
             try {
                 setLoading(true)
-                
+                setStudentGroup(
+                    await studentGroupService.getStudentGroup(idStudentGroup!)
+                )
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)
@@ -30,7 +31,11 @@ const StudentGroupPage = ({ idStudentGroup }:StudentGroupPageProps) => {
             }
         }
         retrieveStudentGroup()
-    }, [searchParams])
+    }, [idStudentGroup])
+
+    useEffect(() => {
+        setStudentGroupName(studentGroup ? studentGroup.name : "Student Group")
+    }, [studentGroup])
 
     return(
         <>
@@ -39,7 +44,7 @@ const StudentGroupPage = ({ idStudentGroup }:StudentGroupPageProps) => {
             <Container maxWidth="md">
                 <Stack spacing={3}>
 
-                    <AppBreadcrumbs customCurrentPage={studentGroup?.name || "Student Group"}/>
+                    <AppBreadcrumbs customCurrentPage={studentGroupName}/>
 
                     
 

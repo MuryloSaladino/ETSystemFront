@@ -18,9 +18,9 @@ const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
         const windowLinks = window.location.pathname.split("/")
         windowLinks.shift()
         const popedString = windowLinks.pop()!
-        setCurrentPage(customCurrentPage || popedString)
+        setCurrentPage(popedString)
         setLinks(windowLinks)
-    }, [])
+    }, [customCurrentPage])
 
     const handleLink = (link:string):string => {
         const location = window.location.pathname
@@ -48,7 +48,7 @@ const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
                     fontWeight={600}
                     sx={{ textDecoration: "underline" }}
                 >
-                    {titleCase(currentPage)}
+                    {customCurrentPage || titleCase(currentPage)}
                 </Typography>
             }
         </Breadcrumbs>

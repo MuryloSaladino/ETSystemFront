@@ -23,7 +23,7 @@ const CustomAppBar = () => {
         <>
             <ActionsDrawer open={open} toggleOpen={toggleOpen}/>
 
-            <StyledAppBar>
+            <StyledAppBar color="default">
                 <StyledToolbar>
                     <StyledHeaderBox>
                         <IconButton onClick={toggleOpen}>

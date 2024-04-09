@@ -37,12 +37,14 @@ const StudentGroupPage = () => {
     const [studentGroupName, setStudentGroupName] = useState<string>()
     const [loading, setLoading] = useState<boolean>(false)
     const [addOpen, setAddOpen] = useState<boolean>(false)
+    const [render, setRender] = useState<boolean>(false)
     const { register, handleSubmit, reset } = useForm()
     const { user } = useContext(UserContext)
     const [disciplines, setDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
 
     const handleAddClose = () => {
         setAddOpen(false)
+        setRender((prev) => !prev)
     }
 
     const submitNewStudent = async (data:FieldValues) => {
@@ -90,7 +92,7 @@ const StudentGroupPage = () => {
             }
         }
         retrieveStudentGroup()
-    }, [idStudentGroup, addOpen])
+    }, [idStudentGroup, render])
 
     useEffect(() => {
         setStudentGroupName(studentGroup ? studentGroup.name : "Student Group")
@@ -126,7 +128,14 @@ const StudentGroupPage = () => {
                         }
                     </Stack>
 
-                    <Typography variant="h4">Applied Disciplines</Typography>
+                    <Stack flexDirection="row" gap={2}>
+                        <Typography variant="h4">Applied Disciplines</Typography>
+                        <Tooltip title="Add Student">
+                                <Fab color="default" size="small" onClick={() => setAddOpen(true)}>
+                                    <AddIcon/>
+                                </Fab>
+                        </Tooltip>
+                    </Stack>
                     <DataGrid
                         loading={loading}
                         columns={columns}

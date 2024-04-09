@@ -12,12 +12,13 @@ interface AppBreadcrumbsProps {
 const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
 
     const [links, setLinks] = useState<string[]>([])
-    const [currentPage, setCurrentPage] = useState<string>(customCurrentPage || "")
+    const [currentPage, setCurrentPage] = useState<string>()
 
     useEffect(() => {
         const windowLinks = window.location.pathname.split("/")
         windowLinks.shift()
-        setCurrentPage(windowLinks.pop()!)
+        const popedString = windowLinks.pop()!
+        setCurrentPage(customCurrentPage || popedString)
         setLinks(windowLinks)
     }, [])
 

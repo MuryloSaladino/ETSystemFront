@@ -8,6 +8,7 @@ import { CompetenceService } from "./CompetenceService";
 import { CompetenceGroupService } from "./CompetenceGroupService";
 import { AppliedDisciplineService } from "./AppliedDisciplineService";
 import { InstructorService } from "./InstructorService";
+import { StudentAvaliationService } from "./StudentAvaliationService";
 
 export {
     UserService,
@@ -19,5 +20,6 @@ export {
     CompetenceService,
     CompetenceGroupService,
     AppliedDisciplineService,
-    InstructorService
+    InstructorService,
+    StudentAvaliationService,
 };

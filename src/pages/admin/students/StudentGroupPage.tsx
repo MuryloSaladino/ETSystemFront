@@ -130,7 +130,7 @@ const StudentGroupPage = () => {
 
                     <Stack flexDirection="row" gap={2}>
                         <Typography variant="h4">Applied Disciplines</Typography>
-                        <Tooltip title="Add Student">
+                        <Tooltip title="Add Discipline">
                                 <Fab color="default" size="small" onClick={() => setAddOpen(true)}>
                                     <AddIcon/>
                                 </Fab>

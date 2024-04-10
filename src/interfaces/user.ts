@@ -9,6 +9,8 @@ export interface IStudent {
 }
 export interface IInstructor {
     idInstructor: string;
+    username: string;
+    name: string | null;
 }
 
 export interface IUser {

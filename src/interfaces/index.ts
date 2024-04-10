@@ -29,7 +29,11 @@ import {
 import {
     IAppliedDiscipline,
     IAppliedDisciplineGrouped
- } from "./appliedDiscipline.ts";
+} from "./appliedDiscipline.ts";
+import {
+    IStudentAvaliation,
+    IStudentAvaliationGrouped
+} from "./studentAvaliation.ts";
 import {
     IPaginated
 } from "./paginated.ts";
@@ -64,7 +68,9 @@ export type {
     ICompetence,
     ICompetenceGroup,
     IAppliedDiscipline,
-    IAppliedDisciplineGrouped
+    IAppliedDisciplineGrouped,
+    IStudentAvaliation,
+    IStudentAvaliationGrouped,
 };
 
 export {

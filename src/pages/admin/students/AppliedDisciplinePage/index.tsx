@@ -89,13 +89,25 @@ const AppliedDisciplinePage = () => {
 
     const deleteGroup = async (id:string) => {
         try {
-            
+            await competenceGroupService.deleteCompetenceGroup(id)
+            AppToast.notify("Group deleted.", "success")
+            setRender((prev) => !prev)
         } catch (error) {
-            
+            if(error instanceof Error) {
+                AppToast.notifyError(error)
+            }
         }
     }
     const deleteCompetence = async (id:string) => {
-        
+        try {
+            await competenceService.deleteCompetence(id)
+            AppToast.notify("Group deleted.", "success")
+            setRender((prev) => !prev)
+        } catch (error) {
+            if(error instanceof Error) {
+                AppToast.notifyError(error)
+            }
+        }
     }
 
     useEffect(() => {
@@ -155,6 +167,7 @@ const AppliedDisciplinePage = () => {
                     <div>
                     {   
                         appliedDiscipline &&
+                        appliedDiscipline.competenceGroups.length > 0 ?
                         appliedDiscipline.competenceGroups.map((group, groupIndex) =>
                             <Accordion key={groupIndex} disableGutters>
                                 <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ fontSize:"1.2rem" }}>
@@ -164,7 +177,7 @@ const AppliedDisciplinePage = () => {
                                     <List>
                                         <Divider/>
                                         {
-                                            group.competences ?
+                                            group.competences.length > 0 ?
                                             group.competences.map(
                                                 (competence, competenceIndex) => 
                                                     <div key={competenceIndex}>
@@ -184,14 +197,14 @@ const AppliedDisciplinePage = () => {
                                                                 >
                                                                     <EditIcon/>
                                                                 </IconButton>
-                                                                <IconButton>
+                                                                <IconButton onClick={() => deleteCompetence(competence.idCompetence)}>
                                                                     <DeleteIcon/>
                                                                 </IconButton>
                                                             </Stack>
                                                         </ListItem>
                                                         <Divider/>
                                                     </div>
-                                            ) : <Typography>No competences added</Typography>
+                                            ) : <Typography variant="h5" margin={2}>No competences added</Typography>
                                         }
                                     </List>
                                 </AccordionDetails>
@@ -202,12 +215,12 @@ const AppliedDisciplinePage = () => {
                                     <IconButton onClick={handleClickCompetenceGroupEdit(group.idCompetenceGroup, group.description)}>
                                         <EditIcon fontSize="large"/>
                                     </IconButton>
-                                    <IconButton>
+                                    <IconButton onClick={() => deleteGroup(group.idCompetenceGroup)}>
                                         <DeleteIcon fontSize="large"/>
                                     </IconButton>
                                 </AccordionActions>
                             </Accordion>
-                        )
+                        ) : <Typography variant="h5" margin={2}>No competences added yet.</Typography>
                     }
                     </div>
                 </Stack>
@@ -229,7 +242,6 @@ const AppliedDisciplinePage = () => {
                     <TextField
                         label="Weight"
                         {...register("weight")}
-                        type="number"
                     />
                 }
             </DialogForm>

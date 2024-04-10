@@ -7,6 +7,7 @@ import { DisciplineService } from "./DisciplineService";
 import { CompetenceService } from "./CompetenceService";
 import { CompetenceGroupService } from "./CompetenceGroupService";
 import { AppliedDisciplineService } from "./AppliedDisciplineService";
+import { InstructorService } from "./InstructorService";
 
 export {
     UserService,
@@ -18,4 +19,5 @@ export {
     CompetenceService,
     CompetenceGroupService,
     AppliedDisciplineService,
+    InstructorService
 };

@@ -6,21 +6,24 @@ import { titleCase } from "../../utils/string";
 
 interface AppBreadcrumbsProps {
     customCurrentPage?: string;
+    customPath?: string;
 } 
 
 
-const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
+const AppBreadcrumbs = ({ customCurrentPage, customPath }:AppBreadcrumbsProps) => {
 
     const [links, setLinks] = useState<string[]>([])
     const [currentPage, setCurrentPage] = useState<string>()
 
     useEffect(() => {
-        const windowLinks = window.location.pathname.split("/")
+        const windowLinks = customPath 
+            ? customPath.split("/") 
+            : window.location.pathname.split("/")
         windowLinks.shift()
         const popedString = windowLinks.pop()!
         setCurrentPage(popedString)
         setLinks(windowLinks)
-    }, [customCurrentPage])
+    }, [customCurrentPage, customPath])
 
     const handleLink = (link:string):string => {
         const location = window.location.pathname
@@ -33,7 +36,7 @@ const AppBreadcrumbs = ({ customCurrentPage }:AppBreadcrumbsProps) => {
                 <Typography>{"Home"}</Typography>
             </StyledLink>
             {
-                links.map((link, index) => 
+                links.filter(link => link.length != 36).map((link, index) => 
                     <StyledLink 
                         to={handleLink(link)} 
                         key={index}

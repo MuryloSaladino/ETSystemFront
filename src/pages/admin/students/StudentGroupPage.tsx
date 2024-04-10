@@ -1,4 +1,4 @@
-import { Chip, Container, Fab, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material"
+import { Chip, Container, Fab, IconButton, Skeleton, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { CustomAppBar, DialogForm, StyledLink } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
@@ -11,6 +11,7 @@ import { FieldValues, useForm } from "react-hook-form"
 import { UserContext } from "../../../context/UserContext"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import { clearEmptyProperties } from "../../../utils/object"
 
 
 const StudentGroupPage = () => {
@@ -37,26 +38,42 @@ const StudentGroupPage = () => {
     const [studentGroupName, setStudentGroupName] = useState<string>()
     const [loading, setLoading] = useState<boolean>(false)
     const [addOpen, setAddOpen] = useState<boolean>(false)
+    const [applyOpen, setApplyOpen] = useState<boolean>(false)
     const [render, setRender] = useState<boolean>(false)
     const { register, handleSubmit, reset } = useForm()
     const { user } = useContext(UserContext)
     const [disciplines, setDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
 
-    const handleAddClose = () => {
+    const handleClose = () => {
         setAddOpen(false)
-        setRender((prev) => !prev)
+        setApplyOpen(false)
+        reset()
     }
 
     const submitNewStudent = async (data:FieldValues) => {
         try {
             const newUser = await userService.createUser({
-                ...data,
+                ...clearEmptyProperties(data),
                 idInstitution: user?.institution.idInstitution
             })
             await userService.createStudent(
                 newUser.idUser,
                 { idStudentGroup: idStudentGroup }
             )
+            AppToast.notify("Student Created.", "success")
+            setRender((prev) => !prev)
+            reset()
+        } catch (error) {
+            if(error instanceof Error) {
+                AppToast.notifyError(error)
+            }
+        }
+    }
+
+    const submitApplyDiscipline = async (data:FieldValues) => {
+        try {
+            console.log(clearEmptyProperties(data))
+            setRender((prev) => !prev)
             reset()
         } catch (error) {
             if(error instanceof Error) {
@@ -118,8 +135,9 @@ const StudentGroupPage = () => {
 
                     <Stack flexDirection="row" alignItems="center" gap={2} flexWrap="wrap">
                         {
-                            studentGroup && !loading &&
-                            studentGroup.students.map((student, index) => 
+                            loading 
+                            ? Array.from({length: 5}, (value, index) => <Skeleton key={index} variant="rounded" width={150} height={32}/>) 
+                            : studentGroup?.students.map((student, index) => 
                                 <Chip
                                     key={index}
                                     label={student.username}
@@ -131,7 +149,7 @@ const StudentGroupPage = () => {
                     <Stack flexDirection="row" gap={2}>
                         <Typography variant="h4">Applied Disciplines</Typography>
                         <Tooltip title="Add Discipline">
-                                <Fab color="default" size="small" onClick={() => setAddOpen(true)}>
+                                <Fab color="default" size="small" onClick={() => setApplyOpen(true)}>
                                     <AddIcon/>
                                 </Fab>
                         </Tooltip>
@@ -155,11 +173,32 @@ const StudentGroupPage = () => {
                 open={addOpen}
                 title="Add user"
                 submit={submitNewStudent}
-                handleClose={handleAddClose}
+                handleClose={handleClose}
                 handleSubmit={handleSubmit}
             >
                 <TextField
+                    label="Username"
                     {...register("username")}
+                    helperText="A new user will be created and added to this student group."
+                />
+            </DialogForm>
+
+            <DialogForm
+                open={applyOpen}
+                title="Apply Discipline"
+                submit={submitApplyDiscipline}
+                handleClose={handleClose}
+                handleSubmit={handleSubmit}
+            >
+                <TextField
+                    type="number"
+                    {...register("period")}
+                    label="Period"
+                />
+                <TextField
+                    type="number"
+                    {...register("totalHours")}
+                    label="Total Hours"
                 />
             </DialogForm>
         </>

@@ -18,6 +18,7 @@ import DisciplinesPage from "../pages/admin/disciplines";
 import StudentsPage from "../pages/admin/students";
 import InstitutionsPage from "../pages/admin/institutions";
 import StudentGroupPage from "../pages/admin/students/StudentGroupPage";
+import AppliedDisciplinePage from "../pages/admin/students/AppliedDisciplinePage";
 
 
 const RoutesMain = () => {
@@ -39,6 +40,7 @@ const RoutesMain = () => {
                 <Route path="institutions" element={<InstitutionsPage/>}/>
                 <Route path="students" element={<StudentsPage/>}/>
                 <Route path="students/:idStudentGroup" element={<StudentGroupPage/>}/>
+                <Route path="students/:idStudentGroup/:idAppliedDiscipline" element={<AppliedDisciplinePage/>}/>
             </Route>
 
             <Route path="/instructor" element={<ProtectedRoute/>}>

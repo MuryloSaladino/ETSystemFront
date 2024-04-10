@@ -5,7 +5,7 @@ export interface IAppliedDisciplineGrouped {
     idDiscipline: string;
     idStudentGroup: string;
     idInstructor: string;
-    disciplineName: string
+    disciplineName: string;
     period: number;
     totalHours: number;
     isComplete: boolean;
@@ -16,6 +16,7 @@ export interface IAppliedDiscipline {
     idDiscipline: string;
     idStudentGroup: string;
     idInstructor: string;
+    disciplineName: string;
     period: number;
     totalHours: number;
     isComplete: boolean;

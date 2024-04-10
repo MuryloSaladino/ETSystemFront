@@ -19,6 +19,7 @@ const StudentGroupPage = () => {
     const columns:GridColDef[] = [
         { field: "disciplineName", headerName: "Discipline", flex: 0.3, sortable: false },
         { field: "totalHours", headerName: "Total Hours", flex: 0.3, sortable: false },
+        { field: "period", headerName: "Period", flex: 0.3 },
         {
             field: "link",
             flex: 0.12,
@@ -35,7 +36,7 @@ const StudentGroupPage = () => {
 
     const { idStudentGroup } = useParams()
     const [studentGroup, setStudentGroup] = useState<IStudentGroup>()
-    const [studentGroupName, setStudentGroupName] = useState<string>()
+    const [pageName, setPageName] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
     const [addOpen, setAddOpen] = useState<boolean>(false)
     const [applyOpen, setApplyOpen] = useState<boolean>(false)
@@ -112,7 +113,9 @@ const StudentGroupPage = () => {
     }, [idStudentGroup, render])
 
     useEffect(() => {
-        setStudentGroupName(studentGroup ? studentGroup.name : "Student Group")
+        if(!loading) {
+            setPageName(studentGroup ? studentGroup.name : "Student Group")
+        }
     }, [studentGroup])
 
     return(
@@ -122,7 +125,7 @@ const StudentGroupPage = () => {
             <Container maxWidth="md">
                 <Stack spacing={5}>
 
-                    <AppBreadcrumbs customCurrentPage={studentGroupName}/>
+                    <AppBreadcrumbs customCurrentPage={pageName}/>
 
                     <Stack flexDirection="row" gap={2}>
                         <Typography variant="h4">Students</Typography>

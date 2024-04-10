@@ -1,5 +1,5 @@
 import { Chip, Container, Fab, IconButton, Skeleton, Stack, TextField, Tooltip, Typography } from "@mui/material"
-import { CustomAppBar, DialogForm, StyledLink } from "../../../components"
+import { CustomAppBar, DialogForm, SkeletonList, StyledLink } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
 import { IAppliedDisciplineGrouped, IPaginated, IStudentGroup } from "../../../interfaces"
@@ -136,7 +136,7 @@ const StudentGroupPage = () => {
                     <Stack flexDirection="row" alignItems="center" gap={2} flexWrap="wrap">
                         {
                             loading 
-                            ? Array.from({length: 5}, (value, index) => <Skeleton key={index} variant="rounded" width={150} height={32}/>) 
+                            ? <SkeletonList length={5} width={150} heigth={32}/> 
                             : studentGroup?.students.map((student, index) => 
                                 <Chip
                                     key={index}

@@ -22,8 +22,8 @@ const DisciplinesPage = () => {
     const theme:Theme = useTheme()
 
     const categoryColors:Record<string, string> = {
-        "T.I.": theme.palette.info.dark,
-        "Mecatrônica": theme.palette.secondary.dark,
+        "T.I.": theme.palette.info[theme.palette.mode],
+        "Mecatrônica": theme.palette.secondary[theme.palette.mode],
     }
 
     const columns:GridColDef[] = [

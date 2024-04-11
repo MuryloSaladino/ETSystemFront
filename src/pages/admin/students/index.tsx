@@ -27,7 +27,11 @@ const StudentsPage = () => {
             renderCell: (params) => (
                 <Chip
                     label={params.row.workPeriod === "a" ? "Afternoon" : "Morning"}
-                    sx={{ backgroundColor: params.row.workPeriod === "a" ? theme.palette.warning.dark : theme.palette.info.dark}}
+                    sx={{
+                        backgroundColor: params.row.workPeriod === "a"
+                        ? theme.palette.warning[theme.palette.mode]
+                        : theme.palette.info[theme.palette.mode]
+                    }}
                 />
             )
         },

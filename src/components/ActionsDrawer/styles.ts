@@ -9,7 +9,7 @@ export const StyledDrawerBox = styled(Box)`
 export const StyledListItemButton = styled(ListItemButton)`
     display: flex;
     gap: 15px;
-    padding: 5px 20px;
+    padding: 13px 30px;
 `
 
 export const StyledCloseButton = styled(IconButton)`

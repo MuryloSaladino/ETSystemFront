@@ -1,6 +1,6 @@
 import { useContext } from "react"
 import { UserContext } from "../../context/UserContext"
-import { Divider, Drawer, List, Typography } from "@mui/material";
+import { Avatar, Divider, Drawer, List, Stack, Typography } from "@mui/material";
 import { StyledCloseButton, StyledDrawerBox, StyledListItemButton } from "./styles";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ interface IActionsDrawerProps {
 
 const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
 
-    const { access, logout } = useContext(UserContext)
+    const { access, logout, user } = useContext(UserContext)
     const navigate = useNavigate()
 
     return(
@@ -27,6 +27,18 @@ const ActionsDrawer = ({ open, toggleOpen }:IActionsDrawerProps) => {
                     <CloseIcon/>
                 </StyledCloseButton>
                 <List>
+                    {
+                        user &&
+                        <Stack alignItems="center" gap={1} margin={1}>
+                            <Avatar
+                                children={`${user.username[0]}${user.username[1]}`.toUpperCase()}
+                                sx={{ bgcolor: "primary.main", width: 50, height: 50 }}
+                            />
+                            <Typography variant="h5">{user.name || user.username}</Typography>
+                            <Typography variant="h6">{user.institution.name}</Typography>
+                        </Stack>
+                    }
+                    <Divider/>
                     <StyledListItemButton 
                         onClick={() => { navigate("/dashboard"); toggleOpen(); }}>
                         {<HomeIcon/>}

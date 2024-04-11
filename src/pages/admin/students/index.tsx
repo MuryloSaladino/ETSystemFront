@@ -1,4 +1,4 @@
-import { Chip, Container, IconButton, MenuItem, Pagination, Select, Stack, TextField, Typography } from "@mui/material"
+import { Chip, Container, IconButton, MenuItem, Pagination, Select, Stack, TextField, Theme, Typography, useTheme } from "@mui/material"
 import { CustomAppBar, DialogForm, StyledLink } from "../../../components"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import { IPaginated, IStudentGroupGrouped } from "../../../interfaces";
@@ -15,6 +15,8 @@ import { DateField } from "@mui/x-date-pickers";
 
 const StudentsPage = () => {
 
+    const theme:Theme = useTheme()
+
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
         { 
@@ -22,12 +24,12 @@ const StudentsPage = () => {
             headerName: "Work Period (at Bosch)",
             flex: 0.3,
             sortable: false,
-            renderCell: (params) => {
-                const period = params.row.workPeriod === "a" ? "Afternoon" : "Morning"
-                return(
-                    <Chip label={period}/>
-                )
-            }
+            renderCell: (params) => (
+                <Chip
+                    label={params.row.workPeriod === "a" ? "Afternoon" : "Morning"}
+                    sx={{ backgroundColor: params.row.workPeriod === "a" ? theme.palette.warning.dark : theme.palette.info.dark}}
+                />
+            )
         },
         {
             field: "link",

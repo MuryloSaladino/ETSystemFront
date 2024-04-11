@@ -1,11 +1,11 @@
-import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Container, Divider, Fab, IconButton, List, ListItem, ListItemText, Stack, TextField, Tooltip, Typography } from "@mui/material"
+import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Container, Divider, Fab, IconButton, List, ListItem, ListItemText, MenuItem, Select, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { ISubmitModeCreation, SubmitMode, SubmitModeList } from "./submits"
 import { CustomAppBar, DialogForm, StyledLink } from "../../../../components"
 import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { IAppliedDiscipline, IStudentGroup } from "../../../../interfaces"
-import { appliedDisciplineService, competenceGroupService, competenceService, studentGroupService } from "../../../../service"
+import { IAppliedDiscipline, IInstructorGrouped, IStudentGroup } from "../../../../interfaces"
+import { appliedDisciplineService, competenceGroupService, competenceService, studentGroupService, userService } from "../../../../service"
 import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -54,6 +54,8 @@ const AppliedDisciplinePage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [entityId, setEntityId] = useState<string>("")
     const [render, setRender] = useState<boolean>(false)
+    const [instructors, setInstructors] = useState<IInstructorGrouped[]>()
+    const [idInstructor, setIdInstructor] = useState<string>("")
     
     const handleClose = () => {
         setOpen(false)
@@ -109,6 +111,17 @@ const AppliedDisciplinePage = () => {
             }
         }
     }
+    const updateInstructor = async (idInstructor:string) => {
+        setIdInstructor(idInstructor)
+        try {
+            await appliedDisciplineService.updateAppliedDiscipline(
+                idAppliedDiscipline!,
+                { idInstructor: idInstructor }
+            )
+        } catch (error) {
+            
+        }
+    }
 
     useEffect(() => {
         const retrieveGroupAndDiscipline = async () => {
@@ -134,6 +147,12 @@ const AppliedDisciplinePage = () => {
     }, [render])
 
     useEffect(() => {
+        if(appliedDiscipline) {
+            setIdInstructor(appliedDiscipline.idInstructor)
+        }
+    }, [appliedDiscipline])
+
+    useEffect(() => {
         if(!loading) {
             setPageName(
                 (studentGroup ? studentGroup.name : "Student Group") + " - " +
@@ -142,12 +161,27 @@ const AppliedDisciplinePage = () => {
         }
     }, [studentGroup, appliedDiscipline])
 
+    useEffect(() => {
+        const retrieveInstructors = async () => {
+            try {
+                setInstructors(
+                    await userService.getInstructors()
+                )
+            } catch (error) {
+                if(error instanceof Error) {
+                    AppToast.notifyError(error)
+                }
+            }
+        }
+        retrieveInstructors()
+    }, [])
+
     return(
         <>
             <CustomAppBar/>
 
             <Container maxWidth="md">
-                <Stack spacing={3}>
+                <Stack spacing={5}>
                     <AppBreadcrumbs customCurrentPage={pageName}/>
 
                     <StyledLink to={"/admin/students/"+idStudentGroup}>
@@ -155,6 +189,20 @@ const AppliedDisciplinePage = () => {
                             <ArrowBackIcon/>
                         </IconButton>
                     </StyledLink>
+
+                    <Stack gap={2}>
+                        <Typography variant="h4">Instructor:</Typography>
+                        <Select value={idInstructor} onChange={(e) => updateInstructor(e.target.value)}>
+                            {
+                                instructors?.map((instructor, index) => 
+                                    <MenuItem key={index} value={instructor.idInstructor}>
+                                        {instructor.username}
+                                        {instructor.name && "  |  " + instructor.name}
+                                    </MenuItem>
+                                )
+                            }
+                        </Select>
+                    </Stack>
 
                     <Stack flexDirection="row" gap={2}>
                         <Typography variant="h4">Competence Groups</Typography>

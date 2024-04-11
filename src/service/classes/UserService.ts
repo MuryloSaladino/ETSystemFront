@@ -1,4 +1,4 @@
-import { IPaginated, IUser, IUserGrouped } from "../../interfaces";
+import { IInstructorGrouped, IPaginated, IUser, IUserGrouped } from "../../interfaces";
 import { EndpointOptions } from "./RequestsManager";
 import { BaseService } from "./BaseService";
 
@@ -96,6 +96,18 @@ class UserService extends BaseService {
                 { }
             ),
             data
+        );
+        return response.data;
+    };
+
+    getInstructors = async(): Promise<IInstructorGrouped[]> => {
+        this.manager.setAuth();
+        const response = await this.manager.get(
+            new EndpointOptions(
+                "/instructor",
+                { },
+                { }
+            )
         );
         return response.data;
     };

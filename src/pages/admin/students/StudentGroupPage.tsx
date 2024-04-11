@@ -1,10 +1,10 @@
-import { Chip, Container, Fab, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material"
+import { Chip, Container, Fab, IconButton, MenuItem, Select, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { CustomAppBar, DialogForm, SkeletonList, StyledLink } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
-import { IAppliedDisciplineGrouped, IPaginated, IStudentGroup } from "../../../interfaces"
+import { IAppliedDisciplineGrouped, IDisciplineGrouped, IInstructorGrouped, IPaginated, IStudentGroup } from "../../../interfaces"
 import AppToast from "../../../utils/AppToast"
-import { appliedDisciplineService, studentGroupService, userService } from "../../../service"
+import { appliedDisciplineService, disciplineService, studentGroupService, userService } from "../../../service"
 import { useParams } from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add';
 import { FieldValues, useForm } from "react-hook-form"
@@ -43,7 +43,11 @@ const StudentGroupPage = () => {
     const [render, setRender] = useState<boolean>(false)
     const { register, handleSubmit, reset } = useForm()
     const { user } = useContext(UserContext)
-    const [disciplines, setDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
+    const [appliedDisciplines, setAppliedDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
+    const [instructors, setInstructors] = useState<IInstructorGrouped[]>()
+    const [disciplines, setDisciplines] = useState<IPaginated<IDisciplineGrouped>>()
+    const [idInstructor, setIdInstructor] = useState<string>("")
+    const [idDiscipline, setIdDiscipline] = useState<string>("")
 
     const handleClose = () => {
         setAddOpen(false)
@@ -73,7 +77,12 @@ const StudentGroupPage = () => {
 
     const submitApplyDiscipline = async (data:FieldValues) => {
         try {
-            console.log(clearEmptyProperties(data))
+            await appliedDisciplineService.createAppliedDiscipline({
+                ...clearEmptyProperties(data),
+                idInstructor: idInstructor,
+                idDiscipline: idDiscipline,
+                idStudentGroup: idStudentGroup
+            })
             setRender((prev) => !prev)
             reset()
         } catch (error) {
@@ -84,22 +93,16 @@ const StudentGroupPage = () => {
     }
 
     useEffect(() => {
-        const retrieveAppliedDisciplines = async () => {
-            setDisciplines(
-                await appliedDisciplineService.getAppliedDisciplines({
-                    idStudentGroup: idStudentGroup!
-                })
-            )
-        }
-        retrieveAppliedDisciplines()
-    }, [])
-
-    useEffect(() => {
-        const retrieveStudentGroup = async () => {
+        const retrieveStudentGroupAndDisciplines = async () => {
             try {
                 setLoading(true)
                 setStudentGroup(
                     await studentGroupService.getStudentGroup(idStudentGroup!)
+                )
+                setAppliedDisciplines(
+                    await appliedDisciplineService.getAppliedDisciplines({
+                        idStudentGroup: idStudentGroup!
+                    })
                 )
             } catch (error) {
                 if(error instanceof Error) {
@@ -109,8 +112,28 @@ const StudentGroupPage = () => {
                 setLoading(false)
             }
         }
-        retrieveStudentGroup()
-    }, [idStudentGroup, render])
+        retrieveStudentGroupAndDisciplines()
+    }, [render])
+
+    useEffect(() => {
+        const retrieveInstructorsAndDisciplines = async () => {
+            try {
+                setInstructors(
+                    await userService.getInstructors()
+                )
+                setDisciplines(
+                    await disciplineService.getDisciplines("1")
+                )
+            } catch (error) {
+                if(error instanceof Error) {
+                    AppToast.notifyError(error)
+                }
+            }
+        }
+        if(applyOpen) {
+            retrieveInstructorsAndDisciplines()
+        }
+    }, [applyOpen])
 
     useEffect(() => {
         if(!loading) {
@@ -138,14 +161,17 @@ const StudentGroupPage = () => {
 
                     <Stack flexDirection="row" alignItems="center" gap={2} flexWrap="wrap">
                         {
-                            loading 
-                            ? <SkeletonList length={5} width={150} heigth={32}/> 
-                            : studentGroup?.students.map((student, index) => 
-                                <Chip
-                                    key={index}
-                                    label={student.username}
-                                />
-                            )
+                            !loading ?
+                            (
+                                studentGroup &&
+                                studentGroup.students.length > 0 ?
+                                studentGroup.students.map((student, index) => 
+                                    <Chip
+                                        key={index}
+                                        label={student.username}
+                                    />
+                                ) : <Chip label="No students added"/>
+                            ) : <SkeletonList length={7} width={100} heigth={32}/> 
                         }
                     </Stack>
 
@@ -161,7 +187,7 @@ const StudentGroupPage = () => {
                         loading={loading}
                         columns={columns}
                         rows={
-                            disciplines?.paginatedData.sort((a, b) => a.period - b.period).map((user, index) => ({ id: index, ...user })) 
+                            appliedDisciplines?.paginatedData.sort((a, b) => a.period - b.period).map((user, index) => ({ id: index, ...user })) 
                             || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})
                         }
                         rowSelection={false}
@@ -193,6 +219,31 @@ const StudentGroupPage = () => {
                 handleClose={handleClose}
                 handleSubmit={handleSubmit}
             >
+                <Stack>
+                    <Typography>Instructor</Typography>
+                    <Select value={idInstructor} onChange={(e) => setIdInstructor(e.target.value)}>
+                        {
+                            instructors?.map((instructor, index) => 
+                                <MenuItem key={index} value={instructor.idInstructor}>
+                                    {instructor.username}
+                                    {"  |  " && instructor.name}
+                                </MenuItem>
+                            )
+                        }
+                    </Select>
+                </Stack>
+                <Stack>
+                    <Typography>Discipline</Typography>
+                    <Select value={idDiscipline} onChange={(e) => setIdDiscipline(e.target.value)}>
+                        {
+                            disciplines?.paginatedData.map((discipline, index) => 
+                                <MenuItem key={index} value={discipline.idDiscipline}>
+                                    {discipline.name}
+                                </MenuItem>
+                            )
+                        }
+                    </Select>
+                </Stack>
                 <TextField
                     type="number"
                     {...register("period")}

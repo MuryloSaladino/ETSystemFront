@@ -11,6 +11,11 @@ export interface IStudent {
 export interface IInstructor {
     idInstructor: string;
 }
+export interface IInstructorGrouped {
+    idInstructor: string;
+    username: string;
+    name: string | null;
+}
 
 export interface IUser {
     idUser: string;

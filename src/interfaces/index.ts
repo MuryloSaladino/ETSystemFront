@@ -5,6 +5,7 @@ import {
     IAdministrator,
     IStudent,
     IInstructor,
+    IInstructorGrouped
 } from "./user.ts";
 import {
     IInstitution
@@ -66,7 +67,8 @@ export type {
     ICompetenceGroup,
     IAppliedDiscipline,
     IAppliedDisciplineGrouped,
-    IStudentResponseStudentGroup
+    IStudentResponseStudentGroup,
+    IInstructorGrouped
 };
 
 export {

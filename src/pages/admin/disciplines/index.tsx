@@ -1,9 +1,8 @@
-import { Autocomplete, Chip, Container, IconButton, Pagination, Stack, TextField, Theme, Typography, useTheme } from "@mui/material"
+import { Chip, Container, IconButton, MenuItem, Select, Stack, TextField, Theme, Typography, useTheme } from "@mui/material"
 import { CustomAppBar, DialogForm } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
-import { useSearchParams } from "react-router-dom"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { IDiscipline, IDisciplineCategory, IDisciplineGrouped, IPaginated } from "../../../interfaces"
 import { FieldValues, useForm } from "react-hook-form"
 import { disciplineCategoryService, disciplineService } from "../../../service"
@@ -45,11 +44,12 @@ const DisciplinesPage = () => {
             type: "actions",
             flex: 0.1,
             headerName: "Actions",
-            getActions: (row) => {
+            sortable: false,
+            getActions: (params) => {
                 return [
                     <GridActionsCellItem
                         icon={<EditIcon/>}
-                        onClick={() => handleClick(row.row)}
+                        onClick={() => handleClick(params.row)}
                         label="Edit"
                     />
                 ]
@@ -57,10 +57,10 @@ const DisciplinesPage = () => {
         },
     ]
 
-    const [searchParams, setSearchParams] = useSearchParams({ page: "1" })
     const [disciplines, setDisciplines] = useState<IPaginated<IDisciplineGrouped>>()
     const [open, setOpen] = useState<boolean>(false)
     const [currentDiscipline, setCurrentDiscipline] = useState<IDiscipline|null>(null)
+    const [currentCategory, setCurrentCategory] = useState<string>("")
     const { register, handleSubmit, setValue } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [categories, setCategories] = useState<IPaginated<IDisciplineCategory>>()
@@ -75,16 +75,12 @@ const DisciplinesPage = () => {
         setCurrentDiscipline(null)
         setValue("name", "")
     }
-    const handleChange = (e:ChangeEvent<unknown>, value:number) => {
-        e.preventDefault()
-        setSearchParams({ page: String(value) });
-    };
 
     useEffect(() => {
         const retrieveDisciplines = async () => {
             try {
                 setLoading(true)
-                setDisciplines(await disciplineService.getDisciplines(searchParams.get("page") || "1"))
+                setDisciplines(await disciplineService.getDisciplines("1"))
                 setCategories(await disciplineCategoryService.getDisciplineCategories())
             } catch (error) {
                 if(error instanceof Error) {
@@ -95,7 +91,7 @@ const DisciplinesPage = () => {
             }
         }
         retrieveDisciplines()
-    }, [searchParams, open])
+    }, [open])
 
     const submit = async (data:FieldValues) => {
         try {
@@ -103,17 +99,17 @@ const DisciplinesPage = () => {
             if(currentDiscipline) {
                 await disciplineService.updateDiscipline(
                     currentDiscipline.idDiscipline,
-                    clearEmptyProperties(data)
+                    clearEmptyProperties({
+                        ...data,
+                        idCategory: currentCategory
+                    })
                 )
                 AppToast.notify("Discipline data has been updated.", "success")
             } else {
                 await disciplineService.createDiscipline(
                     clearEmptyProperties({
                         ...data,
-                        idCategory: categories?.paginatedData.find(
-                            element => element.name === data.category
-                        )?.idDisciplineCategory,
-                        category: undefined
+                        idCategory: currentCategory
                     })
                 )
                 AppToast.notify("Discipline created.", "success")
@@ -151,17 +147,12 @@ const DisciplinesPage = () => {
                             })
                         ) || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})}
                         rowSelection={false}
-                        hideFooter
                         disableColumnFilter
+                        initialState={{
+                            pagination: { paginationModel: { pageSize: 10 } },
+                        }}
+                        pageSizeOptions={[10, 25]}
                     />
-
-                    <Pagination
-                        page={Number(searchParams.get("page"))}
-                        count={disciplines?.totalPages} 
-                        onChange={handleChange}
-                        sx={{ alignSelf:"end" }}
-                    />
-
                 </Stack>
             </Container>
 
@@ -177,23 +168,22 @@ const DisciplinesPage = () => {
                     label="Discipline Name"
                     required
                 />
-                {
-                    !currentDiscipline &&
-                    <Autocomplete
-                        disablePortal
-                        options={categories?.paginatedData || []}
-                        getOptionLabel={option => option.name}
-                        isOptionEqualToValue={(option, value) => option.name == value.name}
-                        renderInput={(params) => 
-                            <TextField 
-                                {...params} 
-                                {...register("category")}
-                                required
-                                label="Category"
-                            />
+                <Stack gap={1}>
+                    <Typography variant="caption">Category</Typography>
+                    <Select
+                        value={currentCategory}
+                        onChange={(e) => setCurrentCategory(e.target.value)}
+                    >
+                        {
+                            categories?.paginatedData.map((category, index) => 
+                                <MenuItem
+                                    value={category.idDisciplineCategory}
+                                    key={index}
+                                >{category.name}</MenuItem>
+                            )
                         }
-                    />
-                }
+                    </Select>
+                </Stack>
             </DialogForm>
         </>
     )

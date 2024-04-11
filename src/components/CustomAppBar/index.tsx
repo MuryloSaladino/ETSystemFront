@@ -1,20 +1,22 @@
-import { IconButton } from "@mui/material"
+import { Avatar, IconButton, Stack } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { StyledAppBar, StyledHeaderBox, StyledToolbar } from "./styles";
+import { StyledAppBar, StyledToolbar } from "./styles";
 
 import { Bosch } from "..";
 import { useContext, useState } from "react";
 import { ColorsContext } from "../../context/ColorsContext";
 import ActionsDrawer from "../ActionsDrawer";
+import { UserContext } from "../../context/UserContext";
 
 const CustomAppBar = () => {
 
     const [ open, setOpen ] = useState<boolean>(false)
     const toggleOpen = () => setOpen((prevState) => !prevState)
     const { darkMode, toggleTheme } = useContext(ColorsContext)
+    const { user } = useContext(UserContext)
 
     return(
         <>
@@ -22,15 +24,24 @@ const CustomAppBar = () => {
 
             <StyledAppBar color="default">
                 <StyledToolbar>
-                    <StyledHeaderBox>
+                    <Stack flexDirection="row" gap={1} alignItems="center">
                         <IconButton onClick={toggleOpen}>
                             <MenuIcon/>
                         </IconButton>
                         <Bosch/>
-                    </StyledHeaderBox>
-                    <IconButton onClick={toggleTheme}>
-                        {darkMode ? <DarkModeIcon/> : <LightModeIcon/>}
-                    </IconButton>
+                    </Stack>
+                    <Stack flexDirection="row" gap={1}>
+                        {
+                            user &&
+                            <Avatar
+                                children={`${user.username[0]}${user.username[1]}`.toUpperCase()}
+                                sx={{ bgcolor: "primary.main" }}
+                            />
+                        }
+                        <IconButton onClick={toggleTheme}>
+                            {darkMode ? <DarkModeIcon/> : <LightModeIcon/>}
+                        </IconButton>
+                    </Stack>
                 </StyledToolbar>
             </StyledAppBar>
         </>

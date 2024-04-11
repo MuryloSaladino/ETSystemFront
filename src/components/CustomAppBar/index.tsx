@@ -1,5 +1,4 @@
 import { Avatar, Container, IconButton, Stack } from "@mui/material"
-import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 

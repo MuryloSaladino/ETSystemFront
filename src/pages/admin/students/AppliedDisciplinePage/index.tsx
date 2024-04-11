@@ -185,9 +185,9 @@ const AppliedDisciplinePage = () => {
                                                             <ListItemText
                                                                 primary={competence.description}
                                                                 secondary={"Weight: "+competence.weight}
-                                                                secondaryTypographyProps={{ align: "center", color: "info.main", marginTop: 1 }}
+                                                                secondaryTypographyProps={{ fontSize: "1rem", marginTop: 1 }}
                                                             />
-                                                            <Stack justifyContent="space-around">
+                                                            <Stack flexDirection="row" gap={1}>
                                                                 <IconButton 
                                                                     onClick={ handleClickCompetenceEdit(
                                                                         competence.idCompetence,

@@ -26,6 +26,19 @@ const SettingsPage = () => {
         }
     }, [user])
 
+    useEffect(() => {
+        if(user) {
+            const filteredUser = {
+                ...user,
+                administrator: undefined,
+                instructor: undefined,
+                student: undefined
+            }
+            if(Object.values(filteredUser).includes(null))
+                AppToast.notify("You must update your info before using the website!", "warning")
+        }
+    }, [])
+
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {

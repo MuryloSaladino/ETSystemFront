@@ -51,7 +51,7 @@ const RoutesMain = () => {
                 <Route index element={<StudentPage/>}/>
             </Route>
 
-            <Route path="/settings" element={<ProtectedRoute/>}>
+            <Route path="/settings" element={<ProtectedRoute genericUserAccess/>}>
                 <Route index element={<SettingsPage/>}/>
             </Route>
         </Routes>

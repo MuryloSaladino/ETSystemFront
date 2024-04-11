@@ -29,8 +29,8 @@ const UsersPage = () => {
     const { register, handleSubmit, setValue, getValues, reset } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [dateOfBirth, setDateOfBirth] = useState<string>()
-    
 
+    
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
         { 

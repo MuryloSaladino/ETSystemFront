@@ -26,7 +26,7 @@ const UsersPage = () => {
     const [users, setUsers] = useState<IPaginated<IUserGrouped>>()
     const [open, setOpen] = useState<boolean>(false)
     const [currentUser, setCurrentUser] = useState<IUser|null>(null)
-    const { register, handleSubmit, setValue, getValues } = useForm()
+    const { register, handleSubmit, setValue, getValues, reset } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [dateOfBirth, setDateOfBirth] = useState<string>()
     
@@ -84,6 +84,7 @@ const UsersPage = () => {
                 AppToast.notifyError(error)
         } finally {
             setLoading(false)
+            reset()
         }
         handleClose()
     }
@@ -177,6 +178,11 @@ const UsersPage = () => {
                     format="DD/MM/YYYY"
                     defaultValue={currentUser?.dateOfBirth ? dayjs(currentUser?.dateOfBirth) : null}
                     onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
+                />
+                <TextField
+                    label="Password"
+                    type="password"
+                    {...register("password")}
                 />
             </DialogForm>
         </>

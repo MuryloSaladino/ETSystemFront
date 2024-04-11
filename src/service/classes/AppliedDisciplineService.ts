@@ -8,7 +8,7 @@ import { BaseService } from "./BaseService";
 
 class AppliedDisciplineService extends BaseService {
     getAppliedDisciplines = async(
-        page: string
+        params?: Record<string, string | number>
     ): Promise<IPaginated<IAppliedDisciplineGrouped>> => {
 
         this.manager.setAuth();
@@ -16,7 +16,11 @@ class AppliedDisciplineService extends BaseService {
             new EndpointOptions(
                 "/appliedDiscipline",
                 { },
-                { page: page, limit: 10 }
+                {
+                    page: "1",
+                    limit: 1000,
+                    ...params
+                }
             )
         );
 

@@ -16,6 +16,8 @@ const DialogForm = ({open, handleClose, title, handleSubmit, submit, children}:I
 
     return(
         <Dialog 
+            fullWidth
+            maxWidth="sm"
             open={open}
             onClose={handleClose}
             sx={{ maxWidth: "100%" }}>

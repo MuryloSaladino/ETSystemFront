@@ -1,6 +1,6 @@
 import { Button, Container, Divider, Typography } from "@mui/material"
 import { CustomAppBar, SwitchInput } from "../../components"
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { FieldValues, useForm } from "react-hook-form";
 import { userService } from "../../service";
@@ -8,12 +8,16 @@ import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
 import { StyledForm, StyledStack } from "./styles";
 import AppToast from "../../utils/AppToast";
+import { DateField } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 
 
 const SettingsPage = () => {
 
     const { user, buildUser } = useContext(UserContext)
     const { handleSubmit, register, setValue, getValues } = useForm()
+    const [dateOfBirth, setDateOfBirth] = useState<string>()
+    const [defaultValueDate, setDefaultValueDate] = useState<any>()
 
     useEffect(() => {
         if(user) {
@@ -23,14 +27,34 @@ const SettingsPage = () => {
                     setValue(prop, user[(prop as keyof IUser)])
                 }
             })
+            setDefaultValueDate(dayjs(user.dateOfBirth))
         }
     }, [user])
+
+    useEffect(() => {
+        if(user) {
+            const filteredUser = {
+                ...user,
+                administrator: undefined,
+                instructor: undefined,
+                student: undefined
+            }
+            if(Object.values(filteredUser).includes(null))
+                AppToast.notify("You must update your info before using the website!", "warning")
+        }
+    }, [])
 
     const submit = async (data:FieldValues) => {
         const token = localStorage.getItem("@TOKEN")
         if(user && token) {
             try {
-                await userService.updateUser(user.idUser, clearEmptyProperties(data))
+                await userService.updateUser(
+                    user.idUser,
+                    clearEmptyProperties({
+                        ...data,
+                        dateOfBirth: dateOfBirth
+                    })
+                )
                 AppToast.notify("Data has been updated!", "success")
                 buildUser()
             } catch (error) {
@@ -78,9 +102,12 @@ const SettingsPage = () => {
                     <Divider/>
                     <StyledStack>
                         <Typography variant="h6">Date Of Birth:</Typography>
-                        <SwitchInput
-                            {...register("dateOfBirth", { pattern: /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/ })}
-                            helperText="DD/MM/YYYY"/>
+                        <DateField
+                            size="medium"
+                            format="DD/MM/YYYY"
+                            defaultValue={defaultValueDate}
+                            onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
+                        />
                     </StyledStack>
                     <Button
                         variant="contained"

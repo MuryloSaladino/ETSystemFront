@@ -9,6 +9,7 @@ import SwitchInput from "./SwitchInput"
 import CustomDialog from "./DialogForm"
 import AccessChips from "./AccessChips"
 import StyledLink from "./StyledLink"
+import SkeletonList from "./SkeletonList"
 
 export	{
     ActionsDrawer,
@@ -22,4 +23,5 @@ export	{
     CustomDialog,
     AccessChips,
     StyledLink,
+    SkeletonList,
 }

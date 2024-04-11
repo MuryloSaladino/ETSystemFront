@@ -5,13 +5,15 @@ import {
     IAdministrator,
     IStudent,
     IInstructor,
+    IInstructorGrouped
 } from "./user.ts";
 import {
     IInstitution
 } from "./institution.ts";
 import {
     IStudentGroup,
-    IStudentGroupGrouped
+    IStudentGroupGrouped,
+    IStudentResponseStudentGroup
 } from "./studentGroup.ts";
 import {
     IDisciplineCategory
@@ -69,8 +71,8 @@ export type {
     ICompetenceGroup,
     IAppliedDiscipline,
     IAppliedDisciplineGrouped,
-    IStudentAvaliation,
-    IStudentAvaliationGrouped,
+    IStudentResponseStudentGroup,
+    IInstructorGrouped
 };
 
 export {

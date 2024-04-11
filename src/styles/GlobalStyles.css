@@ -1,4 +1,4 @@
-:root{
+:root {
     --primary-light: #007bc0;
     --primary-main: #00629a;
     --primary-dark: #004975;
@@ -91,7 +91,7 @@ body {
 
 body::after{
     content: "";
-    background-image: url("../../bosch_colors.svg");
+    background-image: url("../../public/bosch_colors.svg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50% center;

@@ -16,7 +16,7 @@ class DisciplineService extends BaseService {
             new EndpointOptions(
                 "/discipline",
                 { },
-                { page: page, limit: 10 }
+                { page: page, limit: 9999 }
             )
         );
 

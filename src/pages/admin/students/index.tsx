@@ -1,4 +1,4 @@
-import { Chip, Container, IconButton, Pagination, Stack, TextField, Typography } from "@mui/material"
+import { Chip, Container, IconButton, MenuItem, Pagination, Select, Stack, TextField, Theme, Typography, useTheme } from "@mui/material"
 import { CustomAppBar, DialogForm, StyledLink } from "../../../components"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import { IPaginated, IStudentGroupGrouped } from "../../../interfaces";
@@ -10,9 +10,12 @@ import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import AddIcon from '@mui/icons-material/Add';
 import AppToast from "../../../utils/AppToast";
+import { DateField } from "@mui/x-date-pickers";
 
 
 const StudentsPage = () => {
+
+    const theme:Theme = useTheme()
 
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
@@ -21,12 +24,16 @@ const StudentsPage = () => {
             headerName: "Work Period (at Bosch)",
             flex: 0.3,
             sortable: false,
-            renderCell: (params) => {
-                const period = params.row.workPeriod === "a" ? "Afternoon" : "Morning"
-                return(
-                    <Chip label={period}/>
-                )
-            }
+            renderCell: (params) => (
+                <Chip
+                    label={params.row.workPeriod === "a" ? "Afternoon" : "Morning"}
+                    sx={{
+                        backgroundColor: params.row.workPeriod === "a"
+                        ? theme.palette.warning[theme.palette.mode]
+                        : theme.palette.info[theme.palette.mode]
+                    }}
+                />
+            )
         },
         {
             field: "link",
@@ -47,6 +54,8 @@ const StudentsPage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const { register, handleSubmit, reset } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
+    const [date, setDate] = useState<string>("")
+    const [period, setPeriod] = useState<string>("a")
 
     const handleClose = () => {
         setOpen(false)
@@ -58,7 +67,20 @@ const StudentsPage = () => {
     };
 
     const submit = async (data:FieldValues) => {
-        console.log(data)
+        try {
+            await studentGroupService.createStudentGroup(
+                {
+                    ...data,
+                    dateOfStart: date,
+                    workPeriod: period
+                })
+            AppToast.notify("Group created.", "success")
+            setOpen(false)
+        } catch (error) {
+            if(error instanceof Error) {
+                AppToast.notifyError(error)
+            }
+        }
     }
 
     useEffect(() => {
@@ -88,7 +110,7 @@ const StudentsPage = () => {
                     <AppBreadcrumbs/>
 
                     <Stack flexDirection="row" justifyContent="space-between">
-                        <Typography variant="h4">Disciplines</Typography>
+                        <Typography variant="h4">Student Groups</Typography>
                         <IconButton size="large" onClick={() => setOpen(true)}><AddIcon fontSize="large"/></IconButton>
                     </Stack>
 
@@ -126,6 +148,23 @@ const StudentsPage = () => {
                     label="Student Group Name"
                     required
                 />
+                <Stack>
+                    <Typography>Date of Start:</Typography>
+                    <DateField
+                        format="DD/MM/YYYY"
+                        onChange={(e) => setDate(e ? e.format("YYYY-MM-DD") : "")}
+                    />
+                </Stack>
+                <Stack>
+                    <Typography>Work Period (at Bosch):</Typography>
+                    <Select
+                        value={period}
+                        onChange={(e) => setPeriod(e.target.value)}
+                    >
+                        <MenuItem value={"m"}>Morning</MenuItem>
+                        <MenuItem value={"a"}>Afternoon</MenuItem>
+                    </Select>
+                </Stack>
             </DialogForm>
         </>
     )

@@ -1,4 +1,4 @@
-import { Autocomplete, Chip, Container, IconButton, Pagination, Stack, TextField, Typography } from "@mui/material"
+import { Autocomplete, Chip, Container, IconButton, Pagination, Stack, TextField, Theme, Typography, useTheme } from "@mui/material"
 import { CustomAppBar, DialogForm } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
@@ -19,6 +19,13 @@ interface IDisciplineRow extends IDiscipline {
 
 const DisciplinesPage = () => {
 
+    const theme:Theme = useTheme()
+
+    const categoryColors:Record<string, string> = {
+        "T.I.": theme.palette.info.dark,
+        "Mecatrônica": theme.palette.secondary.dark,
+    }
+
     const columns:GridColDef[] = [
         { field: "name", headerName: "Name", flex: 0.5, sortable: false },
         { 
@@ -26,7 +33,12 @@ const DisciplinesPage = () => {
             headerName: "Category",
             flex: 0.3,
             sortable: false,
-            renderCell: (params) => <Chip label={params.row.category?.name}/>
+            renderCell: (params) => (
+                <Chip
+                    label={params.row.category?.name}
+                    sx={{ backgroundColor: categoryColors[params.row.category?.name] }}
+                />
+            )
         },
         {
             field: "actions",

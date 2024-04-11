@@ -27,11 +27,10 @@ const CustomAppBar = () => {
                         <Stack flexDirection="row" gap={1} alignItems="center">
                             {
                                 user &&
-                                <IconButton>
+                                <IconButton onClick={toggleOpen}>
                                     <Avatar
                                         children={`${user.username[0]}${user.username[1]}`.toUpperCase()}
                                         sx={{ bgcolor: "primary.main" }}
-                                        onClick={toggleOpen}
                                     />
                                 </IconButton>
                             }

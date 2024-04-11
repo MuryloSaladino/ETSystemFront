@@ -72,7 +72,9 @@ export type {
     IAppliedDiscipline,
     IAppliedDisciplineGrouped,
     IStudentResponseStudentGroup,
-    IInstructorGrouped
+    IInstructorGrouped,
+    IStudentAvaliation,
+    IStudentAvaliationGrouped
 };
 
 export {

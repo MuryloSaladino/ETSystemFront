@@ -1,4 +1,4 @@
-import { AppBar, Box, Toolbar, styled } from "@mui/material";
+import { AppBar, Toolbar, styled } from "@mui/material";
 
 export const StyledAppBar = styled(AppBar)`
     position: fixed;

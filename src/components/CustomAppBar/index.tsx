@@ -1,4 +1,4 @@
-import { Avatar, IconButton, Stack } from "@mui/material"
+import { Avatar, Container, IconButton, Stack } from "@mui/material"
 import MenuIcon from '@mui/icons-material/Menu';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -23,26 +23,26 @@ const CustomAppBar = () => {
             <ActionsDrawer open={open} toggleOpen={toggleOpen}/>
 
             <StyledAppBar color="default">
-                <StyledToolbar>
-                    <Stack flexDirection="row" gap={1} alignItems="center">
-                        <IconButton onClick={toggleOpen}>
-                            <MenuIcon/>
-                        </IconButton>
+                <Container maxWidth="xl">
+                    <StyledToolbar>
+                        <Stack flexDirection="row" gap={1} alignItems="center">
+                            {
+                                user &&
+                                <IconButton>
+                                    <Avatar
+                                        children={`${user.username[0]}${user.username[1]}`.toUpperCase()}
+                                        sx={{ bgcolor: "primary.main" }}
+                                        onClick={toggleOpen}
+                                    />
+                                </IconButton>
+                            }
+                            <IconButton onClick={toggleTheme}>
+                                {darkMode ? <DarkModeIcon/> : <LightModeIcon/>}
+                            </IconButton>
+                        </Stack>
                         <Bosch/>
-                    </Stack>
-                    <Stack flexDirection="row" gap={1}>
-                        {
-                            user &&
-                            <Avatar
-                                children={`${user.username[0]}${user.username[1]}`.toUpperCase()}
-                                sx={{ bgcolor: "primary.main" }}
-                            />
-                        }
-                        <IconButton onClick={toggleTheme}>
-                            {darkMode ? <DarkModeIcon/> : <LightModeIcon/>}
-                        </IconButton>
-                    </Stack>
-                </StyledToolbar>
+                    </StyledToolbar>
+                </Container>
             </StyledAppBar>
         </>
     )

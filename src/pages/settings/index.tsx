@@ -17,7 +17,6 @@ const SettingsPage = () => {
     const { user, buildUser } = useContext(UserContext)
     const { handleSubmit, register, setValue, getValues } = useForm()
     const [dateOfBirth, setDateOfBirth] = useState<string>()
-    const [defaultValueDate, setDefaultValueDate] = useState<any>()
 
     useEffect(() => {
         if(user) {
@@ -27,7 +26,6 @@ const SettingsPage = () => {
                     setValue(prop, user[(prop as keyof IUser)])
                 }
             })
-            setDefaultValueDate(dayjs(user.dateOfBirth))
         }
     }, [user])
 
@@ -71,50 +69,53 @@ const SettingsPage = () => {
             <Container maxWidth="md">
                 <Typography variant="h4" sx={{ margin:"1rem 0" }}>Informações Básicas</Typography>
 
-                <StyledForm onSubmit={handleSubmit((data) => submit(data))}>
-                    <StyledStack>
-                        <Typography variant="h6">Username:</Typography>
-                        <SwitchInput
-                            {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
-                            helperText="Must start with a letter"/>
-                    </StyledStack>
-                    <Divider/>
-                    <StyledStack>
-                        <Typography variant="h6">Name:</Typography>
-                        <SwitchInput
-                            {...register("name", { pattern: /^[a-zA-Z ]+$/ })}
-                            helperText="Only letters"/>
-                    </StyledStack>
-                    <Divider/>
-                    <StyledStack>
-                        <Typography variant="h6">Email:</Typography>
-                        <SwitchInput
-                            {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
-                            helperText="Must be in a valid email format"/>
-                    </StyledStack>
-                    <Divider/>
-                    <StyledStack>
-                        <Typography variant="h6">Contact:</Typography>
-                        <SwitchInput
-                            {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
-                            helperText="(XX)XXXXX-XXXX"/>
-                    </StyledStack>
-                    <Divider/>
-                    <StyledStack>
-                        <Typography variant="h6">Date Of Birth:</Typography>
-                        <DateField
-                            size="medium"
-                            format="DD/MM/YYYY"
-                            defaultValue={defaultValueDate}
-                            onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
-                        />
-                    </StyledStack>
-                    <Button
-                        variant="contained"
-                        type="submit">
-                        Save
-                    </Button>
-                </StyledForm>
+                {
+                    user &&
+                    <StyledForm onSubmit={handleSubmit((data) => submit(data))}>
+                        <StyledStack>
+                            <Typography variant="h6">Username:</Typography>
+                            <SwitchInput
+                                {...register("username", { pattern: /^[a-zA-Z][a-zA-Z0-9_]{3,}$/ })}
+                                helperText="Must start with a letter"/>
+                        </StyledStack>
+                        <Divider/>
+                        <StyledStack>
+                            <Typography variant="h6">Name:</Typography>
+                            <SwitchInput
+                                {...register("name", { pattern: /^[a-zA-Z ]+$/ })}
+                                helperText="Only letters"/>
+                        </StyledStack>
+                        <Divider/>
+                        <StyledStack>
+                            <Typography variant="h6">Email:</Typography>
+                            <SwitchInput
+                                {...register("email", { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ })}
+                                helperText="Must be in a valid email format"/>
+                        </StyledStack>
+                        <Divider/>
+                        <StyledStack>
+                            <Typography variant="h6">Contact:</Typography>
+                            <SwitchInput
+                                {...register("contact", { pattern: /^\(\d{2}\)\d{5}-\d{4}$/ })}
+                                helperText="(XX)XXXXX-XXXX"/>
+                        </StyledStack>
+                        <Divider/>
+                        <StyledStack>
+                            <Typography variant="h6">Date Of Birth:</Typography>
+                            <DateField
+                                size="medium"
+                                format="DD/MM/YYYY"
+                                defaultValue={user?.dateOfBirth ? dayjs(user?.dateOfBirth) : null}
+                                onChange={(e) => setDateOfBirth(e ? e.format("YYYY-MM-DD") : "")}
+                            />
+                        </StyledStack>
+                        <Button
+                            variant="contained"
+                            type="submit">
+                            Save
+                        </Button>
+                    </StyledForm>
+                }
             </Container>
         </>
     )

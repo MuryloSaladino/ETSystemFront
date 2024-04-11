@@ -111,9 +111,6 @@ const UsersPage = () => {
                 if(values.includes(prop)) {
                     setValue(prop, currentUser[(prop as keyof IUser)])
                 }
-                if(currentUser.dateOfBirth) {
-                    setValue("dateOfBirth", datetimeToBrazilDate(currentUser.dateOfBirth))
-                }
             })
         }
     }, [currentUser])

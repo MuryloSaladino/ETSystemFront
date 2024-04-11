@@ -22,17 +22,18 @@ const DisciplinesPage = () => {
     const theme:Theme = useTheme()
 
     const categoryColors:Record<string, string> = {
-        "T.I.": theme.palette.info[theme.palette.mode],
-        "Mecatrônica": theme.palette.secondary[theme.palette.mode],
+        "Programming": theme.palette.info[theme.palette.mode],
+        "Mechatronic": theme.palette.secondary[theme.palette.mode],
+        "Administrative": theme.palette.success[theme.palette.mode],
+        "Mechanic": theme.palette.warning[theme.palette.mode],
     }
 
     const columns:GridColDef[] = [
-        { field: "name", headerName: "Name", flex: 0.5, sortable: false },
+        { field: "name", headerName: "Name", flex: 0.5 },
         { 
             field: "category",
             headerName: "Category",
             flex: 0.3,
-            sortable: false,
             renderCell: (params) => (
                 <Chip
                     label={params.row.category?.name}
@@ -167,7 +168,6 @@ const DisciplinesPage = () => {
                             })
                         ) || Array.from({ length: 10 }, (value, index) => {return {id: index, value: value}})}
                         rowSelection={false}
-                        disableColumnFilter
                         initialState={{
                             pagination: { paginationModel: { pageSize: 10 } },
                         }}

@@ -9,6 +9,7 @@ import { disciplineCategoryService, disciplineService } from "../../../service"
 import AppToast from "../../../utils/AppToast"
 import EditIcon from '@mui/icons-material/Edit';
 import { clearEmptyProperties } from "../../../utils/object"
+import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
 
@@ -51,6 +52,11 @@ const DisciplinesPage = () => {
                         icon={<EditIcon/>}
                         onClick={() => handleClick(params.row)}
                         label="Edit"
+                    />,
+                    <GridActionsCellItem
+                        icon={<DeleteIcon/>}
+                        onClick={() => deleteDiscipline(params.row.idDiscipline)}
+                        label="Delete"
                     />
                 ]
             }
@@ -59,6 +65,7 @@ const DisciplinesPage = () => {
 
     const [disciplines, setDisciplines] = useState<IPaginated<IDisciplineGrouped>>()
     const [open, setOpen] = useState<boolean>(false)
+    const [render, setRender] = useState<boolean>(false)
     const [currentDiscipline, setCurrentDiscipline] = useState<IDiscipline|null>(null)
     const [currentCategory, setCurrentCategory] = useState<string>("")
     const { register, handleSubmit, setValue } = useForm()
@@ -68,6 +75,7 @@ const DisciplinesPage = () => {
     const handleClick = (discipline:IDisciplineRow) => {
         setOpen(true)
         setCurrentDiscipline(discipline)
+        setCurrentCategory(discipline.category.idDisciplineCategory)
         setValue("name", discipline.name)
     }
     const handleClose = () => {
@@ -91,7 +99,7 @@ const DisciplinesPage = () => {
             }
         }
         retrieveDisciplines()
-    }, [open])
+    }, [render])
 
     const submit = async (data:FieldValues) => {
         try {
@@ -120,6 +128,18 @@ const DisciplinesPage = () => {
         } finally {
             handleClose()
             setLoading(false)
+            setRender(prev => !prev)
+        }
+    }
+
+    const deleteDiscipline = async (idDiscipline:string) => {
+        try {
+            await disciplineService.deleteDiscipline(idDiscipline)
+            AppToast.notify("Discipline deleted", "success")
+            setRender(prev => !prev)
+        } catch (error) {
+            if(error instanceof Error)
+                AppToast.notifyError(error)
         }
     }
 

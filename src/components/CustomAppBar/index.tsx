@@ -8,7 +8,6 @@ import { StyledAppBar, StyledHeaderBox, StyledToolbar } from "./styles";
 import { Bosch } from "..";
 import { useContext, useState } from "react";
 import { ColorsContext } from "../../context/ColorsContext";
-import { UserContext } from "../../context/UserContext";
 import ActionsDrawer from "../ActionsDrawer";
 
 const CustomAppBar = () => {
@@ -16,8 +15,6 @@ const CustomAppBar = () => {
     const [ open, setOpen ] = useState<boolean>(false)
     const toggleOpen = () => setOpen((prevState) => !prevState)
     const { darkMode, toggleTheme } = useContext(ColorsContext)
-    const {  } = useContext(UserContext)
-    
 
     return(
         <>
@@ -32,7 +29,7 @@ const CustomAppBar = () => {
                         <Bosch/>
                     </StyledHeaderBox>
                     <IconButton onClick={toggleTheme}>
-                        {darkMode ? <DarkModeIcon sx={{color: "#f8f8f8"}}/> : <LightModeIcon/>}
+                        {darkMode ? <DarkModeIcon/> : <LightModeIcon/>}
                     </IconButton>
                 </StyledToolbar>
             </StyledAppBar>

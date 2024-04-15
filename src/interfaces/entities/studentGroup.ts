@@ -7,13 +7,7 @@ export interface IStudentGroup {
     students: IStudentResponseStudentGroup[];
 }
 
-export interface IStudentGroupGrouped {
-    idStudentGroup: string;
-    name: string;
-    dateOfStart: string;
-    dateOfFinish: string | null;
-    workPeriod: string;
-}
+export type IStudentGroupGrouped = Omit<IStudentGroup, "students">
 
 export interface IStudentResponseStudentGroup {
     idUser: string;

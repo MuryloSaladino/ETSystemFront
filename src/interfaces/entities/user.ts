@@ -13,32 +13,24 @@ export interface IInstructor {
     username: string;
     name: string | null;
 }
-export interface IInstructorGrouped {
-    idInstructor: string;
-    username: string;
-    name: string | null;
-}
 
-export interface IUser {
+interface IUserBase {
     idUser: string;
     username: string;
     name: string | null;
     email: string | null;
     contact: string | null;
     dateOfBirth: string | null;
+}
+
+export interface IUser extends IUserBase {
     instructor: IInstructor | null;
     student: IStudent | null;
     administrator: IAdministrator | null;
     institution: IInstitution;
 }
 
-export interface IUserGrouped {
-    idUser: string;
-    username: string;
-    name: string | null;
-    email: string | null;
-    dateOfBirth: string | null;
-    contact: string | null;
+export interface IUserGrouped extends IUserBase {
     idAdministrator: string | null;
     idInstructor: string | null;
     idStudent: string | null;

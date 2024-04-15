@@ -5,37 +5,35 @@ import {
     IAdministrator,
     IStudent,
     IInstructor,
-    IInstructorGrouped
-} from "./user.ts";
+} from "./entities/user.ts";
 import {
     IInstitution
-} from "./institution.ts";
+} from "./entities/institution.ts";
 import {
     IStudentGroup,
     IStudentGroupGrouped,
     IStudentResponseStudentGroup
-} from "./studentGroup.ts";
+} from "./entities/studentGroup.ts";
 import {
     IDisciplineCategory
-} from "./disciplineCategory.ts";
+} from "./entities/disciplineCategory.ts";
 import {
     IDiscipline,
-    IDisciplineGrouped
-} from "./discipline.ts";
+} from "./entities/discipline.ts";
 import {
     ICompetence
-} from "./competence.ts";
+} from "./entities/competence.ts";
 import {
     ICompetenceGroup
-} from "./competenceGroup.ts";
+} from "./entities/competenceGroup.ts";
 import {
     IAppliedDiscipline,
     IAppliedDisciplineGrouped
-} from "./appliedDiscipline.ts";
+} from "./entities/appliedDiscipline.ts";
 import {
     IStudentAvaliation,
     IStudentAvaliationGrouped
-} from "./studentAvaliation.ts";
+} from "./entities/studentAvaliation.ts";
 import {
     IPaginated
 } from "./paginated.ts";
@@ -66,13 +64,11 @@ export type {
     IStudentGroupGrouped,
     IDisciplineCategory,
     IDiscipline,
-    IDisciplineGrouped,
     ICompetence,
     ICompetenceGroup,
     IAppliedDiscipline,
     IAppliedDisciplineGrouped,
     IStudentResponseStudentGroup,
-    IInstructorGrouped,
     IStudentAvaliation,
     IStudentAvaliationGrouped
 };

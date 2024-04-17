@@ -1,18 +1,16 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { IInstitution, IPaginated } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
-import { institutionService } from "../../../service";
 import { CustomAppBar } from "../../../components";
 import { Chip, Container, FormControlLabel, FormLabel, IconButton, Pagination, Radio, RadioGroup, Stack, TextField, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm";
 import { FieldValues, useForm } from "react-hook-form";
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
-import AppToast from "../../../utils/AppToast";
 import AppBreadcrumbs from "../../../components/Breadcrumbs";
 import AddIcon from '@mui/icons-material/Add';
 import { UserContext } from "../../../context/UserContext";
-import { clearEmptyProperties } from "../../../utils/object";
+import { createInstitution, retrieveInstitutions, updateInstitution } from "../../../service/requests";
 
 
 interface IInstitutionRow extends IInstitution {
@@ -54,7 +52,6 @@ const InstitutionsPage = () => {
         },
     ]
     
-
     const handleClick = (institution:IInstitutionRow) => {
         setOpen(true)
         setCurrentInstitution(institution)
@@ -72,36 +69,22 @@ const InstitutionsPage = () => {
     };
 
     const submit = async (data:FieldValues) => {
-        try {
-            if(currentInstitution) {
-                await institutionService.updateInstitution(
-                    currentInstitution.idInstitution,
-                    clearEmptyProperties(data)
-                )
-                AppToast.notify("Institution data has been updated.", "success")
-            } else {
-                await institutionService.createInstitution({...data, isBosch: isBosch})
-                AppToast.notify("Institution created.", "success")
-            }
-        } catch (error) {
-            if(error instanceof Error)
-                AppToast.notifyError(error)
-        } finally {
-            handleClose()
+        if(currentInstitution) {
+            await updateInstitution(currentInstitution.idInstitution, data)
+        } else {
+            await createInstitution({...data, isBosch: isBosch})
         }
+        handleClose()
     }
 
     useEffect(() => {
-        const retrieveInstitutions = async () => {
-            try {
-                setInstitutions(await institutionService.getInstitutions(searchParams.get("page") || "1"))
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            }
+        const loadInstitutions = async () => {
+            setInstitutions(await retrieveInstitutions({
+                page: searchParams.get("page") || 1,
+                limit: 10
+            }))
         }
-        retrieveInstitutions()
+        loadInstitutions()
     }, [searchParams, open])
 
     return(

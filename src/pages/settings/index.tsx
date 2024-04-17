@@ -3,13 +3,12 @@ import { CustomAppBar, SwitchInput } from "../../components"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../context/UserContext"
 import { FieldValues, useForm } from "react-hook-form";
-import { userService } from "../../service";
-import { clearEmptyProperties } from "../../utils/object";
 import { IUser } from "../../interfaces";
 import { StyledForm, StyledStack } from "./styles";
 import AppToast from "../../utils/AppToast";
 import { DateField } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { updateUser } from "../../service/requests";
 
 
 const SettingsPage = () => {
@@ -43,22 +42,12 @@ const SettingsPage = () => {
     }, [])
 
     const submit = async (data:FieldValues) => {
-        const token = localStorage.getItem("@TOKEN")
-        if(user && token) {
-            try {
-                await userService.updateUser(
-                    user.idUser,
-                    clearEmptyProperties({
-                        ...data,
-                        dateOfBirth: dateOfBirth
-                    })
-                )
-                AppToast.notify("Data has been updated!", "success")
-                buildUser()
-            } catch (error) {
-                if(error instanceof Error)
-                    AppToast.notifyError(error)
-            }
+        if(user) {
+            await updateUser(
+                user.idUser,
+                { ...data, dateOfBirth: dateOfBirth }
+            )
+            buildUser()
         }
     }
 

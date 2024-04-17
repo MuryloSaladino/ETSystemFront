@@ -3,7 +3,7 @@ import { CustomAppBar, DialogForm } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
 import { useEffect, useState } from "react"
-import { IDiscipline, IDisciplineCategory, IDisciplineGrouped, IPaginated } from "../../../interfaces"
+import { IDiscipline, IDisciplineCategory, IPaginated } from "../../../interfaces"
 import { FieldValues, useForm } from "react-hook-form"
 import { disciplineCategoryService, disciplineService } from "../../../service"
 import AppToast from "../../../utils/AppToast"
@@ -64,7 +64,7 @@ const DisciplinesPage = () => {
         },
     ]
 
-    const [disciplines, setDisciplines] = useState<IPaginated<IDisciplineGrouped>>()
+    const [disciplines, setDisciplines] = useState<IPaginated<IDiscipline>>()
     const [open, setOpen] = useState<boolean>(false)
     const [render, setRender] = useState<boolean>(false)
     const [currentDiscipline, setCurrentDiscipline] = useState<IDiscipline|null>(null)

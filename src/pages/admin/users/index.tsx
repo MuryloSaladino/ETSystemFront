@@ -1,18 +1,16 @@
 import { ChangeEvent, useEffect, useState } from "react"
 import { AccessChips, CustomAppBar } from "../../../components"
 import { IPaginated, IUser, IUserGrouped } from "../../../interfaces"
-import { userService } from "../../../service";
 import { useSearchParams } from "react-router-dom"
 import { Container, Pagination, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
 import { FieldValues, useForm } from "react-hook-form"
 import EditIcon from '@mui/icons-material/Edit';
 import DialogForm from "../../../components/DialogForm"
-import { clearEmptyProperties } from "../../../utils/object";
-import AppToast from "../../../utils/AppToast";
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { DateField } from '@mui/x-date-pickers';
 import dayjs from "dayjs";
+import { retrieveUsers, updateUser } from "../../../service/requests";
 
 
 interface IUserRow extends IUser {
@@ -28,7 +26,6 @@ const UsersPage = () => {
     const { register, handleSubmit, setValue, getValues, reset } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [dateOfBirth, setDateOfBirth] = useState<string>()
-
     
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
@@ -63,44 +60,33 @@ const UsersPage = () => {
     const handleClick = (user:IUserRow) => {
         setOpen(true)
         setCurrentUser(user)
-        setValue("name", user.name)
     }
     const handleClose = () => {
         setOpen(false)
         setCurrentUser(null)
+        reset()
     }
 
     const submit = async (data:FieldValues) => {
-        try {
-            setLoading(true)
-            await userService.updateUser(
-                currentUser!.idUser,
-                clearEmptyProperties({...data, dateOfBirth: dateOfBirth})
-            )
-            AppToast.notify("Your data has been updated", "success")
-        } catch (error) {
-            if(error instanceof Error)
-                AppToast.notifyError(error)
-        } finally {
-            setLoading(false)
-            reset()
-        }
+        setLoading(true)
+        await updateUser(
+            currentUser!.idUser,
+            {...data, dateOfBirth: dateOfBirth}
+        )
+        setLoading(false)
         handleClose()
     }
 
     useEffect(() => {
-        const retrieveUsers = async () => {
-            try {
-                setLoading(true)
-                setUsers(await userService.getUsers(Number(searchParams.get("page") || "1")))
-            } catch (error) {
-                if(error instanceof Error) 
-                    AppToast.notifyError(error)
-            } finally {
-                setLoading(false)
-            }
+        const loadUsers = async () => {
+            setLoading(true)
+            setUsers(await retrieveUsers({
+                page: searchParams.get("page") || 1,
+                limit: 10
+            }))
+            setLoading(false)
         }
-        retrieveUsers()
+        loadUsers()
     }, [searchParams, open])
 
     useEffect(() => {

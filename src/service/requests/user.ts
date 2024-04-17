@@ -75,8 +75,17 @@ export const createStudent = (idUser:string, data:FieldValues) => ETSystemServic
     "post",
     `/user/${idUser}/student`,
     data,
-    {  },
+    { },
     { 
         enabled: true,
+        message: "Student created!"
     }
+)
+
+export const retrieveInstructors = () => ETSystemService.request(
+    "get",
+    "/intructor",
+    { },
+    { },
+    { enabled: false }
 )

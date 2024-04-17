@@ -1,8 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { adminAccess, IAccess, instructorAccess, IUser, studentAccess } from "../interfaces";
 import { useNavigate } from "react-router-dom";
-import { userService } from "../service";
-
+import { retrieveUser } from "../service/requests";
 
 interface IUserProviderProps {
     children: ReactNode;
@@ -28,14 +27,7 @@ export const UserProvider = ({children}:IUserProviderProps) => {
         const idUser:string|null = localStorage.getItem("@IDUSER")
 
         if(token && idUser) {
-            try {
-                const response = await userService.getUser(idUser); 
-                setUser(response)
-            } catch (error) {
-                localStorage.removeItem("@TOKEN")
-                localStorage.removeItem("@IDUSER")
-                navigate("/login")
-            }
+            setUser(await retrieveUser(idUser))
         }
     }
 

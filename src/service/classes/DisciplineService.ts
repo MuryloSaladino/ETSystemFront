@@ -1,6 +1,5 @@
 import {
     IDiscipline,
-    IDisciplineGrouped,
     IPaginated
 } from "../../interfaces";
 import { EndpointOptions } from "./RequestsManager";
@@ -9,7 +8,7 @@ import { BaseService } from "./BaseService";
 class DisciplineService extends BaseService {
     getDisciplines = async(
         page: string
-    ): Promise<IPaginated<IDisciplineGrouped>> => {
+    ): Promise<IPaginated<IDiscipline>> => {
 
         this.manager.setAuth();
         const response = await this.manager.get(

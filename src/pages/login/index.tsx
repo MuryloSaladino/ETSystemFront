@@ -6,10 +6,10 @@ import { Bosch } from '../../components'
 import { FieldValues, useForm } from 'react-hook-form'
 import { useContext, useState } from 'react'
 import { StyledLoginContainer, StyledStack } from './styles'
-import { loginService } from '../../service'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 import AppToast from '../../utils/AppToast'
+import { ETSystemAPI } from '../../service/services/ETSystem'
 
 
 const Login = () => {
@@ -22,10 +22,13 @@ const Login = () => {
     const submit = async (data:FieldValues) => {
         setError(false)
         try {
-            await loginService.login(data.username, data.password)
-            AppToast.notify("Logged in.", "success")
-            navigate("/dashboard")
+            const response = await ETSystemAPI.post("/login", data)
+            const { idUser, token } = response.data;
+            localStorage.setItem("@TOKEN", token);
+            localStorage.setItem("@IDUSER", idUser);
+            AppToast.notify(`Welcome back, ${data.username || "user"}!`, "success")
             await buildUser()
+            navigate("/dashboard")
         } catch (error) {
             setError(true)
             if(error instanceof Error) {

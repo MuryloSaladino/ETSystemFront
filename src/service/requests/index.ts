@@ -9,6 +9,12 @@ import {
     updateUser,
     retrieveInstructors,
 } from "./user";
+import {
+    createInstitution,
+    deleteInstitution,
+    retrieveInstitutions,
+    updateInstitution,
+} from "./institution";
 
 
 export {
@@ -21,4 +27,8 @@ export {
     retrieveUsers,
     updateUser,
     retrieveInstructors,
+    createInstitution,
+    deleteInstitution,
+    retrieveInstitutions,
+    updateInstitution,
 }

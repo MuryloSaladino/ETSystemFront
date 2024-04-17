@@ -1,5 +1,3 @@
-import { InstitutionService } from "./InstitutionService";
-import { LoginService } from "./LoginService";
 import { StudentGroupService } from "./StudentGroupService";
 import { DisciplineCategoryService } from "./DisciplineCategoryService";
 import { DisciplineService } from "./DisciplineService";
@@ -10,8 +8,6 @@ import { InstructorService } from "./InstructorService";
 import { StudentAvaliationService } from "./StudentAvaliationService";
 
 export {
-    InstitutionService,
-    LoginService,
     StudentGroupService,
     DisciplineCategoryService,
     DisciplineService,

@@ -25,7 +25,7 @@ export const retrieveUsers = (filters:Record<string, string | number>) => ETSyst
     "get",
     "/user",
     { },
-    { ...filters, limit: 10 },
+    filters,
     { enabled: false },
 )
 

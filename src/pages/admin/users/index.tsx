@@ -26,7 +26,6 @@ const UsersPage = () => {
     const { register, handleSubmit, setValue, getValues, reset } = useForm()
     const [loading, setLoading] = useState<boolean>(false)
     const [dateOfBirth, setDateOfBirth] = useState<string>()
-
     
     const columns:GridColDef[] = [
         { field: "username", headerName: "Username", flex: 0.3, sortable: false },
@@ -81,7 +80,10 @@ const UsersPage = () => {
     useEffect(() => {
         const loadUsers = async () => {
             setLoading(true)
-            setUsers(await retrieveUsers({ page: searchParams.get("page") || 1 }))
+            setUsers(await retrieveUsers({
+                page: searchParams.get("page") || 1,
+                limit: 10
+            }))
             setLoading(false)
         }
         loadUsers()

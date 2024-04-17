@@ -1,20 +1,25 @@
 import { Container, Stack } from "@mui/material"
 import { CustomAppBar } from "../../components"
 import AppBreadcrumbs from "../../components/Breadcrumbs"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { IAppliedDisciplineGrouped, IPaginated } from "../../interfaces"
-import { appliedDisciplineService } from "../../service"
+import { retrieveAppliedDisciplines } from "../../service/requests"
+import { UserContext } from "../../context/UserContext"
 
 const StudentPage = () => {
 
     const [disciplines, setDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
     const [periods, setPeriods] = useState<number[]>([])
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
         const retrieveDisciplines = async () => {
-            setDisciplines(
-                await appliedDisciplineService.getAppliedDisciplines()
-            )
+            setDisciplines(await retrieveAppliedDisciplines({
+                page: 1,
+                limit: 9999,
+                idStudentGroup: user?.student?.idStudentGroup!
+            }))
+
             disciplines?.paginatedData.forEach((discipline) => {
                 if(!periods.includes(discipline.period)) {
                     setPeriods((prev) => [...prev, discipline.period])

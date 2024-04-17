@@ -5,7 +5,7 @@ import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { IAppliedDiscipline, IInstructor, IStudentGroup } from "../../../../interfaces"
-import { appliedDisciplineService, competenceGroupService, competenceService, studentGroupService } from "../../../../service"
+import { competenceGroupService, competenceService, studentGroupService } from "../../../../service"
 import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form"
 import { titleCase } from "../../../../utils/string"
-import { retrieveInstructors } from "../../../../service/requests"
+import { retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline } from "../../../../service/requests"
 
 const submitModesPayload:ISubmitModeCreation[] = [
     {
@@ -114,27 +114,20 @@ const AppliedDisciplinePage = () => {
     }
     const updateInstructor = async (idInstructor:string) => {
         setIdInstructor(idInstructor)
-        try {
-            await appliedDisciplineService.updateAppliedDiscipline(
-                idAppliedDiscipline!,
-                { idInstructor: idInstructor }
-            )
-        } catch (error) {
-            
-        }
+        await updateAppliedDiscipline(
+            idAppliedDiscipline!,
+            { idInstructor: idInstructor }
+        )
     }
 
     useEffect(() => {
         const retrieveGroupAndDiscipline = async () => {
             setLoading(true)
+            setAppliedDiscipline(await retrieveAppliedDiscipline(idAppliedDiscipline!))
             try {
                 setStudentGroup(
                     await studentGroupService
                         .getStudentGroup(idStudentGroup!)
-                )
-                setAppliedDiscipline(
-                    await appliedDisciplineService
-                        .getAppliedDiscipline(idAppliedDiscipline!)
                 )
             } catch (error) {
                 if(error instanceof Error) {

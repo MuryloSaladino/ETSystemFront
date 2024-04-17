@@ -1,6 +1,5 @@
 import { ETSystemAPI } from "./APIs";
 import {
-    AppliedDisciplineService,
     CompetenceGroupService,
     CompetenceService,
     DisciplineCategoryService,
@@ -16,7 +15,6 @@ const disciplineCategoryService = new DisciplineCategoryService(ETSystemAPI);
 const disciplineService = new DisciplineService(ETSystemAPI);
 const competenceService = new CompetenceService(ETSystemAPI);
 const competenceGroupService = new CompetenceGroupService(ETSystemAPI);
-const appliedDisciplineService = new AppliedDisciplineService(ETSystemAPI);
 const instructorService = new InstructorService(ETSystemAPI);
 const studentAvaliationService = new StudentAvaliationService(ETSystemAPI);
 
@@ -26,7 +24,6 @@ export {
     disciplineService,
     competenceService,
     competenceGroupService,
-    appliedDisciplineService,
     instructorService,
     studentAvaliationService
 };

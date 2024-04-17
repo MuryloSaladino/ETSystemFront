@@ -15,6 +15,13 @@ import {
     retrieveInstitutions,
     updateInstitution,
 } from "./institution";
+import {
+    retrieveAppliedDiscipline,
+    createAppliedDiscipline,
+    deleteAppliedDiscipline,
+    retrieveAppliedDisciplines,
+    updateAppliedDiscipline,
+} from "./appliedDisciplines";
 
 
 export {
@@ -31,4 +38,9 @@ export {
     deleteInstitution,
     retrieveInstitutions,
     updateInstitution,
+    retrieveAppliedDiscipline,
+    createAppliedDiscipline,
+    deleteAppliedDiscipline,
+    retrieveAppliedDisciplines,
+    updateAppliedDiscipline,
 }

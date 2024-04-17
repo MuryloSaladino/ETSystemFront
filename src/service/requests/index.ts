@@ -9,12 +9,14 @@ import {
     updateUser,
     retrieveInstructors,
 } from "./user";
+
 import {
     createInstitution,
     deleteInstitution,
     retrieveInstitutions,
     updateInstitution,
 } from "./institution";
+
 import {
     retrieveAppliedDiscipline,
     createAppliedDiscipline,
@@ -22,11 +24,18 @@ import {
     retrieveAppliedDisciplines,
     updateAppliedDiscipline,
 } from "./appliedDisciplines";
+
 import {
     createCompetenceGroup,
     deleteCompetenceGroup,
     updateCompetenceGroup,
 } from "./competenceGroup";
+
+import {
+    createCompetence,
+    deleteCompetence,
+    updateCompetence,
+} from "./competence";
 
 
 export {
@@ -51,4 +60,7 @@ export {
     createCompetenceGroup,
     deleteCompetenceGroup,
     updateCompetenceGroup,
+    createCompetence,
+    deleteCompetence,
+    updateCompetence,
 }

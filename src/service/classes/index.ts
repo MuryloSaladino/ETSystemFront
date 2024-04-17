@@ -1,4 +1,3 @@
-import { UserService } from "./UserService";
 import { InstitutionService } from "./InstitutionService";
 import { LoginService } from "./LoginService";
 import { StudentGroupService } from "./StudentGroupService";
@@ -11,7 +10,6 @@ import { InstructorService } from "./InstructorService";
 import { StudentAvaliationService } from "./StudentAvaliationService";
 
 export {
-    UserService,
     InstitutionService,
     LoginService,
     StudentGroupService,

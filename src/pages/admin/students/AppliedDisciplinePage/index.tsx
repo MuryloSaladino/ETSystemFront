@@ -4,8 +4,8 @@ import { CustomAppBar, DialogForm, StyledLink } from "../../../../components"
 import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
-import { IAppliedDiscipline, IInstructorGrouped, IStudentGroup } from "../../../../interfaces"
-import { appliedDisciplineService, competenceGroupService, competenceService, studentGroupService, userService } from "../../../../service"
+import { IAppliedDiscipline, IInstructor, IStudentGroup } from "../../../../interfaces"
+import { appliedDisciplineService, competenceGroupService, competenceService, studentGroupService } from "../../../../service"
 import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form"
 import { titleCase } from "../../../../utils/string"
+import { retrieveInstructors } from "../../../../service/requests"
 
 const submitModesPayload:ISubmitModeCreation[] = [
     {
@@ -54,7 +55,7 @@ const AppliedDisciplinePage = () => {
     const [open, setOpen] = useState<boolean>(false)
     const [entityId, setEntityId] = useState<string>("")
     const [render, setRender] = useState<boolean>(false)
-    const [instructors, setInstructors] = useState<IInstructorGrouped[]>()
+    const [instructors, setInstructors] = useState<IInstructor[]>()
     const [idInstructor, setIdInstructor] = useState<string>("")
     
     const handleClose = () => {
@@ -162,18 +163,10 @@ const AppliedDisciplinePage = () => {
     }, [studentGroup, appliedDiscipline])
 
     useEffect(() => {
-        const retrieveInstructors = async () => {
-            try {
-                setInstructors(
-                    await userService.getInstructors()
-                )
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            }
+        const loadInstructors = async () => {
+            setInstructors(await retrieveInstructors())
         }
-        retrieveInstructors()
+        loadInstructors()
     }, [])
 
     return(

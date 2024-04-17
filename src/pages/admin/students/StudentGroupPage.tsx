@@ -2,9 +2,9 @@ import { Chip, Container, Fab, IconButton, MenuItem, Select, Stack, TextField, T
 import { CustomAppBar, DialogForm, SkeletonList, StyledLink } from "../../../components"
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
-import { IAppliedDisciplineGrouped, IDisciplineGrouped, IInstructorGrouped, IPaginated, IStudentGroup } from "../../../interfaces"
+import { IAppliedDisciplineGrouped, IDiscipline, IInstructor, IPaginated, IStudentGroup } from "../../../interfaces"
 import AppToast from "../../../utils/AppToast"
-import { appliedDisciplineService, disciplineService, studentGroupService, userService } from "../../../service"
+import { appliedDisciplineService, disciplineService, studentGroupService } from "../../../service"
 import { useParams } from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add';
 import { FieldValues, useForm } from "react-hook-form"
@@ -12,6 +12,7 @@ import { UserContext } from "../../../context/UserContext"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { clearEmptyProperties } from "../../../utils/object"
+import { createStudent, createUser, retrieveInstructors } from "../../../service/requests"
 
 
 const StudentGroupPage = () => {
@@ -44,8 +45,8 @@ const StudentGroupPage = () => {
     const { register, handleSubmit, reset } = useForm()
     const { user } = useContext(UserContext)
     const [appliedDisciplines, setAppliedDisciplines] = useState<IPaginated<IAppliedDisciplineGrouped>>()
-    const [instructors, setInstructors] = useState<IInstructorGrouped[]>()
-    const [disciplines, setDisciplines] = useState<IPaginated<IDisciplineGrouped>>()
+    const [instructors, setInstructors] = useState<IInstructor[]>()
+    const [disciplines, setDisciplines] = useState<IPaginated<IDiscipline>>()
     const [idInstructor, setIdInstructor] = useState<string>("")
     const [idDiscipline, setIdDiscipline] = useState<string>("")
 
@@ -56,23 +57,16 @@ const StudentGroupPage = () => {
     }
 
     const submitNewStudent = async (data:FieldValues) => {
-        try {
-            const newUser = await userService.createUser({
-                ...clearEmptyProperties(data),
-                idInstitution: user?.institution.idInstitution
-            })
-            await userService.createStudent(
-                newUser.idUser,
-                { idStudentGroup: idStudentGroup }
-            )
-            AppToast.notify("Student Created.", "success")
-            setRender((prev) => !prev)
-            reset()
-        } catch (error) {
-            if(error instanceof Error) {
-                AppToast.notifyError(error)
-            }
-        }
+        const newUser = await createUser({ 
+            ...data,
+            idInstitution: user?.institution.idInstitution
+        })
+        await createStudent(
+            newUser.idUser,
+            { idStudentGroup: idStudentGroup }
+        )
+        setRender((prev) => !prev)
+        reset()
     }
 
     const submitApplyDiscipline = async (data:FieldValues) => {
@@ -116,11 +110,9 @@ const StudentGroupPage = () => {
     }, [render])
 
     useEffect(() => {
-        const retrieveInstructorsAndDisciplines = async () => {
+        const loadInstructorsAndDisciplines = async () => {
+            setInstructors(await retrieveInstructors())
             try {
-                setInstructors(
-                    await userService.getInstructors()
-                )
                 setDisciplines(
                     await disciplineService.getDisciplines("1")
                 )
@@ -130,9 +122,7 @@ const StudentGroupPage = () => {
                 }
             }
         }
-        if(applyOpen) {
-            retrieveInstructorsAndDisciplines()
-        }
+        if(applyOpen) loadInstructorsAndDisciplines()
     }, [applyOpen])
 
     useEffect(() => {

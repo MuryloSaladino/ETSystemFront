@@ -25,7 +25,7 @@ export const retrieveUsers = (filters:Record<string, string | number>) => ETSyst
     "get",
     "/user",
     { },
-    filters,
+    { ...filters, limit: 10 },
     { enabled: false },
 )
 
@@ -75,8 +75,17 @@ export const createStudent = (idUser:string, data:FieldValues) => ETSystemServic
     "post",
     `/user/${idUser}/student`,
     data,
-    {  },
+    { },
     { 
         enabled: true,
+        message: "Student created!"
     }
+)
+
+export const retrieveInstructors = () => ETSystemService.request(
+    "get",
+    "/intructor",
+    { },
+    { },
+    { enabled: false }
 )

@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { FieldValues } from "react-hook-form";
 import AppToast, { IToastType } from "../../utils/AppToast";
+import { clearEmptyProperties } from "../../utils/object";
 
 type TVerb = "get" | "post" | "patch" | "put" | "delete"
 
@@ -28,12 +29,12 @@ class Service {
         try {
             const response = await this.apiInstance.request({
                 headers: {
-                    "Authorization": localStorage.getItem("@TOKEN"),
+                    "Authorization": "Bearer " + localStorage.getItem("@TOKEN"),
                 },
                 method: verb,
                 url: url,
                 params: queryParams,
-                data: data
+                data: clearEmptyProperties(data)
             })
 
             if(feedbackconfig.enabled) {

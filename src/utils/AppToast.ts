@@ -1,7 +1,7 @@
 import { toast } from "react-toastify"
 import APIRequestError from "../errors/APIRequestError"
 
-type IToastType = "default" | "error" | "info" | "success" | "warning"
+export type IToastType = "default" | "error" | "info" | "success" | "warning"
 
 class AppToast {
 

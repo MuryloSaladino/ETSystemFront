@@ -1,8 +1,7 @@
 import { ETSystemAPI } from "./APIs";
-import { AppliedDisciplineService, CompetenceGroupService, CompetenceService, DisciplineCategoryService, DisciplineService, InstitutionService, InstructorService, LoginService, StudentAvaliationService, StudentGroupService, UserService } from "./classes";
+import { AppliedDisciplineService, CompetenceGroupService, CompetenceService, DisciplineCategoryService, DisciplineService, InstitutionService, InstructorService, LoginService, StudentAvaliationService, StudentGroupService } from "./classes";
 
 const loginService = new LoginService(ETSystemAPI);
-const userService = new UserService(ETSystemAPI);
 const institutionService = new InstitutionService(ETSystemAPI);
 const studentGroupService = new StudentGroupService(ETSystemAPI);
 const disciplineCategoryService = new DisciplineCategoryService(ETSystemAPI);
@@ -15,7 +14,6 @@ const studentAvaliationService = new StudentAvaliationService(ETSystemAPI);
 
 export {
     loginService,
-    userService,
     institutionService,
     studentGroupService,
     disciplineCategoryService,

@@ -22,6 +22,11 @@ import {
     retrieveAppliedDisciplines,
     updateAppliedDiscipline,
 } from "./appliedDisciplines";
+import {
+    createCompetenceGroup,
+    deleteCompetenceGroup,
+    updateCompetenceGroup,
+} from "./competenceGroup";
 
 
 export {
@@ -43,4 +48,7 @@ export {
     deleteAppliedDiscipline,
     retrieveAppliedDisciplines,
     updateAppliedDiscipline,
+    createCompetenceGroup,
+    deleteCompetenceGroup,
+    updateCompetenceGroup,
 }

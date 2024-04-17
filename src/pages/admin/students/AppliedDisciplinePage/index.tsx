@@ -5,7 +5,7 @@ import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { IAppliedDiscipline, IInstructor, IStudentGroup } from "../../../../interfaces"
-import { competenceGroupService, competenceService, studentGroupService } from "../../../../service"
+import { competenceService, studentGroupService } from "../../../../service"
 import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,13 +14,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form"
 import { titleCase } from "../../../../utils/string"
-import { retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline } from "../../../../service/requests"
+import { createCompetenceGroup, deleteCompetenceGroup, retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline, updateCompetenceGroup } from "../../../../service/requests"
 
 const submitModesPayload:ISubmitModeCreation[] = [
     {
         entity: "competenceGroup",
         action: "create",
-        service: competenceGroupService.createCompetenceGroup,
+        service: createCompetenceGroup,
         feedback: "Group created"
     },
     {
@@ -32,7 +32,7 @@ const submitModesPayload:ISubmitModeCreation[] = [
     {
         entity: "competenceGroup",
         action: "edit",
-        service: competenceGroupService.updateCompetenceGroup,
+        service: updateCompetenceGroup,
         feedback: "Group updated"
     },
     {
@@ -92,7 +92,7 @@ const AppliedDisciplinePage = () => {
 
     const deleteGroup = async (id:string) => {
         try {
-            await competenceGroupService.deleteCompetenceGroup(id)
+            await deleteCompetenceGroup(id)
             AppToast.notify("Group deleted.", "success")
             setRender((prev) => !prev)
         } catch (error) {
@@ -141,9 +141,7 @@ const AppliedDisciplinePage = () => {
     }, [render])
 
     useEffect(() => {
-        if(appliedDiscipline) {
-            setIdInstructor(appliedDiscipline.idInstructor)
-        }
+        if(appliedDiscipline) setIdInstructor(appliedDiscipline.idInstructor)
     }, [appliedDiscipline])
 
     useEffect(() => {

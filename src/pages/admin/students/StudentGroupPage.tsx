@@ -88,7 +88,11 @@ const StudentGroupPage = () => {
                 await studentGroupService.getStudentGroup(idStudentGroup!)
             )
             setAppliedDisciplines(
-                await retrieveAppliedDisciplines({ idStudentGroup: idStudentGroup! })
+                await retrieveAppliedDisciplines({
+                    idStudentGroup: idStudentGroup!,
+                    page: 1,
+                    limit: 9999
+                })
             )
             setLoading(false)
         }

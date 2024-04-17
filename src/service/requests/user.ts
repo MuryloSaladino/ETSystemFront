@@ -84,7 +84,7 @@ export const createStudent = (idUser:string, data:FieldValues) => ETSystemServic
 
 export const retrieveInstructors = () => ETSystemService.request(
     "get",
-    "/intructor",
+    "/instructor",
     { },
     { },
     { enabled: false }

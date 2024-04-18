@@ -5,12 +5,13 @@ import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
 import { useEffect, useState } from "react"
 import { IDiscipline, IDisciplineCategory, IPaginated } from "../../../interfaces"
 import { FieldValues, useForm } from "react-hook-form"
-import { disciplineCategoryService, disciplineService } from "../../../service"
+import { disciplineService } from "../../../service"
 import AppToast from "../../../utils/AppToast"
 import EditIcon from '@mui/icons-material/Edit';
 import { clearEmptyProperties } from "../../../utils/object"
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import { retrieveDisciplineCategories } from "../../../service/requests"
 
 
 interface IDisciplineRow extends IDiscipline {
@@ -87,10 +88,14 @@ const DisciplinesPage = () => {
 
     useEffect(() => {
         const retrieveDisciplines = async () => {
+            setLoading(true)
+            setCategories(await retrieveDisciplineCategories({
+                page: 1,
+                limit: 1000
+            }))
+            
             try {
-                setLoading(true)
                 setDisciplines(await disciplineService.getDisciplines("1"))
-                setCategories(await disciplineCategoryService.getDisciplineCategories())
             } catch (error) {
                 if(error instanceof Error) {
                     AppToast.notifyError(error)

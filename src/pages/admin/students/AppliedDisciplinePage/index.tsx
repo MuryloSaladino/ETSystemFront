@@ -5,7 +5,7 @@ import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { IAppliedDiscipline, IInstructor, IStudentGroup } from "../../../../interfaces"
-import { competenceService, studentGroupService } from "../../../../service"
+import { studentGroupService } from "../../../../service"
 import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form"
 import { titleCase } from "../../../../utils/string"
-import { createCompetenceGroup, deleteCompetenceGroup, retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline, updateCompetenceGroup } from "../../../../service/requests"
+import { createCompetence, createCompetenceGroup, deleteCompetence, deleteCompetenceGroup, retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline, updateCompetence, updateCompetenceGroup } from "../../../../service/requests"
 
 const submitModesPayload:ISubmitModeCreation[] = [
     {
@@ -26,7 +26,7 @@ const submitModesPayload:ISubmitModeCreation[] = [
     {
         entity: "competence",
         action: "create",
-        service: competenceService.createCompetence,
+        service: createCompetence,
         feedback: "Competence created"
     },
     {
@@ -38,7 +38,7 @@ const submitModesPayload:ISubmitModeCreation[] = [
     {
         entity: "competence",
         action: "edit",
-        service: competenceService.updateCompetence,
+        service: updateCompetence,
         feedback: "Competence updated"
     }
 ]
@@ -91,28 +91,14 @@ const AppliedDisciplinePage = () => {
     }
 
     const deleteGroup = async (id:string) => {
-        try {
-            await deleteCompetenceGroup(id)
-            AppToast.notify("Group deleted.", "success")
-            setRender((prev) => !prev)
-        } catch (error) {
-            if(error instanceof Error) {
-                AppToast.notifyError(error)
-            }
-        }
+        await deleteCompetenceGroup(id)
+        setRender((prev) => !prev)
     }
-    const deleteCompetence = async (id:string) => {
-        try {
-            await competenceService.deleteCompetence(id)
-            AppToast.notify("Group deleted.", "success")
-            setRender((prev) => !prev)
-        } catch (error) {
-            if(error instanceof Error) {
-                AppToast.notifyError(error)
-            }
-        }
+    const submitDeleteCompetence = async (id:string) => {
+        await deleteCompetence(id)
+        setRender((prev) => !prev)
     }
-    const updateInstructor = async (idInstructor:string) => {
+    const submitUpdateInstructor = async (idInstructor:string) => {
         setIdInstructor(idInstructor)
         await updateAppliedDiscipline(
             idAppliedDiscipline!,
@@ -176,7 +162,7 @@ const AppliedDisciplinePage = () => {
 
                     <Stack gap={2}>
                         <Typography variant="h4">Instructor:</Typography>
-                        <Select value={idInstructor} onChange={(e) => updateInstructor(e.target.value)}>
+                        <Select value={idInstructor} onChange={(e) => submitUpdateInstructor(e.target.value)}>
                             {
                                 instructors?.map((instructor, index) => 
                                     <MenuItem key={index} value={instructor.idInstructor}>
@@ -229,7 +215,7 @@ const AppliedDisciplinePage = () => {
                                                                 >
                                                                     <EditIcon/>
                                                                 </IconButton>
-                                                                <IconButton onClick={() => deleteCompetence(competence.idCompetence)}>
+                                                                <IconButton onClick={() => submitDeleteCompetence(competence.idCompetence)}>
                                                                     <DeleteIcon/>
                                                                 </IconButton>
                                                             </Stack>

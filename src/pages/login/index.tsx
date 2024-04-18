@@ -9,7 +9,7 @@ import { StyledLoginContainer, StyledStack } from './styles'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'
 import AppToast from '../../utils/AppToast'
-import { ETSystemAPI } from '../../service/services/ETSystem'
+import { ETSystemAPI } from '../../service/instances/ETSystem'
 
 
 const Login = () => {

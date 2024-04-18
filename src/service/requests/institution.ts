@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import ETSystemService from "../services/ETSystem";
+import ETSystemService from "../instances/ETSystem";
 
 
 export const retrieveInstitutions = (filters:Record<string, string | number>) => ETSystemService.request(

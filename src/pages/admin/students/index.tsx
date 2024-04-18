@@ -5,12 +5,11 @@ import { IPaginated, IStudentGroupGrouped } from "../../../interfaces";
 import { useSearchParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { studentGroupService } from "../../../service";
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import AddIcon from '@mui/icons-material/Add';
-import AppToast from "../../../utils/AppToast";
 import { DateField } from "@mui/x-date-pickers";
+import { createStudentGroup, retrieveStudentGroups } from "../../../service/requests";
 
 
 const StudentsPage = () => {
@@ -67,36 +66,24 @@ const StudentsPage = () => {
     };
 
     const submit = async (data:FieldValues) => {
-        try {
-            await studentGroupService.createStudentGroup(
-                {
-                    ...data,
-                    dateOfStart: date,
-                    workPeriod: period
-                })
-            AppToast.notify("Group created.", "success")
-            setOpen(false)
-        } catch (error) {
-            if(error instanceof Error) {
-                AppToast.notifyError(error)
-            }
-        }
+        await createStudentGroup({
+            ...data,
+            dateOfStart: date,
+            workPeriod: period
+        })
+        setOpen(false)
     }
 
     useEffect(() => {
-        const retrieveStudentGroups = async () => {
-            try {
-                setLoading(true)
-                setStudentGroups(await studentGroupService.getStudentGroups(searchParams.get("page") || "1"))
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            } finally {
-                setLoading(false)
-            }
+        const loadStudentGroups = async () => {
+            setLoading(true)
+            setStudentGroups(await retrieveStudentGroups({
+                page: searchParams.get("page") || "1",
+                limit: 10
+            }))
+            setLoading(false)
         }
-        retrieveStudentGroups()
+        loadStudentGroups()
     }, [open])
 
 

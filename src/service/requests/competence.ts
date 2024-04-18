@@ -1,5 +1,5 @@
 import { FieldValues } from "react-hook-form";
-import ETSystemService from "../services/ETSystem";
+import ETSystemService from "../instances/ETSystem";
 
 export const createCompetence = (idCompetenceGroup:string, data:FieldValues) => ETSystemService.request(
     "post",

@@ -3,7 +3,6 @@ import { CustomAppBar, DialogForm, SkeletonList, StyledLink } from "../../../com
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
 import { IAppliedDisciplineGrouped, IDiscipline, IInstructor, IPaginated, IStudentGroup } from "../../../interfaces"
-import { studentGroupService } from "../../../service"
 import { useParams } from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add';
 import { FieldValues, useForm } from "react-hook-form"
@@ -11,7 +10,7 @@ import { UserContext } from "../../../context/UserContext"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { clearEmptyProperties } from "../../../utils/object"
-import { createAppliedDiscipline, createStudent, createUser, retrieveAppliedDisciplines, retrieveDisciplines, retrieveInstructors } from "../../../service/requests"
+import { createAppliedDiscipline, createStudent, createUser, retrieveAppliedDisciplines, retrieveDisciplines, retrieveInstructors, retrieveStudentGroup } from "../../../service/requests"
 
 
 const StudentGroupPage = () => {
@@ -83,9 +82,7 @@ const StudentGroupPage = () => {
     useEffect(() => {
         const loadStudentGroupAndDisciplines = async () => {
             setLoading(true)
-            setStudentGroup(
-                await studentGroupService.getStudentGroup(idStudentGroup!)
-            )
+            setStudentGroup(await retrieveStudentGroup(idStudentGroup!))
             setAppliedDisciplines(
                 await retrieveAppliedDisciplines({
                     idStudentGroup: idStudentGroup!,

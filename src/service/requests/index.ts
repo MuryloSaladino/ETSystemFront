@@ -51,6 +51,14 @@ import {
     updateDiscipline,
 } from "./discipline";
 
+import {
+    retrieveStudentGroups,
+    createStudentGroup,
+    deleteStudentGroup,
+    retrieveStudentGroup,
+    updateStudentGroup,
+} from "./studentGroup";
+
 
 export {
     createUser,
@@ -85,4 +93,9 @@ export {
     createDiscipline,
     deleteDiscipline,
     updateDiscipline,
+    retrieveStudentGroups,
+    createStudentGroup,
+    deleteStudentGroup,
+    retrieveStudentGroup,
+    updateStudentGroup,
 }

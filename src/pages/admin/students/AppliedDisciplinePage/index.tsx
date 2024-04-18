@@ -5,8 +5,6 @@ import AppBreadcrumbs from "../../../../components/Breadcrumbs"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { IAppliedDiscipline, IInstructor, IStudentGroup } from "../../../../interfaces"
-import { studentGroupService } from "../../../../service"
-import AppToast from "../../../../utils/AppToast"
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import { useForm } from "react-hook-form"
 import { titleCase } from "../../../../utils/string"
-import { createCompetence, createCompetenceGroup, deleteCompetence, deleteCompetenceGroup, retrieveAppliedDiscipline, retrieveInstructors, updateAppliedDiscipline, updateCompetence, updateCompetenceGroup } from "../../../../service/requests"
+import { createCompetence, createCompetenceGroup, deleteCompetence, deleteCompetenceGroup, retrieveAppliedDiscipline, retrieveInstructors, retrieveStudentGroup, updateAppliedDiscipline, updateCompetence, updateCompetenceGroup } from "../../../../service/requests"
 
 const submitModesPayload:ISubmitModeCreation[] = [
     {
@@ -107,23 +105,13 @@ const AppliedDisciplinePage = () => {
     }
 
     useEffect(() => {
-        const retrieveGroupAndDiscipline = async () => {
+        const loadGroupAndDiscipline = async () => {
             setLoading(true)
             setAppliedDiscipline(await retrieveAppliedDiscipline(idAppliedDiscipline!))
-            try {
-                setStudentGroup(
-                    await studentGroupService
-                        .getStudentGroup(idStudentGroup!)
-                )
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            } finally {
-                setLoading(false)
-            }
+            setStudentGroup(await retrieveStudentGroup(idStudentGroup!))
+            setLoading(false)
         }
-        retrieveGroupAndDiscipline()
+        loadGroupAndDiscipline()
     }, [render])
 
     useEffect(() => {

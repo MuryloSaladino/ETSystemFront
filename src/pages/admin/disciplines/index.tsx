@@ -5,13 +5,10 @@ import { DataGrid, GridActionsCellItem, GridColDef } from "@mui/x-data-grid"
 import { useEffect, useState } from "react"
 import { IDiscipline, IDisciplineCategory, IPaginated } from "../../../interfaces"
 import { FieldValues, useForm } from "react-hook-form"
-import { disciplineService } from "../../../service"
-import AppToast from "../../../utils/AppToast"
 import EditIcon from '@mui/icons-material/Edit';
-import { clearEmptyProperties } from "../../../utils/object"
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { retrieveDisciplineCategories } from "../../../service/requests"
+import { createDiscipline, deleteDiscipline, retrieveDisciplineCategories, retrieveDisciplines, updateDiscipline } from "../../../service/requests"
 
 
 interface IDisciplineRow extends IDiscipline {
@@ -57,7 +54,7 @@ const DisciplinesPage = () => {
                     />,
                     <GridActionsCellItem
                         icon={<DeleteIcon/>}
-                        onClick={() => deleteDiscipline(params.row.idDiscipline)}
+                        onClick={() => submitDeleteDiscipline(params.row.idDiscipline)}
                         label="Delete"
                     />
                 ]
@@ -87,66 +84,47 @@ const DisciplinesPage = () => {
     }
 
     useEffect(() => {
-        const retrieveDisciplines = async () => {
+        const loadDisciplines = async () => {
             setLoading(true)
             setCategories(await retrieveDisciplineCategories({
                 page: 1,
                 limit: 1000
             }))
-            
-            try {
-                setDisciplines(await disciplineService.getDisciplines("1"))
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            } finally {
-                setLoading(false)
-            }
+            setDisciplines(await retrieveDisciplines({
+                page: 1,
+                limit: 10000
+            }))
+            setLoading(false)
         }
-        retrieveDisciplines()
+        loadDisciplines()
     }, [render])
 
     const submit = async (data:FieldValues) => {
-        try {
-            setLoading(true)
-            if(currentDiscipline) {
-                await disciplineService.updateDiscipline(
-                    currentDiscipline.idDiscipline,
-                    clearEmptyProperties({
-                        ...data,
-                        idCategory: currentCategory
-                    })
-                )
-                AppToast.notify("Discipline data has been updated.", "success")
-            } else {
-                await disciplineService.createDiscipline(
-                    clearEmptyProperties({
-                        ...data,
-                        idCategory: currentCategory
-                    })
-                )
-                AppToast.notify("Discipline created.", "success")
-            }
-        } catch (error) {
-            if(error instanceof Error)
-                AppToast.notifyError(error)
-        } finally {
-            handleClose()
-            setLoading(false)
-            setRender(prev => !prev)
+        setLoading(true)
+
+        if(currentDiscipline) {
+            await updateDiscipline(
+                currentDiscipline.idDiscipline,
+                {
+                    ...data,
+                    idCategory: currentCategory
+                }
+            )
+        } else {
+            await createDiscipline({
+                ...data,
+                idCategory: currentCategory
+            })
         }
+
+        handleClose()
+        setLoading(false)
+        setRender(prev => !prev)
     }
 
-    const deleteDiscipline = async (idDiscipline:string) => {
-        try {
-            await disciplineService.deleteDiscipline(idDiscipline)
-            AppToast.notify("Discipline deleted", "success")
-            setRender(prev => !prev)
-        } catch (error) {
-            if(error instanceof Error)
-                AppToast.notifyError(error)
-        }
+    const submitDeleteDiscipline = async (idDiscipline:string) => {
+        await deleteDiscipline(idDiscipline)
+        setRender(prev => !prev)
     }
 
     return(

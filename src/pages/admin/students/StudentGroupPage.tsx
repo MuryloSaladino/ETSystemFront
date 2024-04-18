@@ -3,8 +3,7 @@ import { CustomAppBar, DialogForm, SkeletonList, StyledLink } from "../../../com
 import AppBreadcrumbs from "../../../components/Breadcrumbs"
 import { useContext, useEffect, useState } from "react"
 import { IAppliedDisciplineGrouped, IDiscipline, IInstructor, IPaginated, IStudentGroup } from "../../../interfaces"
-import AppToast from "../../../utils/AppToast"
-import { disciplineService, studentGroupService } from "../../../service"
+import { studentGroupService } from "../../../service"
 import { useParams } from "react-router-dom"
 import AddIcon from '@mui/icons-material/Add';
 import { FieldValues, useForm } from "react-hook-form"
@@ -12,7 +11,7 @@ import { UserContext } from "../../../context/UserContext"
 import { DataGrid, GridColDef } from "@mui/x-data-grid"
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { clearEmptyProperties } from "../../../utils/object"
-import { createAppliedDiscipline, createStudent, createUser, retrieveAppliedDisciplines, retrieveInstructors } from "../../../service/requests"
+import { createAppliedDiscipline, createStudent, createUser, retrieveAppliedDisciplines, retrieveDisciplines, retrieveInstructors } from "../../../service/requests"
 
 
 const StudentGroupPage = () => {
@@ -102,15 +101,7 @@ const StudentGroupPage = () => {
     useEffect(() => {
         const loadInstructorsAndDisciplines = async () => {
             setInstructors(await retrieveInstructors())
-            try {
-                setDisciplines(
-                    await disciplineService.getDisciplines("1")
-                )
-            } catch (error) {
-                if(error instanceof Error) {
-                    AppToast.notifyError(error)
-                }
-            }
+            setDisciplines(await retrieveDisciplines({ page: 1, limit: 10000 }))
         }
         if(applyOpen) loadInstructorsAndDisciplines()
     }, [applyOpen])

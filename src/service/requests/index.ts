@@ -44,6 +44,13 @@ import {
     updateDisciplineCategory,
 } from "./disciplineCategory";
 
+import {
+    retrieveDisciplines,
+    createDiscipline,
+    deleteDiscipline,
+    updateDiscipline,
+} from "./discipline";
+
 
 export {
     createUser,
@@ -74,4 +81,8 @@ export {
     createDisciplineCategory,
     deleteDisciplineCategory,
     updateDisciplineCategory,
+    retrieveDisciplines,
+    createDiscipline,
+    deleteDiscipline,
+    updateDiscipline,
 }
